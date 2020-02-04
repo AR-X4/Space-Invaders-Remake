@@ -1,0 +1,5 @@
+CleanAll.Bat
+.vs/
+*.user
+SpaceInvaders/bin/
+SpaceInvaders/obj/

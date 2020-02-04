@@ -1,0 +1,155 @@
+﻿using System.Diagnostics;
+
+namespace SpaceInvaders
+{
+    
+    public class GameSprite : SpriteBase
+    {
+        public enum Name
+        {
+            RedBird,
+            YellowBird,
+            GreenBird,
+            WhiteBird,
+
+            Uninitialized
+        }
+
+        // Data
+        public Name name;
+        public Image pImage;
+        private Azul.Sprite poAzulSprite;
+        static private Azul.Rect psTmpRect = new Azul.Rect();
+        static private Azul.Color psTmpColor = new Azul.Color(1, 1, 1);
+
+        //---------------------------------------------------------------------------------------------------------
+        // Constructor
+        //---------------------------------------------------------------------------------------------------------
+        public GameSprite()
+            : base()   
+        {
+            this.ClearNode();
+
+            this.name = GameSprite.Name.Uninitialized;
+
+            // Use the default - it will be replaced in the Set
+            this.pImage = ImageManager.Find(Image.Name.Default);
+            Debug.Assert(this.pImage != null);
+
+            Debug.Assert(GameSprite.psTmpRect != null);
+            GameSprite.psTmpRect.Clear();
+            Debug.Assert(GameSprite.psTmpColor != null);
+            GameSprite.psTmpColor.Set(1, 1, 1);
+
+            // here is the actual new
+            this.poAzulSprite = new Azul.Sprite(pImage.GetAzulTexture(), pImage.GetAzulRect(), psTmpRect, psTmpColor);
+            Debug.Assert(this.poAzulSprite != null);
+
+            this.x = poAzulSprite.x;
+            this.y = poAzulSprite.y;
+            this.sx = poAzulSprite.sx;
+            this.sy = poAzulSprite.sy;
+            this.angle = poAzulSprite.angle;
+        }
+
+        //---------------------------------------------------------------------------------------------------------
+        // Methods
+        //---------------------------------------------------------------------------------------------------------
+        public void Set(GameSprite.Name name, Image pImage, float x, float y, float width, float height, Azul.Color pColor)
+        {
+            Debug.Assert(pImage != null);
+            Debug.Assert(psTmpRect != null);
+            Debug.Assert(this.poAzulSprite != null);
+
+            GameSprite.psTmpRect.Set(x, y, width, height);
+            this.pImage = pImage;
+            this.name = name;
+
+            if (pColor == null)
+            {
+                GameSprite.psTmpColor.Set(1, 1, 1);
+                this.poAzulSprite.Swap(pImage.GetAzulTexture(), pImage.GetAzulRect(), psTmpRect, psTmpColor);
+            }
+            else
+            {
+                this.poAzulSprite.Swap(pImage.GetAzulTexture(), pImage.GetAzulRect(), psTmpRect, pColor);
+            }
+
+            this.x = poAzulSprite.x;
+            this.y = poAzulSprite.y;
+            this.sx = poAzulSprite.sx;
+            this.sy = poAzulSprite.sy;
+            this.angle = poAzulSprite.angle;
+        }
+        private void ClearNode()
+        {
+            this.pImage = null;
+            this.name = GameSprite.Name.Uninitialized;
+
+            // NOTE:
+            // Do not clear the poAzulSprite it is created once in Default then reused
+
+            this.x = 0.0f;
+            this.y = 0.0f;
+            this.sx = 1.0f;
+            this.sy = 1.0f;
+            this.angle = 0.0f;
+        }
+        public void Wash()
+        {
+            this.ClearNode();
+        }
+        public void Dump()
+        {
+
+            // Dump - Print contents to the debug output window
+            //        Using HASH code as its unique identifier 
+            Debug.WriteLine("   Name: {0} ({1})", this.name, this.GetHashCode());
+            Debug.WriteLine("             Image: {0} ({1})", this.pImage.name, this.pImage.GetHashCode());
+            Debug.WriteLine("        AzulSprite: ({0})", this.poAzulSprite.GetHashCode());
+            Debug.WriteLine("             (x,y): {0},{1}", this.x, this.y);
+            Debug.WriteLine("           (sx,sy): {0},{1}", this.sx, this.sy);
+            Debug.WriteLine("           (angle): {0}", this.angle);
+
+
+            if (this.pNext == null)
+            {
+                Debug.WriteLine("              next: null");
+            }
+            else
+            {
+                GameSprite pTmp = (GameSprite)this.pNext;
+                Debug.WriteLine("              next: {0} ({1})", pTmp.name, pTmp.GetHashCode());
+            }
+
+            if (this.pPrev == null)
+            {
+                Debug.WriteLine("              prev: null");
+            }
+            else
+            {
+                GameSprite pTmp = (GameSprite)this.pPrev;
+                Debug.WriteLine("              prev: {0} ({1})", pTmp.name, pTmp.GetHashCode());
+            }
+        }
+
+        //---------------------------------------------------------------------------------------------------------
+        // Methods
+        //---------------------------------------------------------------------------------------------------------
+        public override void Update()
+        {
+            this.poAzulSprite.x = this.x;
+            this.poAzulSprite.y = this.y;
+            this.poAzulSprite.sx = this.sx;
+            this.poAzulSprite.sy = this.sy;
+            this.poAzulSprite.angle = this.angle;
+
+            this.poAzulSprite.Update();
+        }
+
+        public override void Render()
+        {
+            this.poAzulSprite.Render();
+        }
+    }
+}
