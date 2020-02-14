@@ -43,6 +43,13 @@ namespace SpaceInvaders
             return pNode;
         }
 
+        public SpriteNode Attach(ProxySprite pNode)
+        {
+            Debug.Assert(this.pSpriteNodeManager != null);
+            SpriteNode pSBNode = this.pSpriteNodeManager.Attach(pNode);
+            return pSBNode;
+        }
+
         public void Wash()
         {
         }

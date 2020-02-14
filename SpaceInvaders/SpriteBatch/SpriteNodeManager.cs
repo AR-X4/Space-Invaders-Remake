@@ -61,6 +61,17 @@ namespace SpaceInvaders
 
             return pNode;
         }
+        public SpriteNode Attach(ProxySprite pNode)
+        {
+            // Go to Man, get a node from reserve, add to active, return it
+            SpriteNode pSpriteNode = (SpriteNode)this.BaseAdd();
+            Debug.Assert(pSpriteNode != null);
+
+            // Initialize SpriteBatchNode
+            pSpriteNode.Set(pNode);
+
+            return pSpriteNode;
+        }
 
         public void Draw()
         {
@@ -71,7 +82,7 @@ namespace SpaceInvaders
             {
                 // Assumes someone before here called update() on each sprite
                 // Draw me.
-                pNode.pSpriteBase.Render();
+                pNode.GetSpriteBase().Render();
 
                 pNode = (SpriteNode)pNode.pNext;
             }

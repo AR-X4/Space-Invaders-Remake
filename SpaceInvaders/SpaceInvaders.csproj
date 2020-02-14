@@ -81,6 +81,8 @@
     <Compile Include="Sprite\BoxSprite.cs" />
     <Compile Include="Sprite\BoxSpriteManager.cs" />
     <Compile Include="Sprite\GameSprite.cs" />
+    <Compile Include="Sprite\ProxySprite.cs" />
+    <Compile Include="Sprite\ProxySpriteManager.cs" />
     <Compile Include="Sprite\SpriteBase.cs" />
     <Compile Include="Sprite\GameSpriteManager.cs" />
     <Compile Include="Texture\Texture.cs" />

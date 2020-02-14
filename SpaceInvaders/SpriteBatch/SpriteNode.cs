@@ -6,7 +6,7 @@ namespace SpaceInvaders
     {
         //SpriteNodes hold references to Sprites.  They are referenced in SpriteBatch collections.
         // Data: ----------------------------------------------
-        public SpriteBase pSpriteBase;
+        private SpriteBase pSpriteBase;
 
         public SpriteNode()
         : base()
@@ -26,6 +26,16 @@ namespace SpaceInvaders
             // Go find it
             this.pSpriteBase = BoxSpriteManager.Find(name);
             Debug.Assert(this.pSpriteBase != null);
+        }
+        public void Set(ProxySprite pNode)
+        {
+            // associate it
+            Debug.Assert(pNode != null);
+            this.pSpriteBase = pNode;
+        }
+        public SpriteBase GetSpriteBase()
+        {
+            return this.pSpriteBase;
         }
 
         public void Wash()
