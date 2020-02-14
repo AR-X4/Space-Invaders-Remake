@@ -5,25 +5,25 @@ namespace SpaceInvaders
 {
     class SpaceInvaders : Azul.Game
     {
-        GameSprite pRedBird;
-        GameSprite pRedBird2;
-        GameSprite pRedBird3;
-        GameSprite pRedBird4;
+        GameSprite pPurpleOctopus;
+        GameSprite pPurpleOctopus2;
+        GameSprite pPurpleOctopus3;
+        GameSprite pPurpleOctopus4;
         
-        GameSprite pWhiteBird;
-        GameSprite pWhiteBird2;
-        GameSprite pWhiteBird3;
-        GameSprite pWhiteBird4;
+        GameSprite pBlueCrab;
+        GameSprite pBlueCrab2;
+        GameSprite pBlueCrab3;
+        GameSprite pBlueCrab4;
         
-        GameSprite pYellowBird;
-        GameSprite pYellowBird2;
-        GameSprite pYellowBird3;
-        GameSprite pYellowBird4;
+        GameSprite pGreenSquid;
+        GameSprite pGreenSquid2;
+        GameSprite pGreenSquid3;
+        GameSprite pGreenSquid4;
         
-        GameSprite pGreenBird;
-        GameSprite pGreenBird2;
-        GameSprite pGreenBird3;
-        GameSprite pGreenBird4;
+        GameSprite pOrangeSaucer;
+        GameSprite pOrangeSaucer2;
+        GameSprite pOrangeSaucer3;
+        GameSprite pOrangeSaucer4;
 
         float redSpeedx = 2.0f;
         float redSpeedx2 = 2.0f;
@@ -37,7 +37,7 @@ namespace SpaceInvaders
 
         float whiteBirdSpeed = 0.02f;
 
-        int count = 0;
+        
 
         //-----------------------------------------------------------------------------
         // Game::Initialize()
@@ -70,13 +70,13 @@ namespace SpaceInvaders
             GameSpriteManager.Create(4, 2);
             SpriteBatchManager.Create(3, 1);
             BoxSpriteManager.Create(3, 1);
+            TimerManager.Create(3, 1);
 
             //---------------------------------------------------------------------------------------------------------
             // Load the Textures
             //---------------------------------------------------------------------------------------------------------
 
-            TextureManager.Add(Texture.Name.Birds, "Birds.tga");
-            //TextureMan.Add(Texture.Name.Birds, "Bifasdrds.tga");//for testing default pink texture
+            TextureManager.Add(Texture.Name.Aliens, "SpaceInvaders.tga");
 
             //---------------------------------------------------------------------------------------------------------
             // Create Images
@@ -84,19 +84,23 @@ namespace SpaceInvaders
 
             // --- angry birds ---
 
-            ImageManager.Add(Image.Name.RedBird, Texture.Name.Birds, 47, 41, 48, 46);
-            ImageManager.Add(Image.Name.YellowBird, Texture.Name.Birds, 124, 34, 60, 56);
-            ImageManager.Add(Image.Name.GreenBird, Texture.Name.Birds, 246, 135, 99, 72);
-            ImageManager.Add(Image.Name.WhiteBird, Texture.Name.Birds, 139, 131, 84, 97);
+            ImageManager.Add(Image.Name.OctopusA, Texture.Name.Aliens, 3, 3, 12, 8);
+            ImageManager.Add(Image.Name.OctopusB, Texture.Name.Aliens, 18, 3, 12, 8);
+            ImageManager.Add(Image.Name.AlienA, Texture.Name.Aliens, 33, 3, 11, 8);
+            ImageManager.Add(Image.Name.AlienB, Texture.Name.Aliens, 47, 3, 11, 8);
+            ImageManager.Add(Image.Name.SquidA, Texture.Name.Aliens, 61, 3, 8, 8);
+            ImageManager.Add(Image.Name.SquidB, Texture.Name.Aliens, 72, 3, 8, 8);
+            ImageManager.Add(Image.Name.Saucer, Texture.Name.Aliens, 99, 3, 16, 8);
+
 
             //---------------------------------------------------------------------------------------------------------
             // Create SpriteBatch
             //---------------------------------------------------------------------------------------------------------
 
-            SpriteBatch pRedBirdsBatch = SpriteBatchManager.Add(SpriteBatch.Name.AngryBirds, 50);
-            SpriteBatch pYellowBirdsBatch = SpriteBatchManager.Add(SpriteBatch.Name.AngryBirds, 10);
-            SpriteBatch pGreenBirdsBatch = SpriteBatchManager.Add(SpriteBatch.Name.AngryBirds, 25);
-            SpriteBatch pWhiteBirdsBatch = SpriteBatchManager.Add(SpriteBatch.Name.AngryBirds, 90);
+            SpriteBatch pPurpleOctopusBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 50);
+            SpriteBatch pBlueCrabBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 10);
+            SpriteBatch pGreenSquidBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 25);
+            SpriteBatch pOrangeSaucerBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 90);
             SpriteBatch pSB_Boxes = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 95);
 
             //---------------------------------------------------------------------------------------------------------
@@ -107,44 +111,70 @@ namespace SpaceInvaders
             BoxSpriteManager.Add(BoxSprite.Name.Box2, 500.0f, 300.0f, 50.0f, 100.0f, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
             pSB_Boxes.Attach(BoxSprite.Name.Box2);
 
-            // --- angry birds ---
-            //attah finds most recently added GameSprite with name and adds to batch
+            // --- aliens ---
+            //attach finds most recently added GameSprite with name and adds to batch
 
-            pRedBird = GameSpriteManager.Add(GameSprite.Name.RedBird, Image.Name.RedBird, 50, 300, 50, 50);
-            pRedBirdsBatch.Attach(GameSprite.Name.RedBird);
-            pRedBird2 = GameSpriteManager.Add(GameSprite.Name.RedBird, Image.Name.RedBird, 150, 300, 50, 50);
-            pRedBirdsBatch.Attach(GameSprite.Name.RedBird);
-            pRedBird3 = GameSpriteManager.Add(GameSprite.Name.RedBird, Image.Name.RedBird, 250, 300, 50, 50);
-            pRedBirdsBatch.Attach(GameSprite.Name.RedBird);
-            pRedBird4 = GameSpriteManager.Add(GameSprite.Name.RedBird, Image.Name.RedBird, 350, 300, 50, 50);
-            pRedBirdsBatch.Attach(GameSprite.Name.RedBird);
+            pPurpleOctopus = GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 50, 300, 50, 50, new Azul.Color(1.0f, 0.0f, 1.0f, 1.0f));
+            pPurpleOctopusBatch.Attach(GameSprite.Name.PurpleOctopus);
+            //pPurpleOctopus2 = GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 150, 300, 50, 50, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
+            //pPurpleOctopusBatch.Attach(GameSprite.Name.PurpleOctopus);
+            //pPurpleOctopus3 = GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 250, 300, 50, 50, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
+            //pPurpleOctopusBatch.Attach(GameSprite.Name.PurpleOctopus);
+            //pPurpleOctopus4 = GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 350, 300, 50, 50, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
+            //pPurpleOctopusBatch.Attach(GameSprite.Name.PurpleOctopus);
 
-            pYellowBird = GameSpriteManager.Add(GameSprite.Name.YellowBird, Image.Name.YellowBird, 200, 100, 30, 30);
-            pYellowBirdsBatch.Attach(GameSprite.Name.YellowBird);
-            pYellowBird2 = GameSpriteManager.Add(GameSprite.Name.YellowBird, Image.Name.YellowBird, 250, 150, 30, 30);
-            pYellowBirdsBatch.Attach(GameSprite.Name.YellowBird);
-            pYellowBird3 = GameSpriteManager.Add(GameSprite.Name.YellowBird, Image.Name.YellowBird, 500, 200, 30, 30);
-            pYellowBirdsBatch.Attach(GameSprite.Name.YellowBird);
-            pYellowBird4 = GameSpriteManager.Add(GameSprite.Name.YellowBird, Image.Name.YellowBird, 550, 250, 30, 30);
-            pYellowBirdsBatch.Attach(GameSprite.Name.YellowBird);
+            pBlueCrab = GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienA, 200, 100, 30, 30, new Azul.Color(0.0f, 0.0f, 1.0f, 1.0f));
+            pBlueCrabBatch.Attach(GameSprite.Name.BlueCrab);
+            //pBlueCrab2 = GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienA, 250, 150, 30, 30);
+            //pBlueCrabBatch.Attach(GameSprite.Name.BlueCrab);
+            //pBlueCrab3 = GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienA, 500, 200, 30, 30);
+            //pBlueCrabBatch.Attach(GameSprite.Name.BlueCrab);
+            //pBlueCrab4 = GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienA, 550, 250, 30, 30);
+            //pBlueCrabBatch.Attach(GameSprite.Name.BlueCrab);
 
-            pGreenBird = GameSpriteManager.Add(GameSprite.Name.GreenBird, Image.Name.GreenBird, 200, 300, 65, 65);
-            pGreenBirdsBatch.Attach(GameSprite.Name.GreenBird);
-            pGreenBird2 = GameSpriteManager.Add(GameSprite.Name.GreenBird, Image.Name.GreenBird, 250, 300, 65, 65);
-            pGreenBirdsBatch.Attach(GameSprite.Name.GreenBird);
-            pGreenBird3 = GameSpriteManager.Add(GameSprite.Name.GreenBird, Image.Name.GreenBird, 500, 300, 65, 65);
-            pGreenBirdsBatch.Attach(GameSprite.Name.GreenBird);
-            pGreenBird4 = GameSpriteManager.Add(GameSprite.Name.GreenBird, Image.Name.GreenBird, 550, 300, 65, 65);
-            pGreenBirdsBatch.Attach(GameSprite.Name.GreenBird);
+            pGreenSquid = GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 200, 300, 65, 65, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            pGreenSquidBatch.Attach(GameSprite.Name.GreenSquid);
+            //pGreenSquid2 = GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 250, 300, 65, 65);
+            //pGreenSquidBatch.Attach(GameSprite.Name.GreenSquid);
+            //pGreenSquid3 = GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 500, 300, 65, 65);
+            //pGreenSquidBatch.Attach(GameSprite.Name.GreenSquid);
+            //pGreenSquid4 = GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 550, 300, 65, 65);
+            //pGreenSquidBatch.Attach(GameSprite.Name.GreenSquid);
 
-            pWhiteBird = GameSpriteManager.Add(GameSprite.Name.WhiteBird, Image.Name.WhiteBird, 50, 550, 10, 10);
-            pWhiteBirdsBatch.Attach(GameSprite.Name.WhiteBird);
-            pWhiteBird2 = GameSpriteManager.Add(GameSprite.Name.WhiteBird, Image.Name.WhiteBird, 50, 50, 10, 10);
-            pWhiteBirdsBatch.Attach(GameSprite.Name.WhiteBird);
-            pWhiteBird3 = GameSpriteManager.Add(GameSprite.Name.WhiteBird, Image.Name.WhiteBird, 750, 50, 10, 10);
-            pWhiteBirdsBatch.Attach(GameSprite.Name.WhiteBird);
-            pWhiteBird4 = GameSpriteManager.Add(GameSprite.Name.WhiteBird, Image.Name.WhiteBird, 750, 550, 10, 10);
-            pWhiteBirdsBatch.Attach(GameSprite.Name.WhiteBird);
+            pOrangeSaucer = GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 50, 550, 10, 10, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            pOrangeSaucerBatch.Attach(GameSprite.Name.OrangeSaucer);
+            //pOrangeSaucer2 = GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 50, 50, 10, 10);
+            //pOrangeSaucerBatch.Attach(GameSprite.Name.OrangeSaucer);
+            //pOrangeSaucer3 = GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 750, 50, 10, 10);
+            //pOrangeSaucerBatch.Attach(GameSprite.Name.OrangeSaucer);
+            //pOrangeSaucer4 = GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 750, 550, 10, 10);
+            //pOrangeSaucerBatch.Attach(GameSprite.Name.OrangeSaucer);
+
+            //---------------------------------------------------------------------------------------------------------
+            // Timer
+            //---------------------------------------------------------------------------------------------------------
+
+            // Create an animation sprite
+            AnimationSprite pAnimOctopus = new AnimationSprite(GameSprite.Name.PurpleOctopus);
+            AnimationSprite pAnimCrab = new AnimationSprite(GameSprite.Name.BlueCrab);
+            AnimationSprite pAnimSquid = new AnimationSprite(GameSprite.Name.GreenSquid);
+            
+
+            // attach several images to cycle
+
+            pAnimOctopus.Attach(Image.Name.OctopusA);
+            pAnimOctopus.Attach(Image.Name.OctopusB);
+
+            pAnimCrab.Attach(Image.Name.AlienA);
+            pAnimCrab.Attach(Image.Name.AlienB);
+
+            pAnimSquid.Attach(Image.Name.SquidA);
+            pAnimSquid.Attach(Image.Name.SquidB);
+
+            // add AnimationSprite to timer
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimOctopus, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimCrab, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 1.0f);
 
             //---------------------------------------------------------------------------------------------------------
             // Dumps
@@ -153,7 +183,7 @@ namespace SpaceInvaders
             //TextureManager.Dump();
             //ImageManager.Dump();
             // GameSpriteManager.Dump();
-            SpriteBatchManager.Dump();
+            //SpriteBatchManager.Dump();
 
         }
 
@@ -166,7 +196,7 @@ namespace SpaceInvaders
         public override void Update()
         {
             // Add your update below this line: ----------------------------
-
+            TimerManager.Update(this.GetTime());
             //--------------------------------------------------------
             // Boxes
             //--------------------------------------------------------
@@ -175,105 +205,105 @@ namespace SpaceInvaders
             pSpriteBox2.Update();
 
             //--------------------------------------------------------
-            // Red Bird
+            // Purple Octopus
             //--------------------------------------------------------
-            if (pRedBird.x > this.GetScreenWidth() || pRedBird.x < 0.0f)
+            if (pPurpleOctopus.x > this.GetScreenWidth() || pPurpleOctopus.x < 0.0f)
             {
                 redSpeedx *= -1.0f;
             }
-            pRedBird.x += redSpeedx;
-            pRedBird.Update();
+            pPurpleOctopus.x += redSpeedx;
+            pPurpleOctopus.Update();
 
-            if (pRedBird2.x > this.GetScreenWidth() || pRedBird2.x < 0.0f)
-            {
-                redSpeedx2 *= -1.0f;
-            }
-            pRedBird2.x += redSpeedx2;
-            pRedBird2.Update();
+            //if (pRedBird2.x > this.GetScreenWidth() || pRedBird2.x < 0.0f)
+            //{
+            //    redSpeedx2 *= -1.0f;
+            //}
+            //pRedBird2.x += redSpeedx2;
+            //pRedBird2.Update();
 
-            if (pRedBird3.x > this.GetScreenWidth() || pRedBird3.x < 0.0f)
-            {
-                redSpeedx3 *= -1.0f;
-            }
-            pRedBird3.x += redSpeedx3;
-            pRedBird3.Update();
+            //if (pRedBird3.x > this.GetScreenWidth() || pRedBird3.x < 0.0f)
+            //{
+            //    redSpeedx3 *= -1.0f;
+            //}
+            //pRedBird3.x += redSpeedx3;
+            //pRedBird3.Update();
 
-            if (pRedBird4.x > this.GetScreenWidth() || pRedBird4.x < 0.0f)
-            {
-                redSpeedx4 *= -1.0f;
-            }
-            pRedBird4.x += redSpeedx4;
-            pRedBird4.Update();
+            //if (pRedBird4.x > this.GetScreenWidth() || pRedBird4.x < 0.0f)
+            //{
+            //    redSpeedx4 *= -1.0f;
+            //}
+            //pRedBird4.x += redSpeedx4;
+            //pRedBird4.Update();
 
             //--------------------------------------------------------
-            // Yellow Bird
+            // Blue Crab
             //--------------------------------------------------------
 
-            if (pYellowBird.y > this.GetScreenHeight() || pYellowBird.y < 0.0f)
+            if (pBlueCrab.y > this.GetScreenHeight() || pBlueCrab.y < 0.0f)
             {
                 yellowSpeedY *= -1;
             }
 
-            pYellowBird.y += yellowSpeedY;
-            pYellowBird.Update();
+            pBlueCrab.y += yellowSpeedY;
+            pBlueCrab.Update();
 
-            if (pYellowBird2.y > this.GetScreenHeight() || pYellowBird2.y < 0.0f)
-            {
-                yellowSpeedY2 *= -1;
-            }
-            pYellowBird2.y += yellowSpeedY2;
-            pYellowBird2.Update();
+            //if (pYellowBird2.y > this.GetScreenHeight() || pYellowBird2.y < 0.0f)
+            //{
+            //    yellowSpeedY2 *= -1;
+            //}
+            //pYellowBird2.y += yellowSpeedY2;
+            //pYellowBird2.Update();
 
-            if (pYellowBird3.y > this.GetScreenHeight() || pYellowBird3.y < 0.0f)
-            {
-                yellowSpeedY3 *= -1;
-            }
-            pYellowBird3.y += yellowSpeedY3;
-            pYellowBird3.Update();
+            //if (pYellowBird3.y > this.GetScreenHeight() || pYellowBird3.y < 0.0f)
+            //{
+            //    yellowSpeedY3 *= -1;
+            //}
+            //pYellowBird3.y += yellowSpeedY3;
+            //pYellowBird3.Update();
 
-            if (pYellowBird4.y > this.GetScreenHeight() || pYellowBird4.y < 0.0f)
-            {
-                yellowSpeedY4 *= -1;
-            }
-            pYellowBird4.y += yellowSpeedY4;
-            pYellowBird4.Update();
+            //if (pYellowBird4.y > this.GetScreenHeight() || pYellowBird4.y < 0.0f)
+            //{
+            //    yellowSpeedY4 *= -1;
+            //}
+            //pYellowBird4.y += yellowSpeedY4;
+            //pYellowBird4.Update();
 
             //--------------------------------------------------------
-            // Green Bird
+            // Green Squid
             //--------------------------------------------------------
 
-            pGreenBird.angle += 0.025f;
-            pGreenBird2.angle += 0.025f;
-            pGreenBird3.angle += 0.025f;
-            pGreenBird4.angle += 0.025f;
+            pGreenSquid.angle += 0.025f;
+            //pGreenBird2.angle += 0.025f;
+            //pGreenBird3.angle += 0.025f;
+            //pGreenBird4.angle += 0.025f;
 
-            pGreenBird.Update();
-            pGreenBird2.Update();
-            pGreenBird3.Update();
-            pGreenBird4.Update();
+            pGreenSquid.Update();
+            //pGreenBird2.Update();
+            //pGreenBird3.Update();
+            //pGreenBird4.Update();
 
             //--------------------------------------------------------
             // White Bird
             //--------------------------------------------------------
-            if (pWhiteBird.sx > 5.0f || pWhiteBird.sy < 1.0f)
+            if (pOrangeSaucer.sx > 5.0f || pOrangeSaucer.sy < 1.0f)
             {
                 whiteBirdSpeed *= -1.0f;
             }
-            pWhiteBird.sx += whiteBirdSpeed;
-            pWhiteBird.sy += whiteBirdSpeed;
-            pWhiteBird.Update();
+            pOrangeSaucer.sx += whiteBirdSpeed;
+            pOrangeSaucer.sy += whiteBirdSpeed;
+            pOrangeSaucer.Update();
 
-            pWhiteBird2.sx += whiteBirdSpeed;
-            pWhiteBird2.sy += whiteBirdSpeed;
-            pWhiteBird2.Update();
+            //pWhiteBird2.sx += whiteBirdSpeed;
+            //pWhiteBird2.sy += whiteBirdSpeed;
+            //pWhiteBird2.Update();
 
-            pWhiteBird3.sx += whiteBirdSpeed;
-            pWhiteBird3.sy += whiteBirdSpeed;
-            pWhiteBird3.Update();
+            //pWhiteBird3.sx += whiteBirdSpeed;
+            //pWhiteBird3.sy += whiteBirdSpeed;
+            //pWhiteBird3.Update();
 
-            pWhiteBird4.sx += whiteBirdSpeed;
-            pWhiteBird4.sy += whiteBirdSpeed;
-            pWhiteBird4.Update();
+            //pWhiteBird4.sx += whiteBirdSpeed;
+            //pWhiteBird4.sy += whiteBirdSpeed;
+            //pWhiteBird4.Update();
 
         }
 

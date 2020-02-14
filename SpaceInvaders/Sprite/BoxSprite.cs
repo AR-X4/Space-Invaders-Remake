@@ -8,10 +8,14 @@ namespace SpaceInvaders
         {
             Box1,
             Box2,
-
             Uninitialized
         }
 
+        public float x;
+        public float y;
+        public float sx;
+        public float sy;
+        public float angle;
         public Name name;
         public Azul.Color poLineColor;
         private Azul.SpriteBox poAzulBoxSprite;
@@ -97,6 +101,14 @@ namespace SpaceInvaders
         public void Wash()
         {
             this.ClearNode();
+        }
+        public void SetName(BoxSprite.Name inName)
+        {
+            this.name = inName;
+        }
+        public BoxSprite.Name GetName()
+        {
+            return this.name;
         }
         public void Dump()
         {

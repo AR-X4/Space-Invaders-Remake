@@ -8,8 +8,6 @@ namespace SpaceInvaders
         {
             Default,
             Aliens,
-            Stitch,
-            Birds,
             Uninitialized
         }
 

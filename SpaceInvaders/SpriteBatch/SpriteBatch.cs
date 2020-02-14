@@ -8,7 +8,7 @@ namespace SpaceInvaders
     {
         public enum Name
         {
-            AngryBirds,
+            Aliens,
             Boxes,
             Uninitialized
         }

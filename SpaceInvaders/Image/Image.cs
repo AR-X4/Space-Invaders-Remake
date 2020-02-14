@@ -7,10 +7,13 @@ namespace SpaceInvaders
         public enum Name
         {
             Default,
-            RedBird,
-            YellowBird,
-            GreenBird,
-            WhiteBird,
+            OctopusA,
+            OctopusB,
+            AlienA,
+            AlienB,
+            SquidA,
+            SquidB,
+            Saucer,
             Uninitialized
         }
 

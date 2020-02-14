@@ -7,18 +7,25 @@ namespace SpaceInvaders
     {
         public enum Name
         {
-            RedBird,
-            YellowBird,
-            GreenBird,
-            WhiteBird,
+            PurpleOctopus,
+            BlueCrab,
+            GreenSquid,
+            OrangeSaucer,
 
             Uninitialized
         }
 
         // Data
+        public float x;
+        public float y;
+        public float sx;
+        public float sy;
+        public float angle;
         public Name name;
         public Image pImage;
         private Azul.Sprite poAzulSprite;
+        private readonly Azul.Color poAzulColor;
+
         static private Azul.Rect psTmpRect = new Azul.Rect();
         static private Azul.Color psTmpColor = new Azul.Color(1, 1, 1);
 
@@ -40,6 +47,10 @@ namespace SpaceInvaders
             GameSprite.psTmpRect.Clear();
             Debug.Assert(GameSprite.psTmpColor != null);
             GameSprite.psTmpColor.Set(1, 1, 1);
+
+            // here is the actual new
+            this.poAzulColor = new Azul.Color(1, 1, 1);
+            Debug.Assert(this.poAzulColor != null);
 
             // here is the actual new
             this.poAzulSprite = new Azul.Sprite(pImage.GetAzulTexture(), pImage.GetAzulRect(), psTmpRect, psTmpColor);
@@ -99,6 +110,38 @@ namespace SpaceInvaders
         {
             this.ClearNode();
         }
+        public void SwapColor(Azul.Color _pColor)
+        {
+            Debug.Assert(_pColor != null);
+            Debug.Assert(this.poAzulColor != null);
+            Debug.Assert(this.poAzulSprite != null);
+            this.poAzulColor.Set(_pColor);
+            this.poAzulSprite.SwapColor(_pColor);
+        }
+        public void SwapColor(float red, float green, float blue, float alpha = 1.0f)
+        {
+            Debug.Assert(this.poAzulColor != null);
+            Debug.Assert(this.poAzulSprite != null);
+            this.poAzulColor.Set(red, green, blue, alpha);
+            this.poAzulSprite.SwapColor(this.poAzulColor);
+        }
+        public void SwapImage(Image pNewImage)
+        {
+            Debug.Assert(this.poAzulSprite != null);
+            Debug.Assert(pNewImage != null);
+            this.pImage = pNewImage;
+
+            this.poAzulSprite.SwapTexture(this.pImage.GetAzulTexture());
+            this.poAzulSprite.SwapTextureRect(this.pImage.GetAzulRect());
+        }
+        public void SetName(GameSprite.Name inName)
+        {
+            this.name = inName;
+        }
+        public GameSprite.Name GetName()
+        {
+            return this.name;
+        }
         public void Dump()
         {
 
@@ -132,10 +175,7 @@ namespace SpaceInvaders
                 Debug.WriteLine("              prev: {0} ({1})", pTmp.name, pTmp.GetHashCode());
             }
         }
-
-        //---------------------------------------------------------------------------------------------------------
-        // Methods
-        //---------------------------------------------------------------------------------------------------------
+        
         public override void Update()
         {
             this.poAzulSprite.x = this.x;
