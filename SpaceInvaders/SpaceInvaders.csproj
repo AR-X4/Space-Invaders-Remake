@@ -64,6 +64,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="GameObject\AlienFactory.cs" />
+    <Compile Include="GameObject\Aliens\BlueCrab.cs" />
+    <Compile Include="GameObject\Aliens\GreenSquid.cs" />
+    <Compile Include="GameObject\Aliens\OrangeSaucer.cs" />
+    <Compile Include="GameObject\GameObject.cs" />
+    <Compile Include="GameObject\GameObjectManager.cs" />
+    <Compile Include="GameObject\GameObjectNode.cs" />
+    <Compile Include="GameObject\NullGameObject.cs" />
+    <Compile Include="GameObject\Aliens\PurpleOctopus.cs" />
     <Compile Include="Image\Image.cs" />
     <Compile Include="Image\ImageHolder.cs" />
     <Compile Include="Image\ImageManager.cs" />
@@ -113,7 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Composite\" />
-    <Folder Include="GameObject\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

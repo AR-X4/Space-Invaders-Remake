@@ -138,7 +138,10 @@ namespace SpaceInvaders
             SpriteBatch pDataB = (SpriteBatch)pLinkB;
 
             Boolean status = false;
-            // stubbed out
+            if (pDataA.GetName() == pDataB.GetName())
+            {
+                status = true;
+            }
 
             return status;
         }

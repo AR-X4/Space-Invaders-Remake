@@ -38,6 +38,7 @@ namespace SpaceInvaders
             BoxSpriteManager.Create(3, 1);
             TimerManager.Create(3, 1);
             ProxySpriteManager.Create(10, 1);
+            GameObjectManager.Create(3, 1);
 
             //---------------------------------------------------------------------------------------------------------
             // Load the Textures
@@ -64,10 +65,6 @@ namespace SpaceInvaders
             // Create SpriteBatch
             //---------------------------------------------------------------------------------------------------------
 
-            //SpriteBatch pPurpleOctopusBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 50);
-            //SpriteBatch pBlueCrabBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 10);
-            //SpriteBatch pGreenSquidBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 25);
-            //SpriteBatch pOrangeSaucerBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 90);
             SpriteBatch pAliensBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 50);
             SpriteBatch pBoxBatch = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 95);
 
@@ -87,13 +84,8 @@ namespace SpaceInvaders
             GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 200, 300, 50, 50, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
             GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 50, 550, 50, 50, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
 
-            pAliensBatch.Attach(GameSprite.Name.PurpleOctopus);
-            pAliensBatch.Attach(GameSprite.Name.BlueCrab);
-            pAliensBatch.Attach(GameSprite.Name.GreenSquid);
-            pAliensBatch.Attach(GameSprite.Name.OrangeSaucer);
-
             //---------------------------------------------------------------------------------------------------------
-            // Timer
+            // Timer Animations
             //---------------------------------------------------------------------------------------------------------
 
             // Create an animation sprite
@@ -118,33 +110,18 @@ namespace SpaceInvaders
             TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 1.0f);
 
             //---------------------------------------------------------------------------------------------------------
-            // Proxy
+            // Create Aliens
             //---------------------------------------------------------------------------------------------------------
 
-            // create 10 proxies
+            AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens);
             for (int i = 0; i < 5; i++)
             {
-                ProxySprite pOctopusProxy = ProxySpriteManager.Add(GameSprite.Name.PurpleOctopus);
-                pOctopusProxy.x = 50.0f + 70 * i;
-                pOctopusProxy.y = 100.0f;
-                pAliensBatch.Attach(pOctopusProxy);
+                AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 70 * i, 100.0f);
+                AF.Create(GameObject.Name.BlueCrab, 50.0f + 70 * i, 250.0f);
+                AF.Create(GameObject.Name.GreenSquid, 50.0f + 70 * i, 400.0f);
+                AF.Create(GameObject.Name.OrangeSaucer, 50.0f + 70 * i, 550.0f);
 
-                ProxySprite pCrabProxy = ProxySpriteManager.Add(GameSprite.Name.BlueCrab);
-                pCrabProxy.x = 50.0f + 70 * i;
-                pCrabProxy.y = 250.0f;
-                pAliensBatch.Attach(pCrabProxy);
-
-                ProxySprite pSquidProxy = ProxySpriteManager.Add(GameSprite.Name.GreenSquid);
-                pSquidProxy.x = 50.0f + 70 * i;
-                pSquidProxy.y = 400.0f;
-                pAliensBatch.Attach(pSquidProxy);
-
-                ProxySprite pProxy = ProxySpriteManager.Add(GameSprite.Name.OrangeSaucer);
-                pProxy.x = 50.0f + 70 * i;
-                pProxy.y = 550.0f;
-                pAliensBatch.Attach(pProxy);
             }
-
             //---------------------------------------------------------------------------------------------------------
             // Dumps
             //---------------------------------------------------------------------------------------------------------
@@ -166,31 +143,12 @@ namespace SpaceInvaders
         {
             // Add your update below this line: ----------------------------
             TimerManager.Update(this.GetTime());
-            //--------------------------------------------------------
+            
             // Boxes
-            //--------------------------------------------------------
-
             BoxSprite pSpriteBox2 = BoxSpriteManager.Find(BoxSprite.Name.Box2);
             pSpriteBox2.Update();
 
-            GameSprite pSprite;
-
-            pSprite = GameSpriteManager.Find(GameSprite.Name.PurpleOctopus);
-            Debug.Assert(pSprite != null);
-            pSprite.Update();
-
-            pSprite = GameSpriteManager.Find(GameSprite.Name.BlueCrab);
-            Debug.Assert(pSprite != null);
-            pSprite.Update();
-
-            pSprite = GameSpriteManager.Find(GameSprite.Name.GreenSquid);
-            Debug.Assert(pSprite != null);
-            pSprite.Update();
-
-            pSprite = GameSpriteManager.Find(GameSprite.Name.OrangeSaucer);
-            Debug.Assert(pSprite != null);
-            pSprite.Update();
-
+            GameObjectManager.Update();
         }
 
         //-----------------------------------------------------------------------------
