@@ -57,8 +57,8 @@ namespace SpaceInvaders
             else {
                 DLink current = pHead;
                 while (current != null) {
-                    Debug.Assert(current.Priority != pNode.Priority);
-                    if (current.Priority < pNode.Priority)
+                    //Debug.Assert(current.Priority != pNode.Priority);
+                    if (current.Priority <= pNode.Priority)
                     {
                         pNode.pPrev = current.pPrev;
                         pNode.pNext = current;

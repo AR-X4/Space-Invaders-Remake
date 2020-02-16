@@ -5,6 +5,8 @@ namespace SpaceInvaders
 {
     class SpaceInvaders : Azul.Game
     {
+        Composite pGrid;
+
         //-----------------------------------------------------------------------------
         // Game::Initialize()
         //		Allows the engine to perform any initialization it needs to before 
@@ -26,7 +28,6 @@ namespace SpaceInvaders
         //-----------------------------------------------------------------------------
         public override void LoadContent()
         {
-
             //---------------------------------------------------------------------------------------------------------
             // Setup Managers
             //---------------------------------------------------------------------------------------------------------
@@ -66,23 +67,23 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
 
             SpriteBatch pAliensBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 50);
-            SpriteBatch pBoxBatch = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 95);
+            //SpriteBatch pBoxBatch = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 95);
 
             //---------------------------------------------------------------------------------------------------------
             // Create Sprites
             //---------------------------------------------------------------------------------------------------------
 
             // --- BoxSprites ---
-            BoxSpriteManager.Add(BoxSprite.Name.Box2, 500.0f, 300.0f, 50.0f, 100.0f, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
-            pBoxBatch.Attach(BoxSprite.Name.Box2);
+            //BoxSpriteManager.Add(BoxSprite.Name.Box2, 500.0f, 300.0f, 50.0f, 100.0f, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
+           // pBoxBatch.Attach(BoxSprite.Name.Box2);
 
             // --- aliens ---
             //attach finds most recently added GameSprite with name and adds to batch
 
-            GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 50, 300, 50, 50, new Azul.Color(1.0f, 0.0f, 1.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienA, 200, 100, 50, 50, new Azul.Color(0.0f, 0.0f, 1.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 200, 300, 50, 50, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 50, 550, 50, 50, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 50, 300, 25, 25, new Azul.Color(1.0f, 0.0f, 1.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienA, 200, 100, 25, 25, new Azul.Color(0.0f, 1.0f, 1.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 200, 300, 25, 25, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 50, 550, 25, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
 
             //---------------------------------------------------------------------------------------------------------
             // Timer Animations
@@ -105,23 +106,39 @@ namespace SpaceInvaders
             pAnimSquid.Attach(Image.Name.SquidB);
 
             // add AnimationSprite to timer
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimOctopus, 1.0f);
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimCrab, 1.0f);
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimOctopus, 1, 0.5f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimCrab, 2, 0.5f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 3, 0.5f);
 
             //---------------------------------------------------------------------------------------------------------
             // Create Aliens
             //---------------------------------------------------------------------------------------------------------
 
+            pGrid = new Composite();
             AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens);
-            for (int i = 0; i < 5; i++)
-            {
-                AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 70 * i, 100.0f);
-                AF.Create(GameObject.Name.BlueCrab, 50.0f + 70 * i, 250.0f);
-                AF.Create(GameObject.Name.GreenSquid, 50.0f + 70 * i, 400.0f);
-                AF.Create(GameObject.Name.OrangeSaucer, 50.0f + 70 * i, 550.0f);
 
+            for (int i = 0; i < 10; i++)
+            {
+                Composite pCol = new Composite();
+                GameObject pGameObject;
+                pGameObject = AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 40 * i, 250.0f);
+                pCol.Add(pGameObject);
+
+                pGameObject = AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 40 * i, 300.0f);
+                pCol.Add(pGameObject);
+
+                pGameObject = AF.Create(GameObject.Name.BlueCrab, 50.0f + 40 * i, 350.0f);
+                pCol.Add(pGameObject);
+
+                pGameObject = AF.Create(GameObject.Name.BlueCrab, 50.0f + 40 * i, 400.0f);
+                pCol.Add(pGameObject);
+
+                pGameObject = AF.Create(GameObject.Name.GreenSquid, 50.0f + 40 * i, 450.0f);
+                pCol.Add(pGameObject);
+
+                pGrid.Add(pCol);
             }
+
             //---------------------------------------------------------------------------------------------------------
             // Dumps
             //---------------------------------------------------------------------------------------------------------
@@ -143,10 +160,11 @@ namespace SpaceInvaders
         {
             // Add your update below this line: ----------------------------
             TimerManager.Update(this.GetTime());
-            
+
             // Boxes
-            BoxSprite pSpriteBox2 = BoxSpriteManager.Find(BoxSprite.Name.Box2);
-            pSpriteBox2.Update();
+            //BoxSprite pSpriteBox2 = BoxSpriteManager.Find(BoxSprite.Name.Box2);
+            //pSpriteBox2.Update();
+            this.pGrid.Move();
 
             GameObjectManager.Update();
         }

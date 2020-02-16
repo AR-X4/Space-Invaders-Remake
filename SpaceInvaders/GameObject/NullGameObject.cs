@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    class NullGameObject : GameObject
+    class NullGameObject : Leaf
     {
         public NullGameObject()
             : base(GameObject.Name.Null_Object)

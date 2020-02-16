@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    public class OrangeSaucer : GameObject
+    public class OrangeSaucer : Leaf
     {
         public OrangeSaucer(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
             : base(name, spriteName)
@@ -15,6 +15,11 @@ namespace SpaceInvaders
         ~OrangeSaucer()
         {
 
+        }
+        override public void Move()
+        {
+            //this.x += delta;
+            
         }
         public override void Update()
         {

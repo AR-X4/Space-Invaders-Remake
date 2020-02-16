@@ -3,17 +3,8 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    public abstract class GameObject
+    public abstract class GameObject : Component
     {
-        //public enum Type
-        //{
-        //    // temporary location --> move this
-        //    Red,
-        //    Yellow,
-        //    Green,
-        //    White
-        //}
-
         public enum Name
         {
             PurpleOctopus,
@@ -31,6 +22,10 @@ namespace SpaceInvaders
         public float y;
         public ProxySprite pProxySprite;
 
+        protected GameObject() 
+        { 
+        
+        }
         protected GameObject(GameObject.Name gameName)
         {
             this.name = gameName;

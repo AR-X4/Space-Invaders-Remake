@@ -20,7 +20,7 @@ namespace SpaceInvaders
 
         }
 
-        public void Create(GameObject.Name type, float posX, float posY)
+        public GameObject Create(GameObject.Name type, float posX, float posY)
         {
             GameObject pGameObj = null;
 
@@ -54,6 +54,7 @@ namespace SpaceInvaders
 
             // Attached to Group
             this.pSpriteBatch.Attach(pGameObj.pProxySprite);
+            return pGameObj;
         }
     }
 }

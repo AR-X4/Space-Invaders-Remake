@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composite\Component.cs" />
+    <Compile Include="Composite\Composite.cs" />
+    <Compile Include="Composite\Leaf.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject\AlienFactory.cs" />
     <Compile Include="GameObject\Aliens\BlueCrab.cs" />
@@ -120,9 +123,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Composite\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

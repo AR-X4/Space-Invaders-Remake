@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    public class GreenSquid : GameObject
+    public class GreenSquid : Leaf
     {
         public GreenSquid(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
             : base(name, spriteName)
@@ -15,6 +15,14 @@ namespace SpaceInvaders
         ~GreenSquid()
         {
 
+        }
+        override public void Move()
+        {
+            this.x += delta;
+            if (this.x < 0.0f || this.x > 800.0f)
+            {
+                delta *= -1;
+            }
         }
         public override void Update()
         {
