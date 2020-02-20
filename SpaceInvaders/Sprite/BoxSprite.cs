@@ -6,6 +6,7 @@ namespace SpaceInvaders
     {
         public enum Name
         {
+            Box,
             Box1,
             Box2,
             Uninitialized
@@ -77,6 +78,25 @@ namespace SpaceInvaders
             this.sy = poAzulBoxSprite.sy;
             this.angle = poAzulBoxSprite.angle;
         }
+        public void Set(BoxSprite.Name boxName, float x, float y, float width, float height)
+        {
+            Debug.Assert(this.poAzulBoxSprite != null);
+            Debug.Assert(this.poLineColor != null);
+
+            Debug.Assert(psTmpRect != null);
+            BoxSprite.psTmpRect.Set(x, y, width, height);
+
+            this.name = boxName;
+
+            this.poAzulBoxSprite.Swap(psTmpRect, this.poLineColor);
+            Debug.Assert(this.poAzulBoxSprite != null);
+
+            this.x = poAzulBoxSprite.x;
+            this.y = poAzulBoxSprite.y;
+            this.sx = poAzulBoxSprite.sx;
+            this.sy = poAzulBoxSprite.sy;
+            this.angle = poAzulBoxSprite.angle;
+        }
         private void ClearNode()
         {
             this.name = BoxSprite.Name.Uninitialized;
@@ -101,6 +121,15 @@ namespace SpaceInvaders
         public void Wash()
         {
             this.ClearNode();
+        }
+        public void SetLineColor(float red, float green, float blue, float alpha = 1.0f)
+        {
+            Debug.Assert(this.poLineColor != null);
+            this.poLineColor.Set(red, green, blue, alpha);
+        }
+        public void SetScreenRect(float x, float y, float width, float height)
+        {
+            this.Set(this.name, x, y, width, height);
         }
         public void SetName(BoxSprite.Name inName)
         {

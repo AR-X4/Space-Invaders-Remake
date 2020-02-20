@@ -20,11 +20,11 @@ namespace SpaceInvaders
 
         }
 
-        public GameObject Create(GameObject.Name type, float posX, float posY)
+        public GameObject Create(GameObject.Name name, float posX = 0.0f, float posY = 0.0f)
         {
             GameObject pGameObj = null;
 
-            switch (type)
+            switch (name)
             {
                 case GameObject.Name.PurpleOctopus:
                     pGameObj = new PurpleOctopus(GameObject.Name.PurpleOctopus, GameSprite.Name.PurpleOctopus, posX, posY);
@@ -42,6 +42,14 @@ namespace SpaceInvaders
                     pGameObj = new OrangeSaucer(GameObject.Name.OrangeSaucer, GameSprite.Name.OrangeSaucer, posX, posY);
                     break;
 
+                case GameObject.Name.AlienColumn:
+                    pGameObj = new AlienColumn(GameObject.Name.AlienColumn, GameSprite.Name.NullObject, 0.0f, 0.0f);
+                    break;
+
+                case GameObject.Name.AlienGrid:
+                    pGameObj = new AlienGrid(GameObject.Name.AlienGrid, GameSprite.Name.NullObject, 0.0f, 0.0f);
+                    break;
+
                 default:
                     // something is wrong
                     Debug.Assert(false);
@@ -53,7 +61,9 @@ namespace SpaceInvaders
             GameObjectManager.Attach(pGameObj);
 
             // Attached to Group
-            this.pSpriteBatch.Attach(pGameObj.pProxySprite);
+            pGameObj.ActivateGameSprite(this.pSpriteBatch);
+            pGameObj.ActivateCollisionSprite(this.pSpriteBatch);
+
             return pGameObj;
         }
     }

@@ -24,6 +24,12 @@ namespace SpaceInvaders
                 delta *= -1;
             }
         }
+        public override void Accept(CollisionVisitor other)
+        {
+            // Important: at this point we have an BirdGroup
+            // Call the appropriate collision reaction            
+            other.VisitGreenSquid(this);
+        }
         public override void Update()
         {
 

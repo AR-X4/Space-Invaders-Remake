@@ -20,6 +20,12 @@ namespace SpaceInvaders
         {
             this.x += delta;
         }
+        public override void Accept(CollisionVisitor other)
+        {
+            // Important: at this point we have an BirdGroup
+            // Call the appropriate collision reaction            
+            other.VisitPurpleOctopus(this);
+        }
         public override void Update()
         {
 

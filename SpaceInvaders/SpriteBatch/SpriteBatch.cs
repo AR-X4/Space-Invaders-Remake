@@ -31,23 +31,35 @@ namespace SpaceInvaders
             this.pSpriteNodeManager.Set(name, reserveNum, reserveGrow);
         }
 
-        public SpriteNode Attach(GameSprite.Name name)
-        {
-            SpriteNode pNode = this.pSpriteNodeManager.Attach(name);
-            return pNode;
-        }
+        //public SpriteNode Attach(GameSprite.Name name)
+        //{
+        //    SpriteNode pNode = this.pSpriteNodeManager.Attach(name);
+        //    return pNode;
+        //}
 
-        public SpriteNode Attach(BoxSprite.Name name)
-        {
-            SpriteNode pNode = this.pSpriteNodeManager.Attach(name);
-            return pNode;
-        }
+        //public SpriteNode Attach(BoxSprite.Name name)
+        //{
+        //    SpriteNode pNode = this.pSpriteNodeManager.Attach(name);
+        //    return pNode;
+        //}
 
-        public SpriteNode Attach(ProxySprite pNode)
+        //public SpriteNode Attach(ProxySprite pNode)
+        //{
+        //    Debug.Assert(this.pSpriteNodeManager != null);
+        //    SpriteNode pSBNode = this.pSpriteNodeManager.Attach(pNode);
+        //    return pSBNode;
+        //}
+
+        public void Attach(SpriteBase pNode)
         {
-            Debug.Assert(this.pSpriteNodeManager != null);
-            SpriteNode pSBNode = this.pSpriteNodeManager.Attach(pNode);
-            return pSBNode;
+            Debug.Assert(pNode != null);
+
+            // Go to Man, get a node from reserve, add to active, return it
+            SpriteNode pSpriteNode = (SpriteNode)this.pSpriteNodeManager.Attach(pNode);
+            Debug.Assert(pSpriteNode != null);
+
+            // Initialize SpriteBatchNode
+            pSpriteNode.Set(pNode);
         }
 
         public void Wash()

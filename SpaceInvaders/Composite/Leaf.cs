@@ -8,12 +8,12 @@ namespace SpaceInvaders
         public Leaf(GameObject.Name gameName, GameSprite.Name spriteName)
                : base(gameName, spriteName)
         {
-
+            this.holder = Container.LEAF;
         }
         public Leaf(GameObject.Name gameName)
        : base(gameName)
         {
-
+            this.holder = Container.LEAF;
         }
         override public void Add(Component c)
         {
@@ -30,9 +30,14 @@ namespace SpaceInvaders
             Debug.WriteLine(" GameObject Name: {0} ({1})", this.GetName(), this.GetHashCode());
         }
 
-        override public void Move()
+        override public Component GetFirstChild()
         {
             Debug.Assert(false);
+            return null;
         }
+        //override public void DumpNode()
+        //{
+        //    Debug.WriteLine(" GameObject Name: {0} ({1}) parent:{2}", this.GetName(), this.GetHashCode(), Iterator.GetParent(this).GetHashCode());
+        //}
     }
 }

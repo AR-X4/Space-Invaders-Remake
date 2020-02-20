@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    class NullGameObject : Leaf
+    public class NullGameObject : Leaf
     {
         public NullGameObject()
             : base(GameObject.Name.Null_Object)
@@ -13,6 +13,17 @@ namespace SpaceInvaders
         ~NullGameObject()
         {
 
+        }
+        public override void Accept(CollisionVisitor other)
+        {
+            // Important: at this point we have an NullGameObject
+            // Call the appropriate collision reaction            
+            other.VisitNullGameObject(this);
+
+        }
+        override public void Move()
+        {
+            
         }
         public override void Update()
         {

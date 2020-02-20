@@ -35,6 +35,9 @@ namespace SpaceInvaders
             {
                 pInstance = new GameSpriteManager(reserveNum, reserveGrow);
             }
+            // Add a NULL Sprite into the Manager, allows find 
+            GameSprite pGSprite = GameSpriteManager.Add(GameSprite.Name.NullObject, Image.Name.NullObject, 0, 0, 0, 0);
+            Debug.Assert(pGSprite != null);
         }
         public static void Destroy()
         {

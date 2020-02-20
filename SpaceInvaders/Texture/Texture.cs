@@ -8,6 +8,7 @@ namespace SpaceInvaders
         {
             Default,
             Aliens,
+            NullObject,
             Uninitialized
         }
 

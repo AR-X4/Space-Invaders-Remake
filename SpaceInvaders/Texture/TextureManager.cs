@@ -33,8 +33,12 @@ namespace SpaceInvaders
                 pInstance = new TextureManager(reserveNum, reserveGrow);
             }
 
+            // NullObject texture
+            Texture pTexture = TextureManager.Add(Texture.Name.NullObject, "HotPink.tga");
+            Debug.Assert(pTexture != null);
             // Default texture
-            TextureManager.Add(Texture.Name.Default, "HotPink.tga");
+            pTexture = TextureManager.Add(Texture.Name.Default, "HotPink.tga");
+            Debug.Assert(pTexture != null);
         }
 
         public static void Destroy()

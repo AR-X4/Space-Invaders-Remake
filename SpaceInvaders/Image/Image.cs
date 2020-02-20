@@ -14,6 +14,7 @@ namespace SpaceInvaders
             SquidA,
             SquidB,
             Saucer,
+            NullObject,
             Uninitialized
         }
 

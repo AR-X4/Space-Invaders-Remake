@@ -5,7 +5,7 @@ namespace SpaceInvaders
 {
     class SpaceInvaders : Azul.Game
     {
-        Composite pGrid;
+        GameObject pGrid;
 
         //-----------------------------------------------------------------------------
         // Game::Initialize()
@@ -67,15 +67,16 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
 
             SpriteBatch pAliensBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 50);
-            //SpriteBatch pBoxBatch = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 95);
+            SpriteBatch pBoxBatch = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 95);
 
             //---------------------------------------------------------------------------------------------------------
             // Create Sprites
             //---------------------------------------------------------------------------------------------------------
 
             // --- BoxSprites ---
-            //BoxSpriteManager.Add(BoxSprite.Name.Box2, 500.0f, 300.0f, 50.0f, 100.0f, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
-           // pBoxBatch.Attach(BoxSprite.Name.Box2);
+            //BoxSpriteManager.Add(BoxSprite.Name.Box1, 500.0f, 300.0f, 50.0f, 100.0f, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
+            //BoxSpriteManager.Add(BoxSprite.Name.Box2, 500.0f, 300.0f, 50.0f, 100.0f);
+
 
             // --- aliens ---
             //attach finds most recently added GameSprite with name and adds to batch
@@ -114,12 +115,13 @@ namespace SpaceInvaders
             // Create Aliens
             //---------------------------------------------------------------------------------------------------------
 
-            pGrid = new Composite();
             AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens);
+            pGrid = AF.Create(GameObject.Name.AlienGrid);
+           
 
             for (int i = 0; i < 10; i++)
             {
-                Composite pCol = new Composite();
+                GameObject pCol = AF.Create(GameObject.Name.AlienColumn);
                 GameObject pGameObject;
                 pGameObject = AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 40 * i, 250.0f);
                 pCol.Add(pGameObject);
@@ -161,9 +163,6 @@ namespace SpaceInvaders
             // Add your update below this line: ----------------------------
             TimerManager.Update(this.GetTime());
 
-            // Boxes
-            //BoxSprite pSpriteBox2 = BoxSpriteManager.Find(BoxSprite.Name.Box2);
-            //pSpriteBox2.Update();
             this.pGrid.Move();
 
             GameObjectManager.Update();

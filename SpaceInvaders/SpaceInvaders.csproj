@@ -63,11 +63,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collision\CollisionObject.cs" />
+    <Compile Include="Collision\CollisionPair.cs" />
+    <Compile Include="Collision\CollisionPairManager.cs" />
+    <Compile Include="Collision\CollisionRect.cs" />
+    <Compile Include="Collision\CollisionVisitor.cs" />
     <Compile Include="Composite\Component.cs" />
     <Compile Include="Composite\Composite.cs" />
+    <Compile Include="Composite\ForwardIterator.cs" />
+    <Compile Include="Composite\Iterator.cs" />
     <Compile Include="Composite\Leaf.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject\AlienFactory.cs" />
+    <Compile Include="GameObject\Aliens\AlienColumn.cs" />
+    <Compile Include="GameObject\Aliens\AlienGrid.cs" />
     <Compile Include="GameObject\Aliens\BlueCrab.cs" />
     <Compile Include="GameObject\Aliens\GreenSquid.cs" />
     <Compile Include="GameObject\Aliens\OrangeSaucer.cs" />

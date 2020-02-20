@@ -41,15 +41,16 @@ namespace SpaceInvaders
 
             this.BaseSetReserve(reserveNum, reserveGrow);
         }
-        public SpriteNode Attach(GameSprite.Name name)
+        public SpriteNode Attach(SpriteBase pNode)
         {
-            SpriteNode pNode = (SpriteNode)this.BaseAdd();
-            Debug.Assert(pNode != null);
+            // Go to Man, get a node from reserve, add to active, return it
+            SpriteNode pSBNode = (SpriteNode)this.BaseAdd();
+            Debug.Assert(pSBNode != null);
 
             // Initialize SpriteBatchNode
-            pNode.Set(name);
+            pSBNode.Set(pNode);
 
-            return pNode;
+            return pSBNode;
         }
         public SpriteNode Attach(BoxSprite.Name name)
         {

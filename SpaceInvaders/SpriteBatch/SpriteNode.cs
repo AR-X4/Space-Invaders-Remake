@@ -33,6 +33,11 @@ namespace SpaceInvaders
             Debug.Assert(pNode != null);
             this.pSpriteBase = pNode;
         }
+        public void Set(SpriteBase pNode)
+        {
+            Debug.Assert(pNode != null);
+            this.pSpriteBase = pNode;
+        }
         public SpriteBase GetSpriteBase()
         {
             return this.pSpriteBase;

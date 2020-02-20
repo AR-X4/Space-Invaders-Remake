@@ -42,6 +42,7 @@ namespace SpaceInvaders
             }
             Debug.Assert(pHead != null);
         }
+
         public static void PriorityInsert(ref DLink pHead, DLink pNode, uint priority) 
         {
             Debug.Assert(pNode != null);
@@ -118,6 +119,112 @@ namespace SpaceInvaders
             }
             // remove any lingering links
             pNode.Clear();
+        }
+        //------------------------------------------
+        //---------Dealing with last node-----------
+        //------------------------------------------
+        public static void RemoveNode(ref DLink pHead, ref DLink pEnd, DLink pNode)
+        {
+            // protection
+            Debug.Assert(pHead != null);
+            Debug.Assert(pEnd != null);
+            Debug.Assert(pNode != null);
+
+            if (pNode.pPrev != null)
+            {	// middle part 1/2
+                pNode.pPrev.pNext = pNode.pNext;
+
+                // last node
+                if (pNode == pEnd)
+                {
+                    pEnd = pNode.pPrev;
+                }
+            }
+            else
+            {  // first
+                pHead = pNode.pNext;
+                pHead.pPrev = null;
+
+                if (pNode == pEnd)
+                {
+                    // Only one node
+                    pEnd = pNode.pNext;
+                }
+                else
+                {
+                    // Only first not the last
+                    // do nothing more
+                }
+            }
+
+            if (pNode.pNext != null)
+            {	// middle node part 2/2
+                pNode.pNext.pPrev = pNode.pPrev;
+            }
+
+            pNode.Clear();
+        }
+        public static void PushFront(ref DLink pHead, ref DLink pEnd, DLink pNode)
+        {
+            // add to front
+            Debug.Assert(pNode != null);
+
+            // add node
+            if (pHead == null)
+            {
+                // push to the front
+                pHead = pNode;
+                pEnd = pNode;
+                pNode.pNext = null;
+                pNode.pPrev = null;
+            }
+            else
+            {
+                // push to front
+                pNode.pPrev = null;
+                pNode.pNext = pHead;
+
+                // update head
+                pHead.pPrev = pNode;
+                pHead = pNode;
+
+                // update end
+                // Adding to front --> end doesn't change
+            }
+
+            // worst case, pHead, pEnd was null initially, now we added a node so... this is true
+            Debug.Assert(pHead != null);
+            Debug.Assert(pEnd != null);
+        }
+        public static void PushBack(ref DLink pHead, ref DLink pEnd, DLink pNode)
+        {
+            // add to front
+            Debug.Assert(pNode != null);
+
+            // add node
+            if (pEnd == null)
+            {
+                // no nodes on list
+                pHead = pNode;
+                pEnd = pNode;
+                pNode.pNext = null;
+                pNode.pPrev = null;
+            }
+            else
+            {
+                // add to end
+                pEnd.pNext = pNode;
+                pNode.pPrev = pEnd;
+                pNode.pNext = null;
+                pEnd = pNode;
+
+                // update front
+                // Adding to end --> front doesn't change
+            }
+
+            // worst case, pHead,pEnd was null initially, now we added a node so... this is true
+            Debug.Assert(pHead != null);
+            Debug.Assert(pEnd != null);
         }
     }
 }

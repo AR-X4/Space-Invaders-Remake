@@ -12,6 +12,9 @@ namespace SpaceInvaders
             GreenSquid,
             OrangeSaucer,
 
+            AlienColumn,
+            AlienGrid,
+
             Null_Object,
             Uninitialized
         }
@@ -21,6 +24,7 @@ namespace SpaceInvaders
         public float x;
         public float y;
         public ProxySprite pProxySprite;
+        public CollisionObject poColObj;
 
         protected GameObject() 
         { 
@@ -40,6 +44,9 @@ namespace SpaceInvaders
             this.x = 0.0f;
             this.y = 0.0f;
             this.pProxySprite = new ProxySprite(spriteName);
+
+            this.poColObj = new CollisionObject(this.pProxySprite);
+            Debug.Assert(this.poColObj != null);
         }
 
         ~GameObject()
@@ -47,11 +54,56 @@ namespace SpaceInvaders
 
         }
 
+        protected void BaseUpdateBoundingBox(Component pStart)
+        {
+            GameObject pNode = (GameObject)pStart;
+
+            // point to ColTotal
+            CollisionRect ColTotal = this.poColObj.poColRect;
+
+            // Get the first child
+            pNode = (GameObject)Iterator.GetChild(pNode);
+
+            // Initialized the union to the first block
+            ColTotal.Set(pNode.poColObj.poColRect);
+
+            // loop through sliblings
+            while (pNode != null)
+            {
+                ColTotal.Union(pNode.poColObj.poColRect);
+
+                // go to next sibling
+                pNode = (GameObject)Iterator.GetSibling(pNode);
+            }
+
+            //this.poColObj.poColRect.Set(201, 201, 201, 201);
+            this.x = this.poColObj.poColRect.x;
+            this.y = this.poColObj.poColRect.y;
+
+            //  Debug.WriteLine("x:{0} y:{1} w:{2} h:{3}", ColTotal.x, ColTotal.y, ColTotal.width, ColTotal.height);
+        }
+
         public virtual void Update()
         {
             Debug.Assert(this.pProxySprite != null);
             this.pProxySprite.x = this.x;
             this.pProxySprite.y = this.y;
+
+            Debug.Assert(this.poColObj != null);
+            this.poColObj.UpdatePos(this.x, this.y);
+            Debug.Assert(this.poColObj.pColSprite != null);
+            this.poColObj.pColSprite.Update();
+        }
+        public void ActivateCollisionSprite(SpriteBatch pSpriteBatch)
+        {
+            Debug.Assert(pSpriteBatch != null);
+            Debug.Assert(this.poColObj != null);
+            pSpriteBatch.Attach(this.poColObj.pColSprite);
+        }
+        public void ActivateGameSprite(SpriteBatch pSpriteBatch)
+        {
+            Debug.Assert(pSpriteBatch != null);
+            pSpriteBatch.Attach(this.pProxySprite);
         }
 
         public void Dump()

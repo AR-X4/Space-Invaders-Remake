@@ -30,9 +30,11 @@ namespace SpaceInvaders
             {
                 pInstance = new ImageManager(reserveNum, reserveGrow);
             }
-
+            Image pImage = ImageManager.Add(Image.Name.NullObject, Texture.Name.NullObject, 0, 0, 128, 128);
+            Debug.Assert(pImage != null);
             // Default image manager
             ImageManager.Add(Image.Name.Default, Texture.Name.Default, 0, 0, 128, 128);
+            Debug.Assert(pImage != null);
         }
         public static void Destroy()
         {
