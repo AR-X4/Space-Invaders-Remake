@@ -16,11 +16,7 @@ namespace SpaceInvaders
         {
 
         }
-        override public void Move()
-        {
-            //this.x += delta;
-            
-        }
+        
         public override void Accept(CollisionVisitor other)
         {
             // Important: at this point we have an BirdGroup

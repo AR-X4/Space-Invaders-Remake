@@ -28,11 +28,6 @@ namespace SpaceInvaders
 
         }
 
-        public override void Move()
-        {
-            
-        }
-
         public void Hit()
         {
             this.bHit = true;

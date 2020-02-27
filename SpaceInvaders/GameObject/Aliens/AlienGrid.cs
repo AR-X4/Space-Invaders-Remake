@@ -6,6 +6,9 @@ namespace SpaceInvaders
     //Specific type of composite
     public class AlienGrid : Composite
     {
+        // Data: ---------------
+        private float delta;
+
         public AlienGrid(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
         : base(name, spriteName)
         {
@@ -39,6 +42,29 @@ namespace SpaceInvaders
             base.BaseUpdateBoundingBox(this);
 
             base.Update();
+        }
+        public void MoveGrid()
+        {
+            //iterates through composite and moves by delta
+            ForwardIterator pFor = new ForwardIterator(this);
+
+            Component pNode = pFor.First();
+            while (!pFor.IsDone())
+            {
+                GameObject pGameObj = (GameObject)pNode;
+                pGameObj.x += this.delta;
+
+                pNode = pFor.Next();
+            }
+        }
+        public float GetDelta()
+        {
+            return this.delta;
+        }
+
+        public void SetDelta(float inDelta)
+        {
+            this.delta = inDelta;
         }
     }
 }

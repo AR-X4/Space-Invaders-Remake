@@ -66,9 +66,11 @@
     <Compile Include="Audio\Sound.cs" />
     <Compile Include="Audio\SoundManager.cs" />
     <Compile Include="Collision\CollisionObject.cs" />
+    <Compile Include="Collision\CollisionObserver.cs" />
     <Compile Include="Collision\CollisionPair.cs" />
     <Compile Include="Collision\CollisionPairManager.cs" />
     <Compile Include="Collision\CollisionRect.cs" />
+    <Compile Include="Collision\CollisionSubject.cs" />
     <Compile Include="Collision\CollisionVisitor.cs" />
     <Compile Include="Composite\Component.cs" />
     <Compile Include="Composite\Composite.cs" />
@@ -94,6 +96,10 @@
     <Compile Include="GameObject\Missile\MissileGroup.cs" />
     <Compile Include="GameObject\NullGameObject.cs" />
     <Compile Include="GameObject\Aliens\PurpleOctopus.cs" />
+    <Compile Include="GameObject\Wall\WallCategory.cs" />
+    <Compile Include="GameObject\Wall\WallGroup.cs" />
+    <Compile Include="GameObject\Wall\WallLeft.cs" />
+    <Compile Include="GameObject\Wall\WallRight.cs" />
     <Compile Include="Image\Image.cs" />
     <Compile Include="Image\ImageHolder.cs" />
     <Compile Include="Image\ImageManager.cs" />
@@ -102,6 +108,8 @@
     <Compile Include="Manager\DLink.cs" />
     <Compile Include="Manager\Manager.cs" />
     <Compile Include="Manager\SLink.cs" />
+    <Compile Include="Observer\GridObserver.cs" />
+    <Compile Include="Observer\SoundObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpriteBatch\SpriteBatch.cs" />
     <Compile Include="SpriteBatch\SpriteBatchManager.cs" />

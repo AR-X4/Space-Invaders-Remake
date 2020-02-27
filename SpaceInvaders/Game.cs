@@ -5,7 +5,7 @@ namespace SpaceInvaders
 {
     class SpaceInvaders : Azul.Game
     {
-        GameObject pGrid;
+        
         Missile pMissile;
 
         //-----------------------------------------------------------------------------
@@ -129,11 +129,32 @@ namespace SpaceInvaders
             TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 3, 0.5f);
 
             //---------------------------------------------------------------------------------------------------------
+            // Create Walls
+            //---------------------------------------------------------------------------------------------------------
+
+            // Wall Root
+            WallGroup pWallGroup = new WallGroup(GameObject.Name.WallGroup, GameSprite.Name.NullObject, 0.0f, 0.0f);
+            //pWallGroup.ActivateGameSprite(pSB_Birds);
+            pWallGroup.ActivateCollisionSprite(pBoxBatch);
+
+            WallRight pWallRight = new WallRight(GameObject.Name.WallRight, GameSprite.Name.NullObject, 700, 300, 50, 500);
+            pWallRight.ActivateCollisionSprite(pBoxBatch);
+
+            WallLeft pWallLeft = new WallLeft(GameObject.Name.WallLeft, GameSprite.Name.NullObject, 50, 300, 50, 500);
+            pWallLeft.ActivateCollisionSprite(pBoxBatch);
+
+            // Add to the composite the children
+            pWallGroup.Add(pWallRight);
+            pWallGroup.Add(pWallLeft);
+
+            GameObjectManager.Attach(pWallGroup);
+
+            //---------------------------------------------------------------------------------------------------------
             // Create Aliens
             //---------------------------------------------------------------------------------------------------------
 
             AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens);
-            pGrid = AF.Create(GameObject.Name.AlienGrid);
+            GameObject pGrid = AF.Create(GameObject.Name.AlienGrid);
            
 
             for (int i = 0; i < 10; i++)
@@ -165,6 +186,9 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
 
             CollisionPairManager.Add(CollisionPair.Name.Alien_Missile, pMissile, pGrid);
+            CollisionPair pAlienWallPair = CollisionPairManager.Add(CollisionPair.Name.Alien_Wall, pGrid, pWallGroup);
+
+            pAlienWallPair.Attach(new GridObserver());
 
             //---------------------------------------------------------------------------------------------------------
             // Dumps
@@ -190,11 +214,14 @@ namespace SpaceInvaders
             // Add your update below this line: ----------------------------
             TimerManager.Update(this.GetTime());
 
-            this.pGrid.Move();
+            //this.pGrid.Move();
 
             SoundManager.Update();
             GameObjectManager.Update();
-            //pMissile.Update();
+
+            // Move the grid
+            AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
+            pGrid.MoveGrid();
 
             //Collision Checks
             CollisionPairManager.Process();

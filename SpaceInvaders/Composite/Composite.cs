@@ -40,18 +40,7 @@ namespace SpaceInvaders
             Debug.Assert(pComponent != null);
             DLink.RemoveNode(ref this.poHead, ref this.poLast, pComponent);
         }
-        public override void Move()
-        {
-            DLink pNode = this.poHead;
-
-            while (pNode != null)
-            {
-                Component pComponent = (Component)pNode;
-                pComponent.Move();
-
-                pNode = pNode.pNext;
-            }
-        }
+        
         public override void Print()
         {
             DLink pNode = this.poHead;

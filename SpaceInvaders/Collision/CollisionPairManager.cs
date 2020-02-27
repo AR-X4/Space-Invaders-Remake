@@ -22,6 +22,7 @@ namespace SpaceInvaders
         // Data - unique data for this manager 
         //----------------------------------------------------------------------
         private static CollisionPairManager pInstance = null;
+        private CollisionPair pActiveColPair;
         private CollisionPair poNodeCompare;
 
         //----------------------------------------------------------------------
@@ -32,6 +33,9 @@ namespace SpaceInvaders
         {
             // At this point ImageMan is created, now initialize the reserve
             this.BaseInitialize(reserveNum, reserveGrow);
+
+            // no link... used in Process
+            this.pActiveColPair = null;
 
             // initialize derived data here
             this.poNodeCompare = new CollisionPair();
@@ -95,6 +99,9 @@ namespace SpaceInvaders
 
             while (pColPair != null)
             {
+                // set the current active  <--- Key concept: set this before
+                pColPairMan.pActiveColPair = pColPair;
+
                 // do the check for a single pair
                 pColPair.Process();
 
@@ -131,6 +138,13 @@ namespace SpaceInvaders
             Debug.Assert(pMan != null);
 
             pMan.BaseDump();
+        }
+        static public CollisionPair GetActiveColPair()
+        {
+            // get the singleton
+            CollisionPairManager pMan = CollisionPairManager.GetInstance();
+
+            return pMan.pActiveColPair;
         }
 
         //----------------------------------------------------------------------

@@ -15,6 +15,10 @@ namespace SpaceInvaders
             AlienColumn,
             AlienGrid,
 
+            WallGroup,
+            WallRight,
+            WallLeft,
+
             Missile,
 
             Null_Object,
@@ -125,6 +129,12 @@ namespace SpaceInvaders
             }
             Debug.WriteLine("\t\t\t      (x,y): {0}, {1}", this.x, this.y);
 
+        }
+
+        public CollisionObject GetColObject()
+        {
+            Debug.Assert(this.poColObj != null);
+            return this.poColObj;
         }
 
         public GameObject.Name GetName()

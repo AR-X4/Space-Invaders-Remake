@@ -8,6 +8,7 @@ namespace SpaceInvaders
         public enum Name
         {
             Alien_Missile,
+            Alien_Wall,
 
             NullObject,
             Not_Initialized
@@ -17,6 +18,7 @@ namespace SpaceInvaders
         public CollisionPair.Name name;
         public GameObject treeA;
         public GameObject treeB;
+        public CollisionSubject poSubject;
 
         public CollisionPair()
             : base()
@@ -24,11 +26,13 @@ namespace SpaceInvaders
             this.treeA = null;
             this.treeB = null;
             this.name = CollisionPair.Name.Not_Initialized;
+
+            this.poSubject = new CollisionSubject();
+            Debug.Assert(this.poSubject != null);
         }
 
         ~CollisionPair()
         {
-
         }
         public void Set(CollisionPair.Name colpairName, GameObject pTreeRootA, GameObject pTreeRootB)
         {
@@ -74,8 +78,8 @@ namespace SpaceInvaders
                     //Debug.WriteLine("ColPair:    test:  {0}, {1}", pNodeA.name, pNodeB.name);
 
                     // Get rectangles
-                    CollisionRect rectA = pNodeA.poColObj.poColRect;
-                    CollisionRect rectB = pNodeB.poColObj.poColRect;
+                    CollisionRect rectA = pNodeA.GetColObject().poColRect;
+                    CollisionRect rectB = pNodeB.GetColObject().poColRect;
 
                     // test them
                     if (CollisionRect.Intersect(rectA, rectB))
@@ -96,7 +100,23 @@ namespace SpaceInvaders
         {
             this.name = inName;
         }
+        public void Attach(CollisionObserver observer)
+        {
+            this.poSubject.Attach(observer);
+        }
+        public void NotifyListeners()
+        {
+            this.poSubject.Notify();
+        }
+        public void SetCollision(GameObject pObjA, GameObject pObjB)
+        {
+            Debug.Assert(pObjA != null);
+            Debug.Assert(pObjB != null);
 
+            // GameObject pAlien = AlienCategory.GetAlien(objA, objB);
+            this.poSubject.pObjA = pObjA;
+            this.poSubject.pObjB = pObjB;
+        }
         public void Dump()
         {
             // TO DO ...

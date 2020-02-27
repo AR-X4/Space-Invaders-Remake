@@ -21,10 +21,7 @@ namespace SpaceInvaders
             other.VisitNullGameObject(this);
 
         }
-        override public void Move()
-        {
-            
-        }
+       
         public override void Update()
         {
             // do nothing - its a null object

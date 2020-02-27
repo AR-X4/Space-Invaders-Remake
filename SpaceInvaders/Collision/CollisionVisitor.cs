@@ -65,6 +65,22 @@ namespace SpaceInvaders
         //    Debug.Assert(false);
         //}
 
+        public virtual void VisitWallGroup(WallGroup w)
+        {
+            Debug.WriteLine("Visit by WallGroup not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitWallRight(WallRight w)
+        {
+            Debug.WriteLine("Visit by WallRight not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitWallLeft(WallLeft w)
+        {
+            Debug.WriteLine("Visit by WallLeft not implemented");
+            Debug.Assert(false);
+        }
+
         public virtual void VisitNullGameObject(NullGameObject n)
         {
             // no differed to subcass

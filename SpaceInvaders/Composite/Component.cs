@@ -12,7 +12,6 @@ namespace SpaceInvaders
             Unknown
         }
         //data
-        static public float delta = 1.0f;
         public Component pParent = null;
         public Component pReverse = null;
         public Container holder = Container.Unknown;
@@ -20,7 +19,6 @@ namespace SpaceInvaders
         public abstract void Add(Component c);
         public abstract void Remove(Component c);
         public abstract void Print();
-        public abstract void Move();
         public abstract Component GetFirstChild();
         //public abstract void DumpNode();
     }
