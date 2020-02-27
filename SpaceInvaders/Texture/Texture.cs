@@ -13,7 +13,7 @@ namespace SpaceInvaders
         }
 
         // Data
-        public Name name;
+        private Name name;
         private Azul.Texture pAzulTexture;
         static private readonly Azul.Texture pDefaultAzulTexture = new Azul.Texture("HotPink.tga");
 
@@ -51,6 +51,14 @@ namespace SpaceInvaders
         {
             Debug.Assert(this.pAzulTexture != null);
             return this.pAzulTexture;
+        }
+        public void SetName(Texture.Name inName)
+        {
+            this.name = inName;
+        }
+        public Texture.Name GetName()
+        {
+            return this.name;
         }
         public void Dump()
         {

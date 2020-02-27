@@ -2,17 +2,19 @@
 
 namespace SpaceInvaders
 {
-    class TextureManager : Manager
+    public class SoundManager : Manager
     {
-        private readonly Texture pNodeCompare;
-        private static TextureManager pInstance = null;//for singleton pattern
+       
+        private readonly Sound pNodeCompare;
+        private static SoundManager pInstance = null;//for singleton pattern
+        private static IrrKlang.ISoundEngine pSoundEngine = null;
 
-        private TextureManager(int reserveNum = 1, int reserveGrow = 1)
+        private SoundManager(int reserveNum = 1, int reserveGrow = 1)
             : base()
         {
             base.BaseInitialize(reserveNum, reserveGrow);
 
-            this.pNodeCompare = new Texture();
+            this.pNodeCompare = new Sound();
             //this.pInstance = null;
         }
 
@@ -26,24 +28,24 @@ namespace SpaceInvaders
 
             // initialize the singleton here
             Debug.Assert(pInstance == null);
+            Debug.Assert(pSoundEngine == null);
 
             // Do the initialization
-            if (pInstance == null)
+            if (pInstance == null && pSoundEngine == null)
             {
-                pInstance = new TextureManager(reserveNum, reserveGrow);
+                pInstance = new SoundManager(reserveNum, reserveGrow);
+                pSoundEngine = new IrrKlang.ISoundEngine();
             }
 
             // NullObject texture
-            Texture pTexture = TextureManager.Add(Texture.Name.NullObject, "HotPink.tga");
-            Debug.Assert(pTexture != null);
-            // Default texture
-            pTexture = TextureManager.Add(Texture.Name.Default, "HotPink.tga");
-            Debug.Assert(pTexture != null);
+            //Sound pSound = SoundManager.Add(Sound.Name.NullObject);
+            //Debug.Assert(pSound != null);
+           
         }
 
         public static void Destroy()
         {
-            TextureManager pMan = TextureManager.GetInstance();
+            SoundManager pMan = SoundManager.GetInstance();
             Debug.Assert(pMan != null);
 
             // Do something clever here
@@ -52,57 +54,68 @@ namespace SpaceInvaders
             // invalidate the singleton
         }
 
-        public static Texture Add(Texture.Name name, string pTextureName)
+        public static Sound Add(Sound.Name name, string pSoundName)
         {
-
-            TextureManager pMan = TextureManager.GetInstance();
+            SoundManager pMan = SoundManager.GetInstance();
             Debug.Assert(pMan != null);
 
-            Texture pNode = (Texture)pMan.BaseAdd();
+            Sound pNode = (Sound)pMan.BaseAdd();
             Debug.Assert(pNode != null);
 
             // Initialize the data
-            Debug.Assert(pTextureName != null);
-            pNode.Set(name, pTextureName);
+            Debug.Assert(pSoundName != null);
+            pNode.Set(name, pSoundName, ref pSoundEngine);
+
+            
 
             return pNode;
         }
-        public static Texture Find(Texture.Name name)
+        public static Sound Find(Sound.Name name)
         {
-            TextureManager pMan = TextureManager.GetInstance();
+            SoundManager pMan = SoundManager.GetInstance();
             Debug.Assert(pMan != null);
 
-            pMan.pNodeCompare.SetName(name);
-            Texture pData = (Texture)pMan.BaseFind(pMan.pNodeCompare);
+            pMan.pNodeCompare.name = name;
+            Sound pData = (Sound)pMan.BaseFind(pMan.pNodeCompare);
             return pData;
         }
-        public static void Remove(Texture pNode)
+        public static void Remove(Sound pNode)
         {
-            TextureManager pMan = TextureManager.GetInstance();
+            SoundManager pMan = SoundManager.GetInstance();
             Debug.Assert(pMan != null);
 
             Debug.Assert(pNode != null);
             pMan.BaseRemove(pNode);
         }
+        public static void Update() {
+            Debug.Assert(pSoundEngine != null);
+            pSoundEngine.Update();
+        }
+
+        public static void PlaySound(Sound pSound) {
+            Debug.Assert(pSound != null);
+            pSoundEngine.Play2D(pSound.GetSoundSource(), false, false, false);
+        }
+
         public static void Dump()
         {
-            TextureManager pMan = TextureManager.GetInstance();
+            SoundManager pMan = SoundManager.GetInstance();
             Debug.Assert(pMan != null);
 
-            Debug.WriteLine("***********Texture Lists************");
+            Debug.WriteLine("***********Sound Lists************");
             pMan.BaseDump();
         }
 
-        private static TextureManager GetInstance()
+        private static SoundManager GetInstance()
         {
             Debug.Assert(pInstance != null);
             return pInstance;
         }
 
-        // Override abstract methods
+        // -------Override abstract methods-----------
         override protected DLink DerivedCreateNode()
         {
-            DLink pNode = new Texture();
+            DLink pNode = new Sound();
             Debug.Assert(pNode != null);
             return pNode;
         }
@@ -111,11 +124,11 @@ namespace SpaceInvaders
             Debug.Assert(pLinkA != null);
             Debug.Assert(pLinkB != null);
 
-            Texture pDataA = (Texture)pLinkA;
-            Texture pDataB = (Texture)pLinkB;
+            Sound pDataA = (Sound)pLinkA;
+            Sound pDataB = (Sound)pLinkB;
 
             bool status = false;
-            if (pDataA.GetName() == pDataB.GetName())
+            if (pDataA.name == pDataB.name)
             {
                 status = true;
             }
@@ -124,13 +137,13 @@ namespace SpaceInvaders
         override protected void DerivedWashNode(DLink pLink)
         {
             Debug.Assert(pLink != null);
-            Texture pNode = (Texture)pLink;
+            Sound pNode = (Sound)pLink;
             pNode.Wash();
         }
         override protected void DerivedDumpNode(DLink pLink)
         {
             Debug.Assert(pLink != null);
-            Texture pData = (Texture)pLink;
+            Sound pData = (Sound)pLink;
             pData.Dump();
         }
     }

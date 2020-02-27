@@ -29,7 +29,7 @@ namespace SpaceInvaders
             this.poNodeCompare = new GameObjectNode();
             this.poNullGameObject = new NullGameObject();
 
-            this.poNodeCompare.pGameObj = this.poNullGameObject; ;
+            this.poNodeCompare.pGameObj = this.poNullGameObject; 
         }
 
         //----------------------------------------------------------------------
@@ -96,21 +96,29 @@ namespace SpaceInvaders
             GameObjectManager pMan = GameObjectManager.GetInstance();
             Debug.Assert(pMan != null);
 
-            GameObjectNode pNode = (GameObjectNode)pMan.BaseGetActive();
+            GameObjectNode pGameObjectNode = (GameObjectNode)pMan.BaseGetActive();
 
-            while (pNode != null)
+            while (pGameObjectNode != null)
             {
-                // Update the node
-                Debug.Assert(pNode.pGameObj != null);
+                ReverseIterator pRev = new ReverseIterator(pGameObjectNode.pGameObj);
 
-                pNode.pGameObj.Update();
+                Component pNode = pRev.First();
+                while (!pRev.IsDone())
+                {
+                    GameObject pGameObj = (GameObject)pNode;
 
-                pNode = (GameObjectNode)pNode.pNext;
+                    //Debug.WriteLine("update: {0} ({1})", pGameObj, pGameObj.GetHashCode());
+                    pGameObj.Update();
+
+                    pNode = pRev.Next();
+                }
+
+                pGameObjectNode = (GameObjectNode)pGameObjectNode.pNext;
+
             }
-
         }
 
-        public static void Dump()
+        public static void Dump()//BROKEN
         {
             GameObjectManager pMan = GameObjectManager.GetInstance();
             Debug.Assert(pMan != null);

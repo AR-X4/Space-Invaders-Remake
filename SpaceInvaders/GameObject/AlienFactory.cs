@@ -55,10 +55,7 @@ namespace SpaceInvaders
                     Debug.Assert(false);
                     break;
             }
-
-            // add it to the gameObjectManager
             Debug.Assert(pGameObj != null);
-            GameObjectManager.Attach(pGameObj);
 
             // Attached to Group
             pGameObj.ActivateGameSprite(this.pSpriteBatch);

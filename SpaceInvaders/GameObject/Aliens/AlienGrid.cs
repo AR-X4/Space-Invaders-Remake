@@ -20,6 +20,19 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitGroup(this);
         }
+        public override void VisitMissile(Missile m)
+        {
+            
+            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+
+            // Missile vs Alien
+            Debug.WriteLine("-------> Done  <--------");
+
+
+            GameObject pGameObj = (GameObject)Iterator.GetChild(this);
+            CollisionPair.Collide(m, pGameObj);
+
+        }
 
         public override void Update()
         {

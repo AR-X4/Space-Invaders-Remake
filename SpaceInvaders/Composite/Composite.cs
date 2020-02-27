@@ -13,7 +13,7 @@ namespace SpaceInvaders
             this.holder = Container.COMPOSITE;
             this.poHead = null;
             this.poLast = null;
-            Debug.Write(" creating--> ");
+            //Debug.Write(" creating--> ");
             //this.DumpNode();
         }
 

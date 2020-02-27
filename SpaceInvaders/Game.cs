@@ -6,6 +6,7 @@ namespace SpaceInvaders
     class SpaceInvaders : Azul.Game
     {
         GameObject pGrid;
+        Missile pMissile;
 
         //-----------------------------------------------------------------------------
         // Game::Initialize()
@@ -40,12 +41,22 @@ namespace SpaceInvaders
             TimerManager.Create(3, 1);
             ProxySpriteManager.Create(10, 1);
             GameObjectManager.Create(3, 1);
+            CollisionPairManager.Create(1, 1);
+            SoundManager.Create(3, 1);
+
+            
 
             //---------------------------------------------------------------------------------------------------------
             // Load the Textures
             //---------------------------------------------------------------------------------------------------------
 
             TextureManager.Add(Texture.Name.Aliens, "SpaceInvaders.tga");
+
+            //---------------------------------------------------------------------------------------------------------
+            // Load Sounds
+            //---------------------------------------------------------------------------------------------------------
+
+            SoundManager.Add(Sound.Name.Invader1, "fastinvader1.wav");
 
             //---------------------------------------------------------------------------------------------------------
             // Create Images
@@ -61,6 +72,8 @@ namespace SpaceInvaders
             ImageManager.Add(Image.Name.SquidB, Texture.Name.Aliens, 72, 3, 8, 8);
             ImageManager.Add(Image.Name.Saucer, Texture.Name.Aliens, 99, 3, 16, 8);
 
+            ImageManager.Add(Image.Name.Missile, Texture.Name.Aliens, 3, 29, 1, 4);
+
 
             //---------------------------------------------------------------------------------------------------------
             // Create SpriteBatch
@@ -73,10 +86,6 @@ namespace SpaceInvaders
             // Create Sprites
             //---------------------------------------------------------------------------------------------------------
 
-            // --- BoxSprites ---
-            //BoxSpriteManager.Add(BoxSprite.Name.Box1, 500.0f, 300.0f, 50.0f, 100.0f, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
-            //BoxSpriteManager.Add(BoxSprite.Name.Box2, 500.0f, 300.0f, 50.0f, 100.0f);
-
 
             // --- aliens ---
             //attach finds most recently added GameSprite with name and adds to batch
@@ -85,6 +94,14 @@ namespace SpaceInvaders
             GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienA, 200, 100, 25, 25, new Azul.Color(0.0f, 1.0f, 1.0f, 1.0f));
             GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 200, 300, 25, 25, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
             GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 50, 550, 25, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+
+            //-----Missile----
+            GameSpriteManager.Add(GameSprite.Name.Missile, Image.Name.Missile, 50, 50, 5, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+
+            pMissile = new Missile(GameObject.Name.Missile, GameSprite.Name.Missile, 405, 100);
+            pMissile.ActivateGameSprite(pAliensBatch);
+            pMissile.ActivateCollisionSprite(pAliensBatch);
+            //GameObjectManager.Attach(pMissile);
 
             //---------------------------------------------------------------------------------------------------------
             // Timer Animations
@@ -140,6 +157,14 @@ namespace SpaceInvaders
 
                 pGrid.Add(pCol);
             }
+            GameObjectManager.Attach(pGrid);
+
+
+            //---------------------------------------------------------------------------------------------------------
+            // CollisionPair 
+            //---------------------------------------------------------------------------------------------------------
+
+            CollisionPairManager.Add(CollisionPair.Name.Alien_Missile, pMissile, pGrid);
 
             //---------------------------------------------------------------------------------------------------------
             // Dumps
@@ -149,7 +174,7 @@ namespace SpaceInvaders
             //ImageManager.Dump();
             //GameSpriteManager.Dump();
             //SpriteBatchManager.Dump();
-
+            //GameObjectManager.Dump();//broken
         }
 
         //-----------------------------------------------------------------------------
@@ -158,6 +183,8 @@ namespace SpaceInvaders
         //      Use this function to control process order
         //      Input, AI, Physics, Animation, and Graphics
         //-----------------------------------------------------------------------------
+        uint i = 0;
+
         public override void Update()
         {
             // Add your update below this line: ----------------------------
@@ -165,7 +192,20 @@ namespace SpaceInvaders
 
             this.pGrid.Move();
 
+            SoundManager.Update();
             GameObjectManager.Update();
+            //pMissile.Update();
+
+            //Collision Checks
+            CollisionPairManager.Process();
+
+            i++;
+            if (i == 150) {
+                Sound test = SoundManager.Find(Sound.Name.Invader1);
+                test.PlaySound();
+                i = 0;
+            }
+       
         }
 
         //-----------------------------------------------------------------------------

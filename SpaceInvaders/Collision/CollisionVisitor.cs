@@ -51,12 +51,12 @@ namespace SpaceInvaders
             Debug.Assert(false);
         }
 
-        //public virtual void VisitMissile(Missile m)
-        //{
-        //    // no differed to subcass
-        //    Debug.WriteLine("Visit by Missile not implemented");
-        //    Debug.Assert(false);
-        //}
+        public virtual void VisitMissile(Missile m)
+        {
+            // no differed to subcass
+            Debug.WriteLine("Visit by Missile not implemented");
+            Debug.Assert(false);
+        }
 
         //public virtual void VisitMissileGroup(MissileGroup m)
         //{

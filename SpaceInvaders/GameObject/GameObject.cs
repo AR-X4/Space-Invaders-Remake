@@ -15,6 +15,8 @@ namespace SpaceInvaders
             AlienColumn,
             AlienGrid,
 
+            Missile,
+
             Null_Object,
             Uninitialized
         }

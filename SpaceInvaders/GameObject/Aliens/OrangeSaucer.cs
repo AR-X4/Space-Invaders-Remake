@@ -27,6 +27,17 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitOrangeSaucer(this);
         }
+
+        public override void VisitMissile(Missile m)
+        {
+            
+            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+
+            // Missile vs Alien
+            Debug.WriteLine("-------> Done  <--------");
+
+            m.Hit();
+        }
         public override void Update()
         {
 

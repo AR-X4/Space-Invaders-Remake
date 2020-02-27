@@ -63,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\Sound.cs" />
+    <Compile Include="Audio\SoundManager.cs" />
     <Compile Include="Collision\CollisionObject.cs" />
     <Compile Include="Collision\CollisionPair.cs" />
     <Compile Include="Collision\CollisionPairManager.cs" />
@@ -73,6 +75,11 @@
     <Compile Include="Composite\ForwardIterator.cs" />
     <Compile Include="Composite\Iterator.cs" />
     <Compile Include="Composite\Leaf.cs" />
+    <Compile Include="Composite\ReverseIterator.cs" />
+    <Compile Include="Font\Font.cs" />
+    <Compile Include="Font\FontManager.cs" />
+    <Compile Include="Font\Glyph.cs" />
+    <Compile Include="Font\GlyphManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject\AlienFactory.cs" />
     <Compile Include="GameObject\Aliens\AlienColumn.cs" />
@@ -83,6 +90,8 @@
     <Compile Include="GameObject\GameObject.cs" />
     <Compile Include="GameObject\GameObjectManager.cs" />
     <Compile Include="GameObject\GameObjectNode.cs" />
+    <Compile Include="GameObject\Missile\Missile.cs" />
+    <Compile Include="GameObject\Missile\MissileGroup.cs" />
     <Compile Include="GameObject\NullGameObject.cs" />
     <Compile Include="GameObject\Aliens\PurpleOctopus.cs" />
     <Compile Include="Image\Image.cs" />
@@ -101,6 +110,7 @@
     <Compile Include="Sprite\AnimationSprite.cs" />
     <Compile Include="Sprite\BoxSprite.cs" />
     <Compile Include="Sprite\BoxSpriteManager.cs" />
+    <Compile Include="Sprite\FontSprite.cs" />
     <Compile Include="Sprite\GameSprite.cs" />
     <Compile Include="Sprite\ProxySprite.cs" />
     <Compile Include="Sprite\ProxySpriteManager.cs" />

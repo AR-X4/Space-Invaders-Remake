@@ -14,6 +14,7 @@ namespace SpaceInvaders
         //data
         static public float delta = 1.0f;
         public Component pParent = null;
+        public Component pReverse = null;
         public Container holder = Container.Unknown;
         
         public abstract void Add(Component c);

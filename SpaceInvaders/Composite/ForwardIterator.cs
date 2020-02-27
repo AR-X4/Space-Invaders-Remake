@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
+    //Moving down the free FROM the root (DFS)
     public class ForwardIterator : Iterator
     {
         private Component pCurr;
@@ -79,17 +80,7 @@ namespace SpaceInvaders
 
             // Start - Depth first iteration
             pNode = NextStep(pNode, pParent, pChild, pSibling);
-
             this.pCurr = pNode;
-
-            //if (this.pCurr != null)
-            //{
-            //    Debug.WriteLine("---> {0}", this.pCurr.GetHashCode());
-            //}
-            //else
-            //{
-            //    Debug.WriteLine("---> null");
-            //}
 
             return this.pCurr;
         }

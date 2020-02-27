@@ -20,6 +20,20 @@ namespace SpaceInvaders
             other.VisitColumn(this);
         }
 
+        public override void VisitMissile(Missile m)
+        {
+            
+            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+
+            // Missile vs Alien
+            Debug.WriteLine("-------> Done  <--------");
+
+            GameObject pGameObj = (GameObject)Iterator.GetChild(this);
+            CollisionPair.Collide(m, pGameObj);
+
+      
+        }
+
         public override void Update()
         {
             base.BaseUpdateBoundingBox(this);
