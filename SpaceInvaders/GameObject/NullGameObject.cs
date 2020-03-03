@@ -6,7 +6,7 @@ namespace SpaceInvaders
     public class NullGameObject : Leaf
     {
         public NullGameObject()
-            : base(GameObject.Name.Null_Object)
+            : base(GameObject.Name.Null_Object, GameSprite.Name.NullObject)
         {
 
         }

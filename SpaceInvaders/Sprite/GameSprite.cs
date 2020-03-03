@@ -11,6 +11,7 @@ namespace SpaceInvaders
             BlueCrab,
             GreenSquid,
             OrangeSaucer,
+            Ship,
             Missile,
             NullObject,
 

@@ -9,6 +9,9 @@ namespace SpaceInvaders
         {
             Alien_Missile,
             Alien_Wall,
+            Missile_Wall,
+            Ship_Wall,
+            Bomb_Wall,
 
             NullObject,
             Not_Initialized

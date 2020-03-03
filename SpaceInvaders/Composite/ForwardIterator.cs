@@ -7,7 +7,7 @@ namespace SpaceInvaders
     public class ForwardIterator : Iterator
     {
         private Component pCurr;
-        private Component pRoot;
+        private readonly Component pRoot;
 
         public ForwardIterator(Component pStart)
         {
@@ -20,6 +20,8 @@ namespace SpaceInvaders
 
         private Component NextStep(Component pNode, Component pParent, Component pChild, Component pSibling)
         {
+            pNode = null;
+
             if (pChild != null)
             {
                 pNode = pChild;

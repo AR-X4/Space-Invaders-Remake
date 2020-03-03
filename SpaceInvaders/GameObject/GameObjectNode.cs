@@ -31,6 +31,7 @@ namespace SpaceInvaders
         {
             Debug.Assert(pGameObject != null);
             this.pGameObj = pGameObject;
+            //this.pGameObj.SetGameObjectNode(this);
         }
 
         public void Wash()

@@ -58,12 +58,12 @@ namespace SpaceInvaders
             Debug.Assert(false);
         }
 
-        //public virtual void VisitMissileGroup(MissileGroup m)
-        //{
-        //    // no differed to subcass
-        //    Debug.WriteLine("Visit by MissileGroup not implemented");
-        //    Debug.Assert(false);
-        //}
+        public virtual void VisitMissileGroup(MissileGroup m)
+        {
+            // no differed to subcass
+            Debug.WriteLine("Visit by MissileGroup not implemented");
+            Debug.Assert(false);
+        }
 
         public virtual void VisitWallGroup(WallGroup w)
         {
@@ -78,6 +78,21 @@ namespace SpaceInvaders
         public virtual void VisitWallLeft(WallLeft w)
         {
             Debug.WriteLine("Visit by WallLeft not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitWallTop(WallTop w)
+        {
+            Debug.WriteLine("Visit by WallTop not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitShip(Ship s)
+        {
+            Debug.WriteLine("Visit by Ship not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitShipRoot(ShipRoot s)
+        {
+            Debug.WriteLine("Visit by ShipRoot not implemented");
             Debug.Assert(false);
         }
 

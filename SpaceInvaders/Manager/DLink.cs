@@ -143,7 +143,6 @@ namespace SpaceInvaders
             else
             {  // first
                 pHead = pNode.pNext;
-                pHead.pPrev = null;
 
                 if (pNode == pEnd)
                 {

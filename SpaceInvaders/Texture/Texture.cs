@@ -7,7 +7,7 @@ namespace SpaceInvaders
         public enum Name
         {
             Default,
-            Aliens,
+            SpaceInvaders,
             NullObject,
             Uninitialized
         }

@@ -23,7 +23,15 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitOrangeSaucer(this);
         }
+        public override void VisitMissileGroup(MissileGroup m)
+        {
+            // Bird vs MissileGroup
+            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
 
+            // Missile vs Bird
+            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+            CollisionPair.Collide(pGameObj, this);
+        }
         public override void VisitMissile(Missile m)
         {
             
@@ -32,7 +40,7 @@ namespace SpaceInvaders
             // Missile vs Alien
             Debug.WriteLine("-------> Done  <--------");
 
-            m.Hit();
+            //m.Hit();
         }
         public override void Update()
         {

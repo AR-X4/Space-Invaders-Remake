@@ -14,7 +14,7 @@ namespace SpaceInvaders
         //----------------------------------------------------------------------
         private SpriteBatch.Name name;
         private readonly SpriteNode poNodeCompare;
-
+        private SpriteBatch pBackSpriteBatch;
 
         //----------------------------------------------------------------------
         // Constructor
@@ -24,6 +24,7 @@ namespace SpaceInvaders
         {
             // At this point SBMan is created, now initialize the reserve
             this.BaseInitialize(reserveNum, reserveGrow);
+            this.pBackSpriteBatch = null;
 
             // initialize derived data here
             this.poNodeCompare = new SpriteNode();
@@ -48,30 +49,9 @@ namespace SpaceInvaders
             Debug.Assert(pSBNode != null);
 
             // Initialize SpriteBatchNode
-            pSBNode.Set(pNode);
+            pSBNode.Set(pNode, this);
 
             return pSBNode;
-        }
-        public SpriteNode Attach(BoxSprite.Name name)
-        {
-            SpriteNode pNode = (SpriteNode)this.BaseAdd();
-            Debug.Assert(pNode != null);
-
-            // Initialize SpriteBatchNode
-            pNode.Set(name);
-
-            return pNode;
-        }
-        public SpriteNode Attach(ProxySprite pNode)
-        {
-            // Go to Man, get a node from reserve, add to active, return it
-            SpriteNode pSpriteNode = (SpriteNode)this.BaseAdd();
-            Debug.Assert(pSpriteNode != null);
-
-            // Initialize SpriteBatchNode
-            pSpriteNode.Set(pNode);
-
-            return pSpriteNode;
         }
 
         public void Draw()
@@ -96,6 +76,14 @@ namespace SpaceInvaders
         public void Dump()
         {
             this.BaseDump();
+        }
+        public SpriteBatch GetSpriteBatch()
+        {
+            return this.pBackSpriteBatch;
+        }
+        public void SetSpriteBatch(SpriteBatch _pSpriteBatch)
+        {
+            this.pBackSpriteBatch = _pSpriteBatch;
         }
 
         //----------------------------------------------------------------------

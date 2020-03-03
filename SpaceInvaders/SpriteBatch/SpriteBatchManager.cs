@@ -77,7 +77,7 @@ namespace SpaceInvaders
 
             while (pSpriteBatch != null)
             {
-                SpriteNodeManager pSBNodeMan = pSpriteBatch.GetSBNodeMan();
+                SpriteNodeManager pSBNodeMan = pSpriteBatch.GetSpriteNodeManager();
                 Debug.Assert(pSBNodeMan != null);
 
                 // Kick the can
@@ -109,6 +109,15 @@ namespace SpaceInvaders
 
             Debug.Assert(pNode != null);
             pMan.BaseRemove(pNode);
+        }
+
+        public static void Remove(SpriteNode pSpriteBatchNode)
+        {
+            Debug.Assert(pSpriteBatchNode != null);
+            SpriteNodeManager pSpriteNodeMan = pSpriteBatchNode.GetSBNodeManager();
+
+            Debug.Assert(pSpriteNodeMan != null);
+            pSpriteNodeMan.Remove(pSpriteBatchNode);
         }
         public static void Dump()
         {

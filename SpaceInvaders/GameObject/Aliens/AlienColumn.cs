@@ -19,19 +19,14 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitColumn(this);
         }
-
-        public override void VisitMissile(Missile m)
+        public override void VisitMissileGroup(MissileGroup m)
         {
-            
+            // BirdColumn vs MissileGroup
             Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
 
-            // Missile vs Alien
-            Debug.WriteLine("-------> Done  <--------");
-
+            // MissileGroup vs Columns
             GameObject pGameObj = (GameObject)Iterator.GetChild(this);
             CollisionPair.Collide(m, pGameObj);
-
-      
         }
 
         public override void Update()

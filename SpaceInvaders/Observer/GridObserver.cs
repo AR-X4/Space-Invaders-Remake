@@ -19,17 +19,16 @@ namespace SpaceInvaders
             WallCategory pWall = (WallCategory)this.pSubject.pObjB;
             if (pWall.GetCategoryType() == WallCategory.Type.Right)
             {
-                pGrid.SetDelta(-1.0f);
+                pGrid.SetDelta(-10.0f);
             }
             else if (pWall.GetCategoryType() == WallCategory.Type.Left)
             {
-                pGrid.SetDelta(1.0f);
+                pGrid.SetDelta(10.0f);
             }
             else
             {
                 Debug.Assert(false);
             }
-
         }
     }
 }

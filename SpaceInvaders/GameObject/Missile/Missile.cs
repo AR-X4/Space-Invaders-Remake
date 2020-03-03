@@ -5,32 +5,46 @@ namespace SpaceInvaders
 {
     public class Missile : Leaf
     {
+
+        // Data -------------------------------------
+        private bool enable;
+        public float delta;
+
         public Missile(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
             : base(name, spriteName)
         {
             this.x = posX;
             this.y = posY;
-            this.bHit = false;
+            this.enable = false;
+            this.delta = 5.0f;
         }
 
         public override void Update()
         {
             base.Update();
-
-            if (!bHit)
-            {
-                this.y += 1.0f;
-            }
+            this.y += delta;
         }
 
         ~Missile()
         {
 
         }
-
-        public void Hit()
+        public override void Remove()
         {
-            this.bHit = true;
+            // Keenan(delete.E)
+            // Since the Root object is being drawn
+            // 1st set its size to zero
+            this.poColObj.poColRect.Set(0, 0, 0, 0);
+            base.Update();
+
+            //// Update the parent (missile root)
+            GameObject pParent = (GameObject)this.pParent;
+            pParent.Update();
+            //remove missile from composite... missile only has one parent..need to find root for others? 
+            pParent.Remove(this);
+
+            // Now remove it
+            base.Remove();
         }
 
         public override void Accept(CollisionVisitor other)
@@ -39,8 +53,15 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitMissile(this);
         }
-        // Data
+        public void SetPos(float xPos, float yPos)
+        {
+            this.x = xPos;
+            this.y = yPos;
+        }
+        public void SetActive(bool state)
+        {
+            this.enable = state;
+        }
 
-        public bool bHit;
     }
 }

@@ -59,7 +59,10 @@ namespace SpaceInvaders
             Debug.Assert(pSpriteNode != null);
 
             // Initialize SpriteBatchNode
-            pSpriteNode.Set(pNode);
+            pSpriteNode.Set(pNode, this.pSpriteNodeManager);
+
+            // Back pointer
+            this.pSpriteNodeManager.SetSpriteBatch(this);
         }
 
         public void Wash()
@@ -105,7 +108,7 @@ namespace SpaceInvaders
             return this.name;
         }
 
-        public SpriteNodeManager GetSBNodeMan()
+        public SpriteNodeManager GetSpriteNodeManager()
         {
             return this.pSpriteNodeManager;
         }

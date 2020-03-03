@@ -45,5 +45,20 @@ namespace SpaceInvaders
             pColPair.SetCollision(a, this);
             pColPair.NotifyListeners();
         }
+
+        public override void VisitShipRoot(ShipRoot m)
+        {
+            // MissileRoot vs WallTop
+            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+            CollisionPair.Collide(pGameObj, this);
+        }
+        public override void VisitShip(Ship m)
+        {
+            // Missile vs WallTop
+            //Debug.WriteLine(" ---> Done");
+            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+            pColPair.SetCollision(m, this);
+            pColPair.NotifyListeners();
+        }
     }
 }

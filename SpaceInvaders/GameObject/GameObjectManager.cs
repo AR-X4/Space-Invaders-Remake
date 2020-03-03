@@ -55,9 +55,12 @@ namespace SpaceInvaders
         {
 
         }
-
+        //only composites!!
         public static GameObjectNode Attach(GameObject pGameObject)
         {
+            Debug.Assert(pGameObject != null);
+            Debug.Assert(pGameObject.holder == Component.Container.COMPOSITE);
+
             GameObjectManager pMan = GameObjectManager.GetInstance();
             Debug.Assert(pMan != null);
 
@@ -89,6 +92,66 @@ namespace SpaceInvaders
 
             Debug.Assert(pNode != null);
             pMan.BaseRemove(pNode);
+        }
+        //CHANGE THIS
+        public static void Remove(GameObject pNode)
+        {
+            // Keenan(delete.E)
+            Debug.Assert(pNode != null);
+            GameObjectManager pMan = GameObjectManager.GetInstance();
+
+            GameObject pSafetyNode = pNode;
+
+            // OK so we have a linked list of trees (Remember that)
+
+            // 1) find the tree root (we already know its the most parent)
+
+            GameObject pTmp = pNode;
+            GameObject pRoot = null;
+            while (pTmp != null)
+            {
+                pRoot = pTmp;
+                pTmp = (GameObject)Iterator.GetParent(pTmp);
+            }
+
+            // 2) pRoot is the tree we are looking for
+            // now walk the active list looking for pRoot
+
+            GameObjectNode pTree = (GameObjectNode)pMan.BaseGetActive();
+
+            while (pTree != null)
+            {
+                if (pTree.pGameObj == pRoot)
+                {
+                    // found it
+                    break;
+                }
+                // Goto Next tree
+                pTree = (GameObjectNode)pTree.pNext;
+            }
+
+            // 3) pTree is the tree that holds pNode
+            //  Now remove the node from that tree
+
+            Debug.Assert(pTree != null);
+            Debug.Assert(pTree.pGameObj != null);
+
+            // Is pTree.poGameObj same as the node we are trying to delete?
+            // Answer: should be no... since we always have a group (that was a good idea)
+
+            Debug.Assert(pTree.pGameObj != pNode);
+
+            GameObject pParent = (GameObject)Iterator.GetParent(pNode);
+            Debug.Assert(pParent != null);
+
+            GameObject pChild = (GameObject)Iterator.GetChild(pNode);
+            Debug.Assert(pChild == null);
+
+            // remove the node
+            pParent.Remove(pNode);
+
+            // TODO - Recycle pNode
+
         }
 
         public static void Update()

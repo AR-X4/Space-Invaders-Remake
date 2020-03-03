@@ -23,7 +23,7 @@ namespace SpaceInvaders
             this.holder = Container.COMPOSITE;
             this.poHead = null;
             this.poLast = null;
-            Debug.Write(" creating--> ");
+            //Debug.Write(" creating--> ");
             //this.DumpNode();
         }
 
@@ -57,7 +57,10 @@ namespace SpaceInvaders
         override public Component GetFirstChild()
         {
             DLink pNode = this.poHead;
-            Debug.Assert(pNode != null);
+            // Sometimes it returns null... that's ok
+            // Scenario - we have a group without a child
+            // i.e. composite with no children
+            
 
             return (Component)pNode;
         }

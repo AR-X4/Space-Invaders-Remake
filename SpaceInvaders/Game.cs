@@ -5,8 +5,6 @@ namespace SpaceInvaders
 {
     class SpaceInvaders : Azul.Game
     {
-        
-        Missile pMissile;
 
         //-----------------------------------------------------------------------------
         // Game::Initialize()
@@ -30,7 +28,7 @@ namespace SpaceInvaders
         public override void LoadContent()
         {
             //---------------------------------------------------------------------------------------------------------
-            // Setup Managers
+            // Init Managers
             //---------------------------------------------------------------------------------------------------------
 
             TextureManager.Create(1, 1);
@@ -50,7 +48,7 @@ namespace SpaceInvaders
             // Load the Textures
             //---------------------------------------------------------------------------------------------------------
 
-            TextureManager.Add(Texture.Name.Aliens, "SpaceInvaders.tga");
+            TextureManager.Add(Texture.Name.SpaceInvaders, "SpaceInvaders.tga");
 
             //---------------------------------------------------------------------------------------------------------
             // Load Sounds
@@ -64,15 +62,16 @@ namespace SpaceInvaders
 
             // --- aliens ---
 
-            ImageManager.Add(Image.Name.OctopusA, Texture.Name.Aliens, 3, 3, 12, 8);
-            ImageManager.Add(Image.Name.OctopusB, Texture.Name.Aliens, 18, 3, 12, 8);
-            ImageManager.Add(Image.Name.AlienA, Texture.Name.Aliens, 33, 3, 11, 8);
-            ImageManager.Add(Image.Name.AlienB, Texture.Name.Aliens, 47, 3, 11, 8);
-            ImageManager.Add(Image.Name.SquidA, Texture.Name.Aliens, 61, 3, 8, 8);
-            ImageManager.Add(Image.Name.SquidB, Texture.Name.Aliens, 72, 3, 8, 8);
-            ImageManager.Add(Image.Name.Saucer, Texture.Name.Aliens, 99, 3, 16, 8);
+            ImageManager.Add(Image.Name.OctopusA, Texture.Name.SpaceInvaders, 3, 3, 12, 8);
+            ImageManager.Add(Image.Name.OctopusB, Texture.Name.SpaceInvaders, 18, 3, 12, 8);
+            ImageManager.Add(Image.Name.AlienA, Texture.Name.SpaceInvaders, 33, 3, 11, 8);
+            ImageManager.Add(Image.Name.AlienB, Texture.Name.SpaceInvaders, 47, 3, 11, 8);
+            ImageManager.Add(Image.Name.SquidA, Texture.Name.SpaceInvaders, 61, 3, 8, 8);
+            ImageManager.Add(Image.Name.SquidB, Texture.Name.SpaceInvaders, 72, 3, 8, 8);
+            ImageManager.Add(Image.Name.Saucer, Texture.Name.SpaceInvaders, 99, 3, 16, 8);
 
-            ImageManager.Add(Image.Name.Missile, Texture.Name.Aliens, 3, 29, 1, 4);
+            ImageManager.Add(Image.Name.Missile, Texture.Name.SpaceInvaders, 3, 29, 1, 4);
+            ImageManager.Add(Image.Name.Ship, Texture.Name.SpaceInvaders, 3, 14, 13, 8);
 
 
             //---------------------------------------------------------------------------------------------------------
@@ -97,11 +96,23 @@ namespace SpaceInvaders
 
             //-----Missile----
             GameSpriteManager.Add(GameSprite.Name.Missile, Image.Name.Missile, 50, 50, 5, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            //----Player Ship----
+            GameSpriteManager.Add(GameSprite.Name.Ship, Image.Name.Ship, 500, 100, 80, 28, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            
 
-            pMissile = new Missile(GameObject.Name.Missile, GameSprite.Name.Missile, 405, 100);
-            pMissile.ActivateGameSprite(pAliensBatch);
-            pMissile.ActivateCollisionSprite(pAliensBatch);
-            //GameObjectManager.Attach(pMissile);
+            //---------------------------------------------------------------------------------------------------------
+            // Input
+            //---------------------------------------------------------------------------------------------------------
+
+            InputSubject pInputSubject;
+            pInputSubject = InputManager.GetArrowRightSubject();
+            pInputSubject.Attach(new MoveRightObserver());
+
+            pInputSubject = InputManager.GetArrowLeftSubject();
+            pInputSubject.Attach(new MoveLeftObserver());
+
+            pInputSubject = InputManager.GetSpaceSubject();
+            pInputSubject.Attach(new ShootObserver());
 
             //---------------------------------------------------------------------------------------------------------
             // Timer Animations
@@ -134,7 +145,7 @@ namespace SpaceInvaders
 
             // Wall Root
             WallGroup pWallGroup = new WallGroup(GameObject.Name.WallGroup, GameSprite.Name.NullObject, 0.0f, 0.0f);
-            //pWallGroup.ActivateGameSprite(pSB_Birds);
+            //pWallGroup.ActivateGameSprite(pAliensBatch);//even need this?
             pWallGroup.ActivateCollisionSprite(pBoxBatch);
 
             WallRight pWallRight = new WallRight(GameObject.Name.WallRight, GameSprite.Name.NullObject, 700, 300, 50, 500);
@@ -143,18 +154,45 @@ namespace SpaceInvaders
             WallLeft pWallLeft = new WallLeft(GameObject.Name.WallLeft, GameSprite.Name.NullObject, 50, 300, 50, 500);
             pWallLeft.ActivateCollisionSprite(pBoxBatch);
 
+            WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 400, 570, 700, 30);
+            pWallTop.ActivateCollisionSprite(pBoxBatch);
+
             // Add to the composite the children
             pWallGroup.Add(pWallRight);
             pWallGroup.Add(pWallLeft);
+            pWallGroup.Add(pWallTop);
 
             GameObjectManager.Attach(pWallGroup);
+
+            
+
+            //---------------------------------------------------------------------------------------------------------
+            // Create Missile Root
+            //---------------------------------------------------------------------------------------------------------
+
+            // Missile Root
+            MissileGroup pMissileGroup = new MissileGroup(GameObject.Name.MissileGroup, GameSprite.Name.NullObject, 0.0f, 0.0f);
+            pMissileGroup.ActivateGameSprite(pAliensBatch);//change? even need this?
+            pMissileGroup.ActivateCollisionSprite(pBoxBatch);
+
+            GameObjectManager.Attach(pMissileGroup);
+
+            //---------------------------------------------------------------------------------------------------------
+            // Create Ship Root
+            //---------------------------------------------------------------------------------------------------------
+
+            ShipRoot pShipRoot = new ShipRoot(GameObject.Name.ShipRoot, GameSprite.Name.NullObject, 0.0f, 0.0f);
+
+            GameObjectManager.Attach(pShipRoot);
+
+            ShipManager.Create();
 
             //---------------------------------------------------------------------------------------------------------
             // Create Aliens
             //---------------------------------------------------------------------------------------------------------
 
             AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens);
-            GameObject pGrid = AF.Create(GameObject.Name.AlienGrid);
+            GameObject pAlienGrid = AF.Create(GameObject.Name.AlienGrid);
            
 
             for (int i = 0; i < 10; i++)
@@ -176,17 +214,31 @@ namespace SpaceInvaders
                 pGameObject = AF.Create(GameObject.Name.GreenSquid, 50.0f + 40 * i, 450.0f);
                 pCol.Add(pGameObject);
 
-                pGrid.Add(pCol);
+                pAlienGrid.Add(pCol);
             }
-            GameObjectManager.Attach(pGrid);
+            GameObjectManager.Attach(pAlienGrid);
 
 
             //---------------------------------------------------------------------------------------------------------
             // CollisionPair 
             //---------------------------------------------------------------------------------------------------------
 
-            CollisionPairManager.Add(CollisionPair.Name.Alien_Missile, pMissile, pGrid);
-            CollisionPair pAlienWallPair = CollisionPairManager.Add(CollisionPair.Name.Alien_Wall, pGrid, pWallGroup);
+            CollisionPair pShipWallPair = CollisionPairManager.Add(CollisionPair.Name.Ship_Wall, pShipRoot, pWallGroup);//reverse Order?
+            Debug.Assert(pShipWallPair != null);
+
+            CollisionPair pAlienMissilePair  = CollisionPairManager.Add(CollisionPair.Name.Alien_Missile, pMissileGroup, pAlienGrid);
+            Debug.Assert(pAlienMissilePair != null);
+
+            CollisionPair pMissileWallPair = CollisionPairManager.Add(CollisionPair.Name.Missile_Wall, pMissileGroup, pWallGroup);//reverse order?
+            Debug.Assert(pMissileWallPair != null);
+
+            CollisionPair pAlienWallPair = CollisionPairManager.Add(CollisionPair.Name.Alien_Wall, pAlienGrid, pWallGroup);
+            Debug.Assert(pAlienWallPair != null);
+
+            //pShipWallPair.Attach(new );
+
+            pMissileWallPair.Attach(new ShipReadyObserver());
+            pMissileWallPair.Attach(new ShipRemoveMissileObserver());
 
             pAlienWallPair.Attach(new GridObserver());
 
@@ -214,25 +266,29 @@ namespace SpaceInvaders
             // Add your update below this line: ----------------------------
             TimerManager.Update(this.GetTime());
 
-            //this.pGrid.Move();
-
+            
+            InputManager.Update();
             SoundManager.Update();
-            GameObjectManager.Update();
-
-            // Move the grid
-            AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
-            pGrid.MoveGrid();
+            GameObjectManager.Update();//<---
 
             //Collision Checks
             CollisionPairManager.Process();
 
+            // Delete any objects here...
+            DelayedObjectManager.Process();
+
+
+            //TODO put in timer event
             i++;
             if (i == 150) {
+                // Move the grid
+                AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
+                pGrid.MoveGrid();
+                // play sound
                 Sound test = SoundManager.Find(Sound.Name.Invader1);
                 test.PlaySound();
                 i = 0;
             }
-       
         }
 
         //-----------------------------------------------------------------------------
@@ -243,7 +299,6 @@ namespace SpaceInvaders
         //-----------------------------------------------------------------------------
         public override void Draw()
         {
-            // --- angry birds ---
 
             SpriteBatchManager.Draw();
 

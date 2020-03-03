@@ -61,15 +61,6 @@ namespace SpaceInvaders
             this.pPrev = this.pCurr;
             this.pCurr = this.pCurr.pReverse;
 
-            //if (this.pCurr != null)
-            //{
-            //    Debug.WriteLine("---> {0}", this.pCurr.GetHashCode());
-            //}
-            //else
-            //{
-            //    Debug.WriteLine("---> null");
-            //}
-
             return this.pCurr;
         }
 

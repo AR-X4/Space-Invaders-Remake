@@ -18,8 +18,13 @@ namespace SpaceInvaders
             WallGroup,
             WallRight,
             WallLeft,
+            WallTop,
+            WallBottom,
 
+            Ship,
+            ShipRoot,
             Missile,
+            MissileGroup,
 
             Null_Object,
             Uninitialized
@@ -29,12 +34,14 @@ namespace SpaceInvaders
         public GameObject.Name name;
         public float x;
         public float y;
+        public bool bMarkForDeath;
         public ProxySprite pProxySprite;
         public CollisionObject poColObj;
+        //private GameObjectNode pBackGameObjectNode;
 
-        protected GameObject() 
-        { 
-        
+        protected GameObject()
+        {
+
         }
         protected GameObject(GameObject.Name gameName)
         {
@@ -49,7 +56,9 @@ namespace SpaceInvaders
             this.name = gameName;
             this.x = 0.0f;
             this.y = 0.0f;
+            this.bMarkForDeath = false;
             this.pProxySprite = new ProxySprite(spriteName);
+            //this.pBackGameObjectNode = null;
 
             this.poColObj = new CollisionObject(this.pProxySprite);
             Debug.Assert(this.poColObj != null);
@@ -57,6 +66,38 @@ namespace SpaceInvaders
 
         ~GameObject()
         {
+
+        }
+
+        public virtual void Remove()
+        {
+            // Keenan(delete.A)
+            // -----------------------------------------------------------------
+            // Very difficult at first... if you are messy, you will pay here!
+            // Given a game object....
+            // -----------------------------------------------------------------
+
+            // Remove proxy sprite node from SpriteBatch manager
+            Debug.Assert(this.pProxySprite != null);
+            SpriteNode pSpriteNode = this.pProxySprite.GetSpriteNode();
+            
+            Debug.Assert(pSpriteNode != null);
+            SpriteBatchManager.Remove(pSpriteNode);
+
+            // Remove collision sprite node from spriteBatch manager
+            Debug.Assert(this.poColObj != null);
+            Debug.Assert(this.poColObj.pColSprite != null);
+            pSpriteNode = this.poColObj.pColSprite.GetSpriteNode();
+
+            Debug.Assert(pSpriteNode != null);
+            SpriteBatchManager.Remove(pSpriteNode);
+
+            // Remove game object node from GameObjectMan
+            //Remove from parent composite in derived class remove() instead
+            //never need to remove composites from GameObject Manager...right?
+            
+            //GameObjectManager.Remove(this);
+            
 
         }
 
@@ -70,23 +111,26 @@ namespace SpaceInvaders
             // Get the first child
             pNode = (GameObject)Iterator.GetChild(pNode);
 
-            // Initialized the union to the first block
-            ColTotal.Set(pNode.poColObj.poColRect);
-
-            // loop through sliblings
-            while (pNode != null)
+            if (pNode != null)
             {
-                ColTotal.Union(pNode.poColObj.poColRect);
+                // Initialized the union to the first block
+                ColTotal.Set(pNode.poColObj.poColRect);
 
-                // go to next sibling
-                pNode = (GameObject)Iterator.GetSibling(pNode);
+                // loop through sliblings
+                while (pNode != null)
+                {
+                    ColTotal.Union(pNode.poColObj.poColRect);
+
+                    // go to next sibling
+                    pNode = (GameObject)Iterator.GetSibling(pNode);
+                }
+
+                //this.poColObj.poColRect.Set(201, 201, 201, 201);
+                this.x = this.poColObj.poColRect.x;
+                this.y = this.poColObj.poColRect.y;
+
+                //  Debug.WriteLine("x:{0} y:{1} w:{2} h:{3}", ColTotal.x, ColTotal.y, ColTotal.width, ColTotal.height);
             }
-
-            //this.poColObj.poColRect.Set(201, 201, 201, 201);
-            this.x = this.poColObj.poColRect.x;
-            this.y = this.poColObj.poColRect.y;
-
-            //  Debug.WriteLine("x:{0} y:{1} w:{2} h:{3}", ColTotal.x, ColTotal.y, ColTotal.width, ColTotal.height);
         }
 
         public virtual void Update()
@@ -141,5 +185,11 @@ namespace SpaceInvaders
         {
             return this.name;
         }
+
+        //public void SetGameObjectNode(GameObjectNode pGameObjectNode)
+        //{
+        //    Debug.Assert(pGameObjectNode != null);
+        //    this.pBackGameObjectNode = pGameObjectNode;
+        //}
     }
 }
