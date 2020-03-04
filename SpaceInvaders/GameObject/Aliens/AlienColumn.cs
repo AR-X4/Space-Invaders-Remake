@@ -11,7 +11,7 @@ namespace SpaceInvaders
             this.x = posX;
             this.y = posY;
 
-            this.poColObj.pColSprite.SetLineColor(1, 1, 1);
+            this.poColObj.pColSprite.SetLineColor(0, 1, 1);
         }
         public override void Accept(CollisionVisitor other)
         {
@@ -22,7 +22,7 @@ namespace SpaceInvaders
         public override void VisitMissileGroup(MissileGroup m)
         {
             // BirdColumn vs MissileGroup
-            //Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+             Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
 
             // MissileGroup vs Columns
             GameObject pGameObj = (GameObject)Iterator.GetChild(this);

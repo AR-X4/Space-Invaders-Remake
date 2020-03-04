@@ -8,7 +8,9 @@ namespace SpaceInvaders
         {
             Default,
             Invader1,
-            NullObject,
+            Invader2,
+            Invader3,
+            Invader4,
             Uninitialized
         }
 

@@ -55,6 +55,9 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
 
             SoundManager.Add(Sound.Name.Invader1, "fastinvader1.wav");
+            SoundManager.Add(Sound.Name.Invader2, "fastinvader2.wav");
+            SoundManager.Add(Sound.Name.Invader3, "fastinvader3.wav");
+            SoundManager.Add(Sound.Name.Invader4, "fastinvader4.wav");
 
             //---------------------------------------------------------------------------------------------------------
             // Create Images
@@ -135,9 +138,9 @@ namespace SpaceInvaders
             pAnimSquid.Attach(Image.Name.SquidB);
 
             // add AnimationSprite to timer
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimOctopus, 1, 0.5f);
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimCrab, 2, 0.5f);
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 3, 0.5f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimOctopus, 1, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimCrab, 2, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 3, 1.0f);
 
             //---------------------------------------------------------------------------------------------------------
             // Create Walls
@@ -218,9 +221,11 @@ namespace SpaceInvaders
             }
             GameObjectManager.Attach(pAlienGrid);
 
+            AlienGridMoveEvent pGridMoveEvent = new AlienGridMoveEvent();
+            TimerManager.Add(TimeEvent.Name.MoveAlienGrid,  pGridMoveEvent, 4, 1.0f);
 
             //---------------------------------------------------------------------------------------------------------
-            // CollisionPair 
+            // Create CollisionPairs 
             //---------------------------------------------------------------------------------------------------------
 
             //Why does the order that left/right wall are added matter??????? reverse order breaks game
@@ -271,7 +276,6 @@ namespace SpaceInvaders
         //      Use this function to control process order
         //      Input, AI, Physics, Animation, and Graphics
         //-----------------------------------------------------------------------------
-        uint i = 0;
 
         public override void Update()
         {
@@ -289,18 +293,6 @@ namespace SpaceInvaders
             // Delete any objects here...
             DelayedObjectManager.Process();
 
-
-            //TODO put in timer event
-            i++;
-            if (i == 150) {
-                // Move the grid
-                AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
-                pGrid.MoveGrid();
-                // play sound
-                Sound test = SoundManager.Find(Sound.Name.Invader1);
-                test.PlaySound();
-                i = 0;
-            }
         }
 
         //-----------------------------------------------------------------------------
@@ -311,9 +303,7 @@ namespace SpaceInvaders
         //-----------------------------------------------------------------------------
         public override void Draw()
         {
-
             SpriteBatchManager.Draw();
-
         }
 
         //-----------------------------------------------------------------------------

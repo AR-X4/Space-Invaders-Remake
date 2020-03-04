@@ -7,26 +7,26 @@ namespace SpaceInvaders
     class RemoveAlienObserver : CollisionObserver
     {
         // data
-        private GameObject pPurpleOctopus;
+        private GameObject pAlien;
 
         public RemoveAlienObserver()
         {
-            this.pPurpleOctopus = null;
+            this.pAlien = null;
         }
 
         public RemoveAlienObserver(RemoveAlienObserver m)
         {
-            Debug.Assert(m.pPurpleOctopus != null);
-            this.pPurpleOctopus = m.pPurpleOctopus;
+            Debug.Assert(m.pAlien != null);
+            this.pAlien = m.pAlien;
         }
 
         public override void Notify()
         {
-            this.pPurpleOctopus = this.pSubject.pObjB;
+            this.pAlien = this.pSubject.pObjB;
 
-            if (this.pPurpleOctopus.bMarkForDeath == false)
+            if (this.pAlien.bMarkForDeath == false)
             {
-                this.pPurpleOctopus.bMarkForDeath = true;
+                this.pAlien.bMarkForDeath = true;
 
                 // Delay - remove object later
                 // TODO - reduce the new functions
@@ -38,7 +38,7 @@ namespace SpaceInvaders
         public override void Execute()
         {
             // Let the gameObject deal with this... 
-            this.pPurpleOctopus.Remove();
+            this.pAlien.Remove();
         }
     }
 }

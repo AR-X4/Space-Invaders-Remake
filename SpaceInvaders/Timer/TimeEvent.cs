@@ -10,9 +10,7 @@ namespace SpaceInvaders
         //---------------------------------------------------------------------------------------------------------
         public enum Name
         {
-            //Sample1,
-            //Sample2,
-            //RepeatSample,
+            MoveAlienGrid,
             SpriteAnimation,
             Uninitialized
         }

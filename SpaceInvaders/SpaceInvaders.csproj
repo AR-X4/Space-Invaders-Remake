@@ -86,6 +86,7 @@
     <Compile Include="GameObject\AlienFactory.cs" />
     <Compile Include="GameObject\Aliens\AlienColumn.cs" />
     <Compile Include="GameObject\Aliens\AlienGrid.cs" />
+    <Compile Include="GameObject\Aliens\AlienGridMoveEvent.cs" />
     <Compile Include="GameObject\Aliens\BlueCrab.cs" />
     <Compile Include="GameObject\Aliens\GreenSquid.cs" />
     <Compile Include="GameObject\Aliens\OrangeSaucer.cs" />

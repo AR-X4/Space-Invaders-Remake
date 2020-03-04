@@ -41,7 +41,23 @@ namespace SpaceInvaders
 
             base.Update();
         }
-        // this is just a placeholder, who knows what data will be stored here
+        public override void Remove()
+        {
+            // Keenan(delete.E)
+            // Since the Root object is being drawn
+            // 1st set its size to zero
+            this.poColObj.poColRect.Set(0, 0, 0, 0);
+            base.Update();
+
+            //// Update the parent (missile root)
+            GameObject pParent = (GameObject)this.pParent;
+            pParent.Update();
+            //remove missile from composite... missile only has one parent..need to find root for others? 
+            pParent.Remove(this);
+
+            // Now remove it
+            base.Remove();
+        }
 
     }
 }
