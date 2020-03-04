@@ -9,6 +9,10 @@ namespace SpaceInvaders
         {
             Ready,
             MissileFlying,
+            StopLeft,
+            StopRight,
+            StopLeftMissileFlying,
+            StopRightMissileFlying,
             Dead
         }
 
@@ -20,8 +24,13 @@ namespace SpaceInvaders
         private Missile pMissile;
 
         // Reference
+        public State CurrentStateName;
         private ShipStateReady pStateReady;
         private ShipMissileFlyingState pStateMissileFlying;
+        private ShipStopLeftState pStateStopLeft;
+        private ShipStopRightState pStateStopRight;
+        private ShipStopRightMissileFlyingState pStateStopRightMissileFlying;
+        private ShipStopLeftMissileFlyingState pStateStopLeftMissileFlying;
         private readonly ShipDeadState pStateDead;
 
         private ShipManager()
@@ -30,6 +39,11 @@ namespace SpaceInvaders
             this.pStateReady = new ShipStateReady();
             this.pStateMissileFlying = new ShipMissileFlyingState();
             this.pStateDead = new ShipDeadState();
+            this.pStateStopLeft = new ShipStopLeftState();
+            this.pStateStopRight = new ShipStopRightState();
+            this.pStateStopLeftMissileFlying = new ShipStopLeftMissileFlyingState();
+            this.pStateStopRightMissileFlying = new ShipStopRightMissileFlyingState();
+
 
             // set active
             this.pShip = null;
@@ -93,11 +107,27 @@ namespace SpaceInvaders
                     pShipState = pShipMan.pStateDead;
                     break;
 
+                case ShipManager.State.StopLeft:
+                    pShipState = pShipMan.pStateStopLeft;
+                    break;
+
+                case ShipManager.State.StopRight:
+                    pShipState = pShipMan.pStateStopRight;
+                    break;
+
+                case ShipManager.State.StopRightMissileFlying:
+                    pShipState = pShipMan.pStateStopRightMissileFlying;
+                    break;
+
+                case ShipManager.State.StopLeftMissileFlying:
+                    pShipState = pShipMan.pStateStopLeftMissileFlying;
+                    break;
+
                 default:
                     Debug.Assert(false);
                     break;
             }
-
+            
             return pShipState;
         }
 

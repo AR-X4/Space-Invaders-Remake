@@ -25,29 +25,40 @@ namespace SpaceInvaders
         }
         public override void VisitMissileGroup(MissileGroup m)
         {
-            // Bird vs MissileGroup
-            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
-
-            // Missile vs Bird
+            // MissileRoot vs WallRoot
             GameObject pGameObj = (GameObject)Iterator.GetChild(m);
             CollisionPair.Collide(pGameObj, this);
         }
+
         public override void VisitMissile(Missile m)
         {
-            
-            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
-
-            // Missile vs Alien
-            Debug.WriteLine("-------> Done  <--------");
-
-            //m.Hit();
+            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+            pColPair.SetCollision(m, this);
+            pColPair.NotifyListeners();
         }
         public override void Update()
         {
 
             base.Update();
         }
-        
+
+        public override void Remove()
+        {
+            // Keenan(delete.E)
+            // Since the Root object is being drawn
+            // 1st set its size to zero
+            this.poColObj.poColRect.Set(0, 0, 0, 0);
+            base.Update();
+
+            //// Update the parent (missile root)
+            GameObject pParent = (GameObject)this.pParent;
+            pParent.Update();
+            //remove missile from composite... missile only has one parent..need to find root for others? 
+            pParent.Remove(this);
+
+            // Now remove it
+            base.Remove();
+        }
 
     }
 }

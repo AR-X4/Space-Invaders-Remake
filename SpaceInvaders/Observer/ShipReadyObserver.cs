@@ -5,6 +5,7 @@ namespace SpaceInvaders
 {
     public class ShipReadyObserver : CollisionObserver
     {
+        //This is called when Missile is done flying
         public override void Notify()
         {
             Ship pShip = ShipManager.GetShip();

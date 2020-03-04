@@ -25,23 +25,16 @@ namespace SpaceInvaders
         }
         public override void VisitMissileGroup(MissileGroup m)
         {
-            // Bird vs MissileGroup
-            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
-
-            // Missile vs Bird
+            // MissileRoot vs WallRoot
             GameObject pGameObj = (GameObject)Iterator.GetChild(m);
             CollisionPair.Collide(pGameObj, this);
         }
 
         public override void VisitMissile(Missile m)
         {
-           
-            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
-
-            // Missile vs Alien
-            Debug.WriteLine("-------> Done  <--------");
-
-            //m.Hit();
+            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+            pColPair.SetCollision(m, this);
+            pColPair.NotifyListeners();
         }
         public override void Update()
         {

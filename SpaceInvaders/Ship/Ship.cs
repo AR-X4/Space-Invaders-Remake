@@ -9,6 +9,7 @@ namespace SpaceInvaders
         // Data: --------------------
         public float shipSpeed;
         private ShipState state;
+        public ShipManager.State CurrentStateName;
 
         public Ship(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
          : base(name, spriteName)
@@ -50,6 +51,8 @@ namespace SpaceInvaders
         public void SetState(ShipManager.State inState)
         {
             this.state = ShipManager.GetState(inState);
+            this.CurrentStateName = inState;
+            Debug.WriteLine(this.state);
         }
         public void Handle()
         {

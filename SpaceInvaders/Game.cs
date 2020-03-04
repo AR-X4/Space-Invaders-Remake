@@ -154,7 +154,7 @@ namespace SpaceInvaders
             WallLeft pWallLeft = new WallLeft(GameObject.Name.WallLeft, GameSprite.Name.NullObject, 50, 300, 50, 500);
             pWallLeft.ActivateCollisionSprite(pBoxBatch);
 
-            WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 400, 570, 700, 30);
+            WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 375, 570, 700, 30);
             pWallTop.ActivateCollisionSprite(pBoxBatch);
 
             // Add to the composite the children
@@ -223,22 +223,34 @@ namespace SpaceInvaders
             // CollisionPair 
             //---------------------------------------------------------------------------------------------------------
 
-            CollisionPair pShipWallPair = CollisionPairManager.Add(CollisionPair.Name.Ship_Wall, pShipRoot, pWallGroup);//reverse Order?
-            Debug.Assert(pShipWallPair != null);
+            //Why does the order that left/right wall are added matter??????? reverse order breaks game
+            CollisionPair pShipWallRightPair = CollisionPairManager.Add(CollisionPair.Name.Ship_Wall_Right, pShipRoot, pWallRight);
+            Debug.Assert(pShipWallRightPair != null);
+
+            CollisionPair pShipWallLeftPair = CollisionPairManager.Add(CollisionPair.Name.Ship_Wall_Left, pShipRoot, pWallLeft);
+            Debug.Assert(pShipWallLeftPair != null);
+
+            
 
             CollisionPair pAlienMissilePair  = CollisionPairManager.Add(CollisionPair.Name.Alien_Missile, pMissileGroup, pAlienGrid);
             Debug.Assert(pAlienMissilePair != null);
 
-            CollisionPair pMissileWallPair = CollisionPairManager.Add(CollisionPair.Name.Missile_Wall, pMissileGroup, pWallGroup);//reverse order?
+            CollisionPair pMissileWallPair = CollisionPairManager.Add(CollisionPair.Name.Missile_Wall_Top, pMissileGroup, pWallTop);
             Debug.Assert(pMissileWallPair != null);
 
             CollisionPair pAlienWallPair = CollisionPairManager.Add(CollisionPair.Name.Alien_Wall, pAlienGrid, pWallGroup);
             Debug.Assert(pAlienWallPair != null);
 
-            //pShipWallPair.Attach(new );
+            
+            pShipWallLeftPair.Attach(new ShipStopLeftObserver());
+            pShipWallRightPair.Attach(new ShipStopRightObserver());
 
-            pMissileWallPair.Attach(new ShipReadyObserver());
+            pMissileWallPair.Attach(new ShipReadyObserver());//This is called when Missile is done flying
             pMissileWallPair.Attach(new ShipRemoveMissileObserver());
+
+            pAlienMissilePair.Attach(new ShipReadyObserver());
+            pAlienMissilePair.Attach(new ShipRemoveMissileObserver());
+            pAlienMissilePair.Attach(new RemoveAlienObserver());
 
             pAlienWallPair.Attach(new GridObserver());
 

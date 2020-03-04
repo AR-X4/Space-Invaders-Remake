@@ -117,8 +117,11 @@
     <Compile Include="Manager\Manager.cs" />
     <Compile Include="Manager\SLink.cs" />
     <Compile Include="Observer\GridObserver.cs" />
+    <Compile Include="Observer\RemoveAlienObserver.cs" />
     <Compile Include="Observer\ShipReadyObserver.cs" />
     <Compile Include="Observer\ShipRemoveMissileObserver.cs" />
+    <Compile Include="Observer\ShipStopLeftObserver.cs" />
+    <Compile Include="Observer\ShipStopRightObserver.cs" />
     <Compile Include="Observer\SoundObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ship\Ship.cs" />
@@ -128,6 +131,10 @@
     <Compile Include="Ship\ShipReadyState.cs" />
     <Compile Include="Ship\ShipRoot.cs" />
     <Compile Include="Ship\ShipState.cs" />
+    <Compile Include="Ship\ShipStopLeftMissileFlyingState.cs" />
+    <Compile Include="Ship\ShipStopLeftState.cs" />
+    <Compile Include="Ship\ShipStopRightMissileFlyingState.cs" />
+    <Compile Include="Ship\ShipStopRightState.cs" />
     <Compile Include="SpriteBatch\SpriteBatch.cs" />
     <Compile Include="SpriteBatch\SpriteBatchManager.cs" />
     <Compile Include="SpriteBatch\SpriteNode.cs" />

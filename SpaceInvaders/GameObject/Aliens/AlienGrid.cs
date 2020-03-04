@@ -26,7 +26,7 @@ namespace SpaceInvaders
         public override void VisitMissileGroup(MissileGroup m)
         {
             // BirdGroup vs MissileGroup
-            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+            //Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
 
             // MissileGroup vs Columns
             GameObject pGameObj = (GameObject)Iterator.GetChild(this);
@@ -62,5 +62,7 @@ namespace SpaceInvaders
         {
             this.delta = inDelta;
         }
+
+        
     }
 }

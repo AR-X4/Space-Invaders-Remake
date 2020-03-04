@@ -22,7 +22,7 @@ namespace SpaceInvaders
         public override void VisitMissileGroup(MissileGroup m)
         {
             // BirdColumn vs MissileGroup
-            Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+            //Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
 
             // MissileGroup vs Columns
             GameObject pGameObj = (GameObject)Iterator.GetChild(this);
@@ -35,5 +35,23 @@ namespace SpaceInvaders
 
             base.Update();
         }
+
+        //public override void Remove()
+        //{
+        //    // Keenan(delete.E)
+        //    // Since the Root object is being drawn
+        //    // 1st set its size to zero
+        //    this.poColObj.poColRect.Set(0, 0, 0, 0);
+        //    base.Update();
+
+        //    //// Update the parent (missile root)
+        //    GameObject pParent = (GameObject)this.pParent;
+        //    pParent.Update();
+        //    //remove missile from composite... missile only has one parent..need to find root for others? 
+        //    pParent.Remove(this);
+
+        //    // Now remove it
+        //    base.Remove();
+        //}
     }
 }
