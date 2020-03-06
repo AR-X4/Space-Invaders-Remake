@@ -26,6 +26,9 @@ namespace SpaceInvaders
             Missile,
             MissileGroup,
 
+            Bomb,
+            BombRoot,
+
             Null_Object,
             Uninitialized
         }
@@ -58,7 +61,7 @@ namespace SpaceInvaders
             this.y = 0.0f;
             this.bMarkForDeath = false;
             this.pProxySprite = new ProxySprite(spriteName);
-            //this.pBackGameObjectNode = null;
+            
 
             this.poColObj = new CollisionObject(this.pProxySprite);
             Debug.Assert(this.poColObj != null);

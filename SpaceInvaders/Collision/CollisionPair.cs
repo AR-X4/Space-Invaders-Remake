@@ -10,9 +10,12 @@ namespace SpaceInvaders
             Alien_Missile,
             Alien_Wall,
             Missile_Wall_Top,
+            Missile_Shield,
             Ship_Wall_Right,
             Ship_Wall_Left,
-            Bomb_Wall,
+            Bomb_Wall_Bottom,
+            Bomb_Ship,
+            Bomb_Shield,
 
             NullObject,
             Not_Initialized

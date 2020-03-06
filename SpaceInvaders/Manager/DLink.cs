@@ -110,6 +110,9 @@ namespace SpaceInvaders
             else
             {
                 pHead = pNode.pNext;
+                
+            }
+            if (pHead != null) {
                 pHead.pPrev = null;
             }
 

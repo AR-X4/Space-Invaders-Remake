@@ -13,6 +13,8 @@ namespace SpaceInvaders
             OrangeSaucer,
             Ship,
             Missile,
+            BombDagger,
+            BombZigZag,
             NullObject,
 
             Uninitialized

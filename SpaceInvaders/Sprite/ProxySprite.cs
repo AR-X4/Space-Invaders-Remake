@@ -25,6 +25,8 @@ namespace SpaceInvaders
         public ProxySprite.Name name;
         public float x;
         public float y;
+        public float sx;
+        public float sy;
         public GameSprite pSprite;
 
         //---------------------------------------------------------------------------------------------------------
@@ -39,6 +41,8 @@ namespace SpaceInvaders
 
             this.x = 0.0f;
             this.y = 0.0f;
+            this.sx = 1.0f;
+            this.sy = 1.0f;
 
             this.pSprite = null;
         }
@@ -58,6 +62,8 @@ namespace SpaceInvaders
 
             this.x = 0.0f;
             this.y = 0.0f;
+            this.sx = 1.0f;
+            this.sy = 1.0f;
 
             this.pSprite = GameSpriteManager.Find(name);
             Debug.Assert(this.pSprite != null);
@@ -69,6 +75,8 @@ namespace SpaceInvaders
 
             this.x = 0.0f;
             this.y = 0.0f;
+            this.sx = 1.0f;
+            this.sy = 1.0f;
 
             this.pSprite = GameSpriteManager.Find(name);
             Debug.Assert(this.pSprite != null);
@@ -86,6 +94,8 @@ namespace SpaceInvaders
         {
             this.x = 0.0f;
             this.y = 0.0f;
+            this.sx = 1.0f;
+            this.sy = 1.0f;
             this.name = Name.Uninitialized;
             this.pSprite = null;
         }
@@ -103,6 +113,8 @@ namespace SpaceInvaders
 
             this.pSprite.x = this.x;
             this.pSprite.y = this.y;
+            this.pSprite.sx = this.sx;
+            this.pSprite.sy = this.sy;
         }
 
         public override void Render()

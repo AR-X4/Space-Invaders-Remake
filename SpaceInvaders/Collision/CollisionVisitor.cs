@@ -85,6 +85,11 @@ namespace SpaceInvaders
             Debug.WriteLine("Visit by WallTop not implemented");
             Debug.Assert(false);
         }
+        public virtual void VisitWallBottom(WallBottom w)
+        {
+            Debug.WriteLine("Visit by WallBottom not implemented");
+            Debug.Assert(false);
+        }
         public virtual void VisitShip(Ship s)
         {
             Debug.WriteLine("Visit by Ship not implemented");
@@ -95,7 +100,17 @@ namespace SpaceInvaders
             Debug.WriteLine("Visit by ShipRoot not implemented");
             Debug.Assert(false);
         }
-
+        public virtual void VisitBomb(Bomb b)
+        {
+            // no differed to subcass
+            Debug.WriteLine("Visit by Bomb not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitBombRoot(BombRoot b)
+        {
+            Debug.WriteLine("Visit by BombRoot not implemented");
+            Debug.Assert(false);
+        }
         public virtual void VisitNullGameObject(NullGameObject n)
         {
             // no differed to subcass

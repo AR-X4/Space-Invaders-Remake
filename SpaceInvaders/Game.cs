@@ -42,7 +42,7 @@ namespace SpaceInvaders
             CollisionPairManager.Create(1, 1);
             SoundManager.Create(3, 1);
 
-            
+           
 
             //---------------------------------------------------------------------------------------------------------
             // Load the Textures
@@ -76,6 +76,9 @@ namespace SpaceInvaders
             ImageManager.Add(Image.Name.Missile, Texture.Name.SpaceInvaders, 3, 29, 1, 4);
             ImageManager.Add(Image.Name.Ship, Texture.Name.SpaceInvaders, 3, 14, 13, 8);
 
+            ImageManager.Add(Image.Name.BombDagger, Texture.Name.SpaceInvaders, 42, 27, 3, 6);
+            ImageManager.Add(Image.Name.BombZigZag, Texture.Name.SpaceInvaders, 18, 26, 3, 7);
+
 
             //---------------------------------------------------------------------------------------------------------
             // Create SpriteBatch
@@ -101,7 +104,9 @@ namespace SpaceInvaders
             GameSpriteManager.Add(GameSprite.Name.Missile, Image.Name.Missile, 50, 50, 5, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
             //----Player Ship----
             GameSpriteManager.Add(GameSprite.Name.Ship, Image.Name.Ship, 500, 100, 80, 28, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
-            
+            //----Bombs----
+            GameSpriteManager.Add(GameSprite.Name.BombDagger, Image.Name.BombDagger, 50, 50, 10, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.BombZigZag, Image.Name.BombZigZag, 50, 50, 10, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
 
             //---------------------------------------------------------------------------------------------------------
             // Input
@@ -148,7 +153,7 @@ namespace SpaceInvaders
 
             // Wall Root
             WallGroup pWallGroup = new WallGroup(GameObject.Name.WallGroup, GameSprite.Name.NullObject, 0.0f, 0.0f);
-            //pWallGroup.ActivateGameSprite(pAliensBatch);//even need this?
+            pWallGroup.ActivateGameSprite(pAliensBatch);//even need this?
             pWallGroup.ActivateCollisionSprite(pBoxBatch);
 
             WallRight pWallRight = new WallRight(GameObject.Name.WallRight, GameSprite.Name.NullObject, 700, 300, 50, 500);
@@ -160,12 +165,32 @@ namespace SpaceInvaders
             WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 375, 570, 700, 30);
             pWallTop.ActivateCollisionSprite(pBoxBatch);
 
+            WallBottom pWallBottom = new WallBottom(GameObject.Name.WallBottom, GameSprite.Name.NullObject, 375, 30, 700, 30);
+            pWallBottom.ActivateCollisionSprite(pBoxBatch);
+
             // Add to the composite the children
             pWallGroup.Add(pWallRight);
             pWallGroup.Add(pWallLeft);
             pWallGroup.Add(pWallTop);
+            pWallGroup.Add(pWallBottom);
 
             GameObjectManager.Attach(pWallGroup);
+
+            //---------------------------------------------------------------------------------------------------------
+            // Create Bomb Root
+            //---------------------------------------------------------------------------------------------------------
+
+            BombRoot pBombRoot = new BombRoot(GameObject.Name.BombRoot, GameSprite.Name.NullObject, 0.0f, 0.0f);
+            pBombRoot.ActivateGameSprite(pAliensBatch);//change? even need this?
+            pBombRoot.ActivateCollisionSprite(pBoxBatch);
+
+            GameObjectManager.Attach(pBombRoot);
+
+            BombManager.Create();
+
+            Random pRandom = new Random();
+            DropBombEvent pBombEvent = new DropBombEvent(pRandom);
+            TimerManager.Add(TimeEvent.Name.DropBomb, pBombEvent, 5, 3.0f);
 
             
 
@@ -235,8 +260,6 @@ namespace SpaceInvaders
             CollisionPair pShipWallLeftPair = CollisionPairManager.Add(CollisionPair.Name.Ship_Wall_Left, pShipRoot, pWallLeft);
             Debug.Assert(pShipWallLeftPair != null);
 
-            
-
             CollisionPair pAlienMissilePair  = CollisionPairManager.Add(CollisionPair.Name.Alien_Missile, pMissileGroup, pAlienGrid);
             Debug.Assert(pAlienMissilePair != null);
 
@@ -246,7 +269,10 @@ namespace SpaceInvaders
             CollisionPair pAlienWallPair = CollisionPairManager.Add(CollisionPair.Name.Alien_Wall, pAlienGrid, pWallGroup);
             Debug.Assert(pAlienWallPair != null);
 
-            
+            CollisionPair pBombWallPair = CollisionPairManager.Add(CollisionPair.Name.Bomb_Wall_Bottom, pBombRoot, pWallBottom);
+            Debug.Assert(pBombWallPair != null);
+
+
             pShipWallLeftPair.Attach(new ShipStopLeftObserver());
             pShipWallRightPair.Attach(new ShipStopRightObserver());
 
@@ -258,6 +284,8 @@ namespace SpaceInvaders
             pAlienMissilePair.Attach(new RemoveAlienObserver());
 
             pAlienWallPair.Attach(new GridObserver());
+
+            pBombWallPair.Attach(new BombObserver());
 
             //---------------------------------------------------------------------------------------------------------
             // Dumps

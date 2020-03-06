@@ -12,6 +12,7 @@ namespace SpaceInvaders
         {
             MoveAlienGrid,
             SpriteAnimation,
+            DropBomb,
             Uninitialized
         }
 

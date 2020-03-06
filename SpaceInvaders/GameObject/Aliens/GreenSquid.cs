@@ -51,12 +51,15 @@ namespace SpaceInvaders
 
             //// Update the parent (missile root)
             GameObject pParent = (GameObject)this.pParent;
-            pParent.Update();
+            
             //remove missile from composite... missile only has one parent..need to find root for others? 
             pParent.Remove(this);
+            pParent.Update();
 
             // Now remove it
             base.Remove();
+
+            pParent.Remove();
         }
 
     }

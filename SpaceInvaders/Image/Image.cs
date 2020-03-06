@@ -16,6 +16,8 @@ namespace SpaceInvaders
             Saucer,
             Ship,
             Missile,
+            BombDagger,
+            BombZigZag,
             NullObject,
             Uninitialized
         }

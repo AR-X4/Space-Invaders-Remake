@@ -10,11 +10,7 @@ namespace SpaceInvaders
         {
             this.holder = Container.LEAF;
         }
-       // public Leaf(GameObject.Name gameName)
-       //: base(gameName)
-       // {
-       //     this.holder = Container.LEAF;
-       // }
+
         override public void Add(Component c)
         {
             Debug.Assert(false);
