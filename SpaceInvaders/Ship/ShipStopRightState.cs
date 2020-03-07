@@ -20,7 +20,11 @@ namespace SpaceInvaders
             pShip.x -= pShip.shipSpeed;
             this.Handle(pShip);
         }
-
+        public override void PlayShootSound()
+        {
+            Sound pSound = SoundManager.Find(Sound.Name.Shoot);
+            pSound.PlaySound();
+        }
         public override void ShootMissile(Ship pShip)
         {
             Missile pMissile = ShipManager.ActivateMissile();

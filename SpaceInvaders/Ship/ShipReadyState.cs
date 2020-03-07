@@ -19,6 +19,11 @@ namespace SpaceInvaders
         {
             pShip.x -= pShip.shipSpeed;
         }
+        public override void PlayShootSound()
+        {
+            Sound pSound = SoundManager.Find(Sound.Name.Shoot);
+            pSound.PlaySound();
+        }
 
         public override void ShootMissile(Ship pShip)
         {

@@ -23,6 +23,12 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitShieldBrick(this);
         }
+        public override void VisitMissileGroup(MissileGroup m)
+        {
+            // MissileRoot vs ShieldRoot
+            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+            CollisionPair.Collide(pGameObj, this);
+        }
         public override void VisitMissile(Missile m)
         {
             // Missile vs ShieldBrick
@@ -30,6 +36,11 @@ namespace SpaceInvaders
             CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
             pColPair.SetCollision(m, this);
             pColPair.NotifyListeners();
+        }
+        public override void VisitBombRoot(BombRoot b)
+        {
+            // BombRoot vs ShieldRoot
+            CollisionPair.Collide((GameObject)Iterator.GetChild(b), this);
         }
         public override void VisitBomb(Bomb b)
         {
@@ -42,6 +53,22 @@ namespace SpaceInvaders
         public override void Update()
         {
             base.Update();
+        }
+        public override void Remove()
+        {
+            // Since the Root object is being drawn
+            // 1st set its size to zero
+            this.poColObj.poColRect.Set(0, 0, 0, 0);
+            base.Update();
+
+            // Update the parent (bomb root)
+            GameObject pParent = (GameObject)this.pParent;
+
+            pParent.Remove(this);
+            pParent.Update();
+
+            // Now remove from sprite batches
+            base.Remove();
         }
     }
 }

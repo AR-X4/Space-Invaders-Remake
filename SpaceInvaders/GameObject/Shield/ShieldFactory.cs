@@ -11,16 +11,15 @@ namespace SpaceInvaders
         private readonly SpriteBatch pCollisionSpriteBatch;
         private Composite pTree;
 
-        public ShieldFactory(SpriteBatch.Name spriteBatchName, SpriteBatch.Name collisionSpriteBatch)
+        public ShieldFactory(SpriteBatch.Name spriteBatchName, SpriteBatch.Name collisionSpriteBatch, Composite pRoot)
         {
             this.pSpriteBatch = SpriteBatchManager.Find(spriteBatchName);
             Debug.Assert(this.pSpriteBatch != null);
 
             this.pCollisionSpriteBatch = SpriteBatchManager.Find(collisionSpriteBatch);
             Debug.Assert(this.pCollisionSpriteBatch != null);
-
             
-            this.pTree = null;
+            this.pTree = pRoot;
         }
         public void SetParent(GameObject pParentNode)
         {
@@ -85,11 +84,10 @@ namespace SpaceInvaders
             }
 
             // add to the tree
-            if (gameName != GameObject.Name.ShieldGrid)
-            {
-                Debug.Assert(this.pTree != null);
-                this.pTree.Add(pShield);
-            }
+         
+            Debug.Assert(this.pTree != null);
+            this.pTree.Add(pShield);
+            
             // Attached to Group
             pShield.ActivateGameSprite(this.pSpriteBatch);
             pShield.ActivateCollisionSprite(this.pCollisionSpriteBatch);

@@ -38,6 +38,7 @@ namespace SpaceInvaders
             ShieldBrick_RightBottom,
             ShieldColumn,
             ShieldGrid,
+            ShieldRoot,
 
 
             Null_Object,

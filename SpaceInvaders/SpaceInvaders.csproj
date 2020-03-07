@@ -72,6 +72,10 @@
     <Compile Include="Collision\CollisionRect.cs" />
     <Compile Include="Collision\CollisionSubject.cs" />
     <Compile Include="Collision\CollisionVisitor.cs" />
+    <Compile Include="Collision\State\CollisionInvisibleState.cs" />
+    <Compile Include="Collision\State\CollisionState.cs" />
+    <Compile Include="Collision\State\CollisionStateManager.cs" />
+    <Compile Include="Collision\State\CollisionVisibleState.cs" />
     <Compile Include="Composite\Component.cs" />
     <Compile Include="Composite\Composite.cs" />
     <Compile Include="Composite\ForwardIterator.cs" />
@@ -84,6 +88,8 @@
     <Compile Include="Font\GlyphManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject\AlienFactory.cs" />
+    <Compile Include="GameObject\Aliens\Observer\AlienObserver.cs" />
+    <Compile Include="GameObject\Aliens\Observer\AlienSubject.cs" />
     <Compile Include="GameObject\Bomb\State\BombFallingState.cs" />
     <Compile Include="GameObject\Aliens\AlienColumn.cs" />
     <Compile Include="GameObject\Bomb\State\BombState.cs" />
@@ -93,7 +99,16 @@
     <Compile Include="GameObject\Shield\ShieldColumn.cs" />
     <Compile Include="GameObject\Shield\ShieldFactory.cs" />
     <Compile Include="GameObject\Shield\ShieldGrid.cs" />
+    <Compile Include="GameObject\Shield\ShieldRoot.cs" />
+    <Compile Include="Input\ToggleCollisionBoxObserver.cs" />
+    <Compile Include="Observer\DeadAlienSoundObserver.cs" />
+    <Compile Include="Observer\DeadShipSoundObserver.cs" />
+    <Compile Include="Observer\MoveAlienGridObserver.cs" />
+    <Compile Include="Observer\MoveAlienSoundObserver.cs" />
     <Compile Include="Observer\RemoveBombObserver.cs" />
+    <Compile Include="Observer\RemoveBrickObserver.cs" />
+    <Compile Include="Observer\ShootSoundObserver.cs" />
+    <Compile Include="Observer\UFOSoundObserver.cs" />
     <Compile Include="Timer\Events\AlienGridMoveEvent.cs" />
     <Compile Include="GameObject\Aliens\BlueCrab.cs" />
     <Compile Include="GameObject\Aliens\GreenSquid.cs" />
@@ -139,7 +154,6 @@
     <Compile Include="Observer\ShipRemoveMissileObserver.cs" />
     <Compile Include="Observer\ShipStopLeftObserver.cs" />
     <Compile Include="Observer\ShipStopRightObserver.cs" />
-    <Compile Include="Observer\SoundObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ship\Ship.cs" />
     <Compile Include="Ship\ShipDeadState.cs" />

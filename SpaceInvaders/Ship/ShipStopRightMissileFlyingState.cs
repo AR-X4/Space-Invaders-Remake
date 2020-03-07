@@ -21,7 +21,10 @@ namespace SpaceInvaders
             //this.Handle(pShip);
             pShip.SetState(ShipManager.State.MissileFlying);
         }
-
+        public override void PlayShootSound()
+        {
+           
+        }
         public override void ShootMissile(Ship pShip)
         {
            

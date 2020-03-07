@@ -42,6 +42,7 @@ namespace SpaceInvaders
             CollisionPairManager.Create(1, 1);
             SoundManager.Create(3, 1);
 
+            CollisionStateManager.Create();
            
 
             //---------------------------------------------------------------------------------------------------------
@@ -58,6 +59,11 @@ namespace SpaceInvaders
             SoundManager.Add(Sound.Name.Invader2, "fastinvader2.wav");
             SoundManager.Add(Sound.Name.Invader3, "fastinvader3.wav");
             SoundManager.Add(Sound.Name.Invader4, "fastinvader4.wav");
+
+            SoundManager.Add(Sound.Name.Shoot, "invaderkilled.wav");
+            SoundManager.Add(Sound.Name.DeadAlien, "shoot.wav");
+            SoundManager.Add(Sound.Name.UFO, "ufo_lowpitch.wav");
+            SoundManager.Add(Sound.Name.Explosion, "explosion.wav");
 
             //---------------------------------------------------------------------------------------------------------
             // Create Images
@@ -140,6 +146,10 @@ namespace SpaceInvaders
 
             pInputSubject = InputManager.GetSpaceSubject();
             pInputSubject.Attach(new ShootObserver());
+            pInputSubject.Attach(new ShootSoundObserver());
+
+            pInputSubject = InputManager.GetCKeySubject();
+            pInputSubject.Attach(new ToggleCollisionBoxObserver());
 
             //---------------------------------------------------------------------------------------------------------
             // Timer Animations
@@ -239,7 +249,7 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
 
             AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens, SpriteBatch.Name.Boxes);
-            GameObject pAlienGrid = AF.Create(GameObject.Name.AlienGrid);
+            AlienGrid pAlienGrid = (AlienGrid)AF.Create(GameObject.Name.AlienGrid);
            
 
             for (int i = 0; i < 10; i++)
@@ -265,6 +275,9 @@ namespace SpaceInvaders
             }
             GameObjectManager.Attach(pAlienGrid);
 
+            pAlienGrid.Attach(new MoveAlienSoundObserver());
+            pAlienGrid.Attach(new MoveAlienGridObserver());
+
             AlienGridMoveEvent pGridMoveEvent = new AlienGridMoveEvent();
             TimerManager.Add(TimeEvent.Name.MoveAlienGrid,  pGridMoveEvent, 1.0f);
 
@@ -273,7 +286,9 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
 
             // Create the factory 
-            ShieldFactory SF = new ShieldFactory(SpriteBatch.Name.Shields, SpriteBatch.Name.Boxes);
+            Composite pShieldRoot = (Composite)new ShieldRoot(GameObject.Name.ShieldRoot, GameSprite.Name.NullObject, 0.0f, 0.0f);
+            GameObjectManager.Attach(pShieldRoot);
+            ShieldFactory SF = new ShieldFactory(SpriteBatch.Name.Shields, SpriteBatch.Name.Boxes, pShieldRoot);
             
             float start_x = 110.0f;
             float start_y = 130.0f;
@@ -287,6 +302,7 @@ namespace SpaceInvaders
             for (int i = 0; i < 4; i++)
             {
                 off_x = 0;
+                SF.SetParent(pShieldRoot);
                 pShieldGrid = SF.Create(GameObject.Name.ShieldGrid);
 
                 //------Col1
@@ -401,8 +417,6 @@ namespace SpaceInvaders
                 SF.Create(GameObject.Name.ShieldBrick_RightTop0, start_x + off_x, start_y + 9 * brickHeight);
 
                 start_x += 150;
-
-                GameObjectManager.Attach(pShieldGrid);
             }
             //---------------------------------------------------------------------------------------------------------
             // Create CollisionPairs 
@@ -427,7 +441,13 @@ namespace SpaceInvaders
             CollisionPair pBombWallPair = CollisionPairManager.Add(CollisionPair.Name.Bomb_Wall_Bottom, pBombRoot, pWallBottom);
             Debug.Assert(pBombWallPair != null);
 
+            CollisionPair pBombShieldPair = CollisionPairManager.Add(CollisionPair.Name.Bomb_Shield, pBombRoot, pShieldRoot);
+            Debug.Assert(pBombShieldPair != null);
 
+            CollisionPair pMissileShieldPair = CollisionPairManager.Add(CollisionPair.Name.Missile_Shield, pMissileGroup, pShieldRoot);
+            Debug.Assert(pMissileShieldPair != null);
+
+            //TODO consolidate these news
             pShipWallLeftPair.Attach(new ShipStopLeftObserver());
             pShipWallRightPair.Attach(new ShipStopRightObserver());
 
@@ -437,10 +457,18 @@ namespace SpaceInvaders
             pAlienMissilePair.Attach(new ShipReadyObserver());
             pAlienMissilePair.Attach(new ShipRemoveMissileObserver());
             pAlienMissilePair.Attach(new RemoveAlienObserver());
+            pAlienMissilePair.Attach(new DeadAlienSoundObserver());
 
             pAlienWallPair.Attach(new GridObserver());
 
             pBombWallPair.Attach(new RemoveBombObserver());
+
+            pBombShieldPair.Attach(new RemoveBombObserver());
+            pBombShieldPair.Attach(new RemoveBrickObserver());
+
+            pMissileShieldPair.Attach(new ShipRemoveMissileObserver());
+            pMissileShieldPair.Attach(new RemoveBrickObserver());
+            pMissileShieldPair.Attach(new ShipReadyObserver());
 
             //---------------------------------------------------------------------------------------------------------
             // Dumps
@@ -462,20 +490,17 @@ namespace SpaceInvaders
 
         public override void Update()
         {
-            // Add your update below this line: ----------------------------
             TimerManager.Update(this.GetTime());
 
-            
             InputManager.Update();
             SoundManager.Update();
-            GameObjectManager.Update();//<---
+            GameObjectManager.Update();
 
             //Collision Checks
             CollisionPairManager.Process();
 
             // Delete any objects here...
             DelayedObjectManager.Process();
-
         }
 
         //-----------------------------------------------------------------------------

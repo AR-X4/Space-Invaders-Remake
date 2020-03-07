@@ -77,11 +77,14 @@ namespace SpaceInvaders
 
             while (pSpriteBatch != null)
             {
-                SpriteNodeManager pSBNodeMan = pSpriteBatch.GetSpriteNodeManager();
-                Debug.Assert(pSBNodeMan != null);
+                if (pSpriteBatch.GetDrawBool())
+                {
+                    SpriteNodeManager pSBNodeMan = pSpriteBatch.GetSpriteNodeManager();
+                    Debug.Assert(pSBNodeMan != null);
 
-                // Kick the can
-                pSBNodeMan.Draw();
+                    // Kick the can
+                    pSBNodeMan.Draw();
+                }
 
                 pSpriteBatch = (SpriteBatch)pSpriteBatch.pNext;
             }

@@ -47,6 +47,10 @@ namespace SpaceInvaders
         {
             this.state.ShootMissile(this);
         }
+        public void PlayShootSound()
+        {
+            this.state.PlayShootSound();
+        }
 
         public void SetState(ShipManager.State inState)
         {

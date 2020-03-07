@@ -17,6 +17,10 @@ namespace SpaceInvaders
         {
             pShip.x -= pShip.shipSpeed;
         }
+        public override void PlayShootSound()
+        {
+
+        }
         public override void ShootMissile(Ship pShip)
         {
 

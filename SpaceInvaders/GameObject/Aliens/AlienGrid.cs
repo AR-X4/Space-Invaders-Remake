@@ -8,6 +8,7 @@ namespace SpaceInvaders
     {
         // Data: ---------------
         private float delta;
+        private AlienSubject poSubject;
 
         public AlienGrid(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
         : base(name, spriteName)
@@ -16,6 +17,9 @@ namespace SpaceInvaders
             this.y = posY;
 
             this.poColObj.pColSprite.SetLineColor(1, 0, 0);
+
+            this.poSubject = new AlienSubject();
+            Debug.Assert(this.poSubject != null);
         }
         public override void Accept(CollisionVisitor other)
         {
@@ -63,6 +67,14 @@ namespace SpaceInvaders
             this.delta = inDelta;
         }
 
-        
+        public void Attach(AlienObserver observer)
+        {
+            this.poSubject.Attach(observer);
+        }
+        public void NotifyListeners()
+        {
+            this.poSubject.Notify();
+        }
+
     }
 }

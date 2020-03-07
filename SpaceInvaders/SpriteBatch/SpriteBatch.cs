@@ -17,6 +17,7 @@ namespace SpaceInvaders
         // Data -------------------------------
         public SpriteBatch.Name name;
         private readonly SpriteNodeManager pSpriteNodeManager;
+        private bool bDraw;
 
         public SpriteBatch()
             : base()
@@ -24,6 +25,8 @@ namespace SpaceInvaders
             this.name = SpriteBatch.Name.Uninitialized;
             this.pSpriteNodeManager = new SpriteNodeManager();
             Debug.Assert(this.pSpriteNodeManager != null);
+
+            this.bDraw = true;
         }
 
         public void Set(SpriteBatch.Name name, int reserveNum = 3, int reserveGrow = 1)
@@ -32,24 +35,12 @@ namespace SpaceInvaders
             this.pSpriteNodeManager.Set(name, reserveNum, reserveGrow);
         }
 
-        //public SpriteNode Attach(GameSprite.Name name)
-        //{
-        //    SpriteNode pNode = this.pSpriteNodeManager.Attach(name);
-        //    return pNode;
-        //}
-
-        //public SpriteNode Attach(BoxSprite.Name name)
-        //{
-        //    SpriteNode pNode = this.pSpriteNodeManager.Attach(name);
-        //    return pNode;
-        //}
-
-        //public SpriteNode Attach(ProxySprite pNode)
-        //{
-        //    Debug.Assert(this.pSpriteNodeManager != null);
-        //    SpriteNode pSBNode = this.pSpriteNodeManager.Attach(pNode);
-        //    return pSBNode;
-        //}
+        public void SetDrawBool(bool bDraw) {
+            this.bDraw = bDraw;
+        }
+        public bool GetDrawBool() {
+            return this.bDraw;
+        }
 
         public void Attach(SpriteBase pNode)
         {

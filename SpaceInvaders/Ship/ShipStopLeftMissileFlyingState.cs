@@ -23,6 +23,10 @@ namespace SpaceInvaders
         {
 
         }
+        public override void PlayShootSound()
+        {
+            
+        }
 
         public override void ShootMissile(Ship pShip)
         {

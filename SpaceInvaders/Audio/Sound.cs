@@ -11,6 +11,13 @@ namespace SpaceInvaders
             Invader2,
             Invader3,
             Invader4,
+
+            Explosion,
+            Shoot,
+            DeadAlien,
+
+            UFO,
+
             Uninitialized
         }
 
@@ -32,7 +39,6 @@ namespace SpaceInvaders
             if (System.IO.File.Exists(pSoundName))
             {
                 this.pSource = pSoundEngine.AddSoundSourceFromFile(pSoundName);
-                pSoundEngine.Play2D(pSource, false, false, false);
             }
         }
         public void Wash()

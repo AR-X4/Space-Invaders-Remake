@@ -20,15 +20,26 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitShieldColumn(this);
         }
+        public override void VisitMissileGroup(MissileGroup m)
+        {
+            // MissileRoot vs ShieldRoot
+            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+            CollisionPair.Collide(pGameObj, this);
+        }
         public override void VisitMissile(Missile m)
         {
             // Missile vs ShieldColumn
             GameObject pGameObj = (GameObject)Iterator.GetChild(this);
             CollisionPair.Collide(m, pGameObj);
         }
+        public override void VisitBombRoot(BombRoot b)
+        {
+            // BombRoot vs ShieldRoot
+            CollisionPair.Collide((GameObject)Iterator.GetChild(b), this);
+        }
         public override void VisitBomb(Bomb b)
         {
-            // Bomb vs ShieldColumn
+            // Missile vs ShieldRoot
             CollisionPair.Collide(b, (GameObject)Iterator.GetChild(this));
         }
         public override void Update()

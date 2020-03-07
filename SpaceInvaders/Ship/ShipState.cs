@@ -11,6 +11,7 @@ namespace SpaceInvaders
         // strategy()
         public abstract void MoveRight(Ship pShip);
         public abstract void MoveLeft(Ship pShip);
+        public abstract void PlayShootSound();
         public abstract void ShootMissile(Ship pShip);
 
     }
