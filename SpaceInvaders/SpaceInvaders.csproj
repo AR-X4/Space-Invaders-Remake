@@ -89,6 +89,11 @@
     <Compile Include="GameObject\Bomb\State\BombState.cs" />
     <Compile Include="GameObject\Aliens\AlienGrid.cs" />
     <Compile Include="GameObject\Bomb\State\BombReadyState.cs" />
+    <Compile Include="GameObject\Shield\ShieldBrick.cs" />
+    <Compile Include="GameObject\Shield\ShieldColumn.cs" />
+    <Compile Include="GameObject\Shield\ShieldFactory.cs" />
+    <Compile Include="GameObject\Shield\ShieldGrid.cs" />
+    <Compile Include="Observer\RemoveBombObserver.cs" />
     <Compile Include="Timer\Events\AlienGridMoveEvent.cs" />
     <Compile Include="GameObject\Aliens\BlueCrab.cs" />
     <Compile Include="GameObject\Aliens\GreenSquid.cs" />
@@ -128,7 +133,6 @@
     <Compile Include="Manager\DLink.cs" />
     <Compile Include="Manager\Manager.cs" />
     <Compile Include="Manager\SLink.cs" />
-    <Compile Include="Observer\BombObserver.cs" />
     <Compile Include="Observer\GridObserver.cs" />
     <Compile Include="Observer\RemoveAlienObserver.cs" />
     <Compile Include="Observer\ShipReadyObserver.cs" />
@@ -169,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Diagrams\TimerEvents.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

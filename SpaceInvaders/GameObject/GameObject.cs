@@ -29,6 +29,17 @@ namespace SpaceInvaders
             Bomb,
             BombRoot,
 
+            ShieldBrick,
+            ShieldBrick_LeftTop0,
+            ShieldBrick_LeftTop1,
+            ShieldBrick_LeftBottom,
+            ShieldBrick_RightTop0,
+            ShieldBrick_RightTop1,
+            ShieldBrick_RightBottom,
+            ShieldColumn,
+            ShieldGrid,
+
+
             Null_Object,
             Uninitialized
         }
@@ -40,7 +51,7 @@ namespace SpaceInvaders
         public bool bMarkForDeath;
         public ProxySprite pProxySprite;
         public CollisionObject poColObj;
-        //private GameObjectNode pBackGameObjectNode;
+        
 
         protected GameObject()
         {
@@ -176,6 +187,14 @@ namespace SpaceInvaders
             }
             Debug.WriteLine("\t\t\t      (x,y): {0}, {1}", this.x, this.y);
 
+        }
+
+        public void SetCollisionColor(float red, float green, float blue)
+        {
+            Debug.Assert(this.poColObj != null);
+            Debug.Assert(this.poColObj.pColSprite != null);
+
+            this.poColObj.pColSprite.SetLineColor(red, green, blue);
         }
 
         public CollisionObject GetColObject()

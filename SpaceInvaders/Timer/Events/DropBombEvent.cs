@@ -36,7 +36,7 @@ namespace SpaceInvaders
             }
 
             // Add itself back to timer
-            TimerManager.Add(TimeEvent.Name.DropBomb, this, 0, NewTime);
+            TimerManager.Add(TimeEvent.Name.DropBomb, this, NewTime);
         }
     }
 }

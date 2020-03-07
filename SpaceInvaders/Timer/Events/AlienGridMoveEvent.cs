@@ -38,7 +38,7 @@ namespace SpaceInvaders
             test.PlaySound();
 
             // Add itself back to timer
-            TimerManager.Add(TimeEvent.Name.MoveAlienGrid, this, 0, deltaTime);
+            TimerManager.Add(TimeEvent.Name.MoveAlienGrid, this, deltaTime);
         }
     }
 }

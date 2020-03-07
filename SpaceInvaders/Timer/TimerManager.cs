@@ -56,13 +56,13 @@ namespace SpaceInvaders
                 pInstance = new TimerManager(reserveNum, reserveGrow);
             }
         }
-        public static TimeEvent Add(TimeEvent.Name timeName, Command pCommand, uint priority, float deltaTimeToTrigger)
+        public static TimeEvent Add(TimeEvent.Name timeName, Command pCommand, float deltaTimeToTrigger)
         {
             TimerManager pMan = TimerManager.GetInstance();
             Debug.Assert(pMan != null);
 
             //TimeEvent pNode = (TimeEvent)pMan.BaseAdd();
-            TimeEvent pNode = (TimeEvent)pMan.BaseSortedAdd(priority);
+            TimeEvent pNode = (TimeEvent)pMan.BaseSortedAdd(deltaTimeToTrigger);
             Debug.Assert(pNode != null);
 
             Debug.Assert(pCommand != null);

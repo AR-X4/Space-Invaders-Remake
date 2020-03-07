@@ -111,6 +111,21 @@ namespace SpaceInvaders
             Debug.WriteLine("Visit by BombRoot not implemented");
             Debug.Assert(false);
         }
+        public virtual void VisitShieldGrid(ShieldGrid s)
+        {
+            Debug.WriteLine("Visit by ShieldGrid not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitShieldColumn(ShieldColumn s)
+        {
+            Debug.WriteLine("Visit by ShieldColumn not implemented");
+            Debug.Assert(false);
+        }
+        public virtual void VisitShieldBrick(ShieldBrick s)
+        {
+            Debug.WriteLine("Visit by ShieldBrick not implemented");
+            Debug.Assert(false);
+        }
         public virtual void VisitNullGameObject(NullGameObject n)
         {
             // no differed to subcass

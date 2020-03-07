@@ -57,7 +57,7 @@ namespace SpaceInvaders
             Debug.Assert(pHead != null);
         }
 
-        private static void PriorityInsert(ref DLink pHead, DLink pNode, uint priority) {
+        private static void PriorityInsert(ref DLink pHead, DLink pNode, float priority) {
             Debug.Assert(pNode != null);
             DLink.PriorityInsert(ref pHead, pNode, priority);
             // worst case, pHead was null initially, now we added a node so... this is true
@@ -110,7 +110,7 @@ namespace SpaceInvaders
             return pLink;
         }
 
-        protected DLink BaseSortedAdd(uint priority) 
+        protected DLink BaseSortedAdd(float priority) 
         {
             // Check if reserve list is empty
             if (this.pReserveHead == null)

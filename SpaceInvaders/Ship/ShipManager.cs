@@ -177,7 +177,7 @@ namespace SpaceInvaders
             Debug.Assert(pShipMan != null);
 
             // copy over safe copy
-            Ship pShip = new Ship(GameObject.Name.Ship, GameSprite.Name.Ship, 200, 100);
+            Ship pShip = new Ship(GameObject.Name.Ship, GameSprite.Name.Ship, 200, 65);
             pShipMan.pShip = pShip;
 
             // Attach the sprite to the correct sprite batch???? change to ship batch?

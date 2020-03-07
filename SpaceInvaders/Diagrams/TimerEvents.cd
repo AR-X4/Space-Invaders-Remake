@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.TimerManager">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <Members>
+      <Method Name="Create" Hidden="true" />
+      <Method Name="DerivedCompareNode" Hidden="true" />
+      <Method Name="DerivedCreateNode" Hidden="true" />
+      <Method Name="DerivedDumpNode" Hidden="true" />
+      <Method Name="DerivedWashNode" Hidden="true" />
+      <Method Name="Dump" Hidden="true" />
+      <Method Name="GetInstance" Hidden="true" />
+      <Field Name="pInstance" Hidden="true" />
+      <Field Name="poNodeCompare" Hidden="true" />
+      <Method Name="TimerManager" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABYEAAAAAAAAAAAAABABpACABAAIAEAAAAACAAAAAQA=</HashCode>
+      <FileName>Timer\TimerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.TimeEvent">
+    <Position X="9" Y="2.75" Width="1.5" />
+    <Members>
+      <Method Name="Clear" Hidden="true" />
+      <Method Name="Dump" Hidden="true" />
+      <Method Name="GetName" Hidden="true" />
+      <Field Name="name" Hidden="true" />
+      <Method Name="Set" Hidden="true" />
+      <Method Name="SetName" Hidden="true" />
+      <Method Name="TimeEvent" Hidden="true" />
+      <Method Name="Wash" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="SpaceInvaders.TimeEvent.Name" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Timer\TimeEvent.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEABAAAAgAAgAAAAAAGQAAAAAAAQABABAA=</HashCode>
+      <FileName>Timer\TimeEvent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pCommand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SpaceInvaders.Command">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Timer\Command.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.AlienGridMoveEvent">
+    <Position X="10.5" Y="7" Width="2" />
+    <Members>
+      <Field Name="soundIndex" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Timer\Events\AlienGridMoveEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.DropBombEvent">
+    <Position X="13.25" Y="7" Width="1.5" />
+    <Members>
+      <Field Name="pRandom" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Timer\Events\DropBombEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Manager" Collapsed="true">
+    <Position X="5.5" Y="1.25" Width="1.5" />
+    <AssociationLine Name="pActiveHead" Type="SpaceInvaders.DLink">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.485" Y="-0.263" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="pReserveHead" Type="SpaceInvaders.DLink">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.527" Y="0.039" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>yAQIEAAAAAADAAFAABBBoAjAQIAAAAAAAAAAAgAQAAA=</HashCode>
+      <FileName>Manager\Manager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pActiveHead" />
+      <Field Name="pReserveHead" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SpaceInvaders.DLink" Collapsed="true">
+    <Position X="9" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAAAAAEEAAAAAABAAIAAAAAAAAAAAgBBAAA=</HashCode>
+      <FileName>Manager\DLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -58,7 +58,7 @@ namespace SpaceInvaders
             this.pSprite.SwapImage(pImageHolder.pImage);
 
             // Add itself back to timer
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, this, 0, deltaTime);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, this, deltaTime);
         }
     }
 }

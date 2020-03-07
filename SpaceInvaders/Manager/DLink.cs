@@ -6,7 +6,7 @@ namespace SpaceInvaders
     {
         public DLink pNext;
         public DLink pPrev;
-        public uint Priority;
+        public float Priority;
 
         protected DLink()
         {
@@ -43,7 +43,7 @@ namespace SpaceInvaders
             Debug.Assert(pHead != null);
         }
 
-        public static void PriorityInsert(ref DLink pHead, DLink pNode, uint priority) 
+        public static void PriorityInsert(ref DLink pHead, DLink pNode, float priority) 
         {
             Debug.Assert(pNode != null);
             pNode.Priority = priority;
@@ -58,7 +58,6 @@ namespace SpaceInvaders
             else {
                 DLink current = pHead;
                 while (current != null) {
-                    //Debug.Assert(current.Priority != pNode.Priority);
                     if (current.Priority <= pNode.Priority)
                     {
                         pNode.pPrev = current.pPrev;

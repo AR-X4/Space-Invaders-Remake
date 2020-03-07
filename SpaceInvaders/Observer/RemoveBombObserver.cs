@@ -3,17 +3,17 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    public class BombObserver : CollisionObserver
+    public class RemoveBombObserver : CollisionObserver
     {
         // data
         private Bomb pBomb;
 
-        public BombObserver()
+        public RemoveBombObserver()
         {
             this.pBomb = null;
         }
 
-        public BombObserver(BombObserver m)
+        public RemoveBombObserver(RemoveBombObserver m)
         {
             Debug.Assert(m.pBomb != null);
             this.pBomb = m.pBomb;
@@ -39,7 +39,7 @@ namespace SpaceInvaders
 
                 // Delay - remove object later
                 // TODO - reduce the new functions
-                BombObserver pObserver = new BombObserver(this);
+                RemoveBombObserver pObserver = new RemoveBombObserver(this);
                 DelayedObjectManager.Attach(pObserver);
             }
 
@@ -50,7 +50,7 @@ namespace SpaceInvaders
         {
             // Let the gameObject deal with this...
 
-            
+
             BombManager.Remove(this.pBomb);
         }
     }

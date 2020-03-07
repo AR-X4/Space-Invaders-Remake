@@ -9,6 +9,7 @@ namespace SpaceInvaders
         public enum Name
         {
             Aliens,
+            Shields,
             Boxes,
             Uninitialized
         }

@@ -18,6 +18,15 @@ namespace SpaceInvaders
             Missile,
             BombDagger,
             BombZigZag,
+
+            ShieldBrick,
+            ShieldBrick_LeftTop0,
+            ShieldBrick_LeftTop1,
+            ShieldBrick_LeftBottom,
+            ShieldBrick_RightTop0,
+            ShieldBrick_RightTop1,
+            ShieldBrick_RightBottom,
+
             NullObject,
             Uninitialized
         }

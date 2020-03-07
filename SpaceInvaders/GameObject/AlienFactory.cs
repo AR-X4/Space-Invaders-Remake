@@ -7,17 +7,21 @@ namespace SpaceInvaders
     class AlienFactory
     {
         // Data: ---------------------
-        SpriteBatch pSpriteBatch;
+        private SpriteBatch pSpriteBatch;
+        private readonly SpriteBatch pCollisionSpriteBatch;
 
-        public AlienFactory(SpriteBatch.Name spriteBatchName)
+        public AlienFactory(SpriteBatch.Name spriteBatchName, SpriteBatch.Name collisionSpriteBatch)
         {
             this.pSpriteBatch = SpriteBatchManager.Find(spriteBatchName);
             Debug.Assert(this.pSpriteBatch != null);
+
+            this.pCollisionSpriteBatch = SpriteBatchManager.Find(collisionSpriteBatch);
+            Debug.Assert(this.pCollisionSpriteBatch != null);
         }
 
         ~AlienFactory()
         {
-
+            this.pSpriteBatch = null;
         }
 
         public GameObject Create(GameObject.Name name, float posX = 0.0f, float posY = 0.0f)
@@ -59,7 +63,7 @@ namespace SpaceInvaders
 
             // Attached to Group
             pGameObj.ActivateGameSprite(this.pSpriteBatch);
-            pGameObj.ActivateCollisionSprite(this.pSpriteBatch);
+            pGameObj.ActivateCollisionSprite(this.pCollisionSpriteBatch);
 
             return pGameObj;
         }

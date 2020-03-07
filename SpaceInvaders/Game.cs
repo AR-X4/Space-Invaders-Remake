@@ -79,13 +79,24 @@ namespace SpaceInvaders
             ImageManager.Add(Image.Name.BombDagger, Texture.Name.SpaceInvaders, 42, 27, 3, 6);
             ImageManager.Add(Image.Name.BombZigZag, Texture.Name.SpaceInvaders, 18, 26, 3, 7);
 
+            
+
+            ImageManager.Add(Image.Name.ShieldBrick, Texture.Name.SpaceInvaders, 120, 35, 4, 2);
+            ImageManager.Add(Image.Name.ShieldBrick_LeftTop0, Texture.Name.SpaceInvaders, 115, 30, 4, 2);
+            ImageManager.Add(Image.Name.ShieldBrick_LeftTop1, Texture.Name.SpaceInvaders, 116, 31, 4, 2);
+            ImageManager.Add(Image.Name.ShieldBrick_LeftBottom, Texture.Name.SpaceInvaders, 119, 43, 4, 2);
+            ImageManager.Add(Image.Name.ShieldBrick_RightTop0, Texture.Name.SpaceInvaders, 132, 31, 4, 2);
+            ImageManager.Add(Image.Name.ShieldBrick_RightTop1, Texture.Name.SpaceInvaders, 130, 31, 4, 2);
+            ImageManager.Add(Image.Name.ShieldBrick_RightBottom, Texture.Name.SpaceInvaders, 126, 43, 4, 2);
+
 
             //---------------------------------------------------------------------------------------------------------
             // Create SpriteBatch
             //---------------------------------------------------------------------------------------------------------
 
-            SpriteBatch pAliensBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 50);
-            SpriteBatch pBoxBatch = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 95);
+            SpriteBatch pAliensBatch = SpriteBatchManager.Add(SpriteBatch.Name.Aliens, 1);
+            SpriteBatch pBoxBatch = SpriteBatchManager.Add(SpriteBatch.Name.Boxes, 2);
+            SpriteBatch pShieldsBatch = SpriteBatchManager.Add(SpriteBatch.Name.Shields, 3);
 
             //---------------------------------------------------------------------------------------------------------
             // Create Sprites
@@ -103,10 +114,18 @@ namespace SpaceInvaders
             //-----Missile----
             GameSpriteManager.Add(GameSprite.Name.Missile, Image.Name.Missile, 50, 50, 5, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
             //----Player Ship----
-            GameSpriteManager.Add(GameSprite.Name.Ship, Image.Name.Ship, 500, 100, 80, 28, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.Ship, Image.Name.Ship, 500, 100, 55, 25, new Azul.Color(0.0f, 1.0f, 1.0f, 1.0f));
             //----Bombs----
             GameSpriteManager.Add(GameSprite.Name.BombDagger, Image.Name.BombDagger, 50, 50, 10, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
             GameSpriteManager.Add(GameSprite.Name.BombZigZag, Image.Name.BombZigZag, 50, 50, 10, 25, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            //----Shield----
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick, Image.Name.ShieldBrick, 50, 25, 14, 7, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftTop0, Image.Name.ShieldBrick_LeftTop0, 50, 25, 14, 7, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftTop1, Image.Name.ShieldBrick_LeftTop1, 50, 25, 14, 7, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftBottom, Image.Name.ShieldBrick_LeftBottom, 50, 25, 14, 7, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightTop0, Image.Name.ShieldBrick_RightTop0, 50, 25, 14, 7, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightTop1, Image.Name.ShieldBrick_RightTop1, 50, 25, 14, 7, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightBottom, Image.Name.ShieldBrick_RightBottom, 50, 25, 14, 7, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
 
             //---------------------------------------------------------------------------------------------------------
             // Input
@@ -143,9 +162,9 @@ namespace SpaceInvaders
             pAnimSquid.Attach(Image.Name.SquidB);
 
             // add AnimationSprite to timer
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimOctopus, 1, 1.0f);
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimCrab, 2, 1.0f);
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 3, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimOctopus, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimCrab, 1.0f);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, pAnimSquid, 1.0f);
 
             //---------------------------------------------------------------------------------------------------------
             // Create Walls
@@ -190,7 +209,7 @@ namespace SpaceInvaders
 
             Random pRandom = new Random();
             DropBombEvent pBombEvent = new DropBombEvent(pRandom);
-            TimerManager.Add(TimeEvent.Name.DropBomb, pBombEvent, 5, 3.0f);
+            TimerManager.Add(TimeEvent.Name.DropBomb, pBombEvent, 3.0f);
 
             
 
@@ -219,7 +238,7 @@ namespace SpaceInvaders
             // Create Aliens
             //---------------------------------------------------------------------------------------------------------
 
-            AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens);
+            AlienFactory AF = new AlienFactory(SpriteBatch.Name.Aliens, SpriteBatch.Name.Boxes);
             GameObject pAlienGrid = AF.Create(GameObject.Name.AlienGrid);
            
 
@@ -227,19 +246,19 @@ namespace SpaceInvaders
             {
                 GameObject pCol = AF.Create(GameObject.Name.AlienColumn);
                 GameObject pGameObject;
-                pGameObject = AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 40 * i, 250.0f);
+                pGameObject = AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 40 * i, 370.0f);
                 pCol.Add(pGameObject);
 
-                pGameObject = AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 40 * i, 300.0f);
+                pGameObject = AF.Create(GameObject.Name.PurpleOctopus, 50.0f + 40 * i, 410.0f);
                 pCol.Add(pGameObject);
 
-                pGameObject = AF.Create(GameObject.Name.BlueCrab, 50.0f + 40 * i, 350.0f);
+                pGameObject = AF.Create(GameObject.Name.BlueCrab, 50.0f + 40 * i, 450.0f);
                 pCol.Add(pGameObject);
 
-                pGameObject = AF.Create(GameObject.Name.BlueCrab, 50.0f + 40 * i, 400.0f);
+                pGameObject = AF.Create(GameObject.Name.BlueCrab, 50.0f + 40 * i, 490.0f);
                 pCol.Add(pGameObject);
 
-                pGameObject = AF.Create(GameObject.Name.GreenSquid, 50.0f + 40 * i, 450.0f);
+                pGameObject = AF.Create(GameObject.Name.GreenSquid, 50.0f + 40 * i, 530.0f);
                 pCol.Add(pGameObject);
 
                 pAlienGrid.Add(pCol);
@@ -247,8 +266,144 @@ namespace SpaceInvaders
             GameObjectManager.Attach(pAlienGrid);
 
             AlienGridMoveEvent pGridMoveEvent = new AlienGridMoveEvent();
-            TimerManager.Add(TimeEvent.Name.MoveAlienGrid,  pGridMoveEvent, 4, 1.0f);
+            TimerManager.Add(TimeEvent.Name.MoveAlienGrid,  pGridMoveEvent, 1.0f);
 
+            //---------------------------------------------------------------------------------------------------------
+            // Shield 
+            //---------------------------------------------------------------------------------------------------------
+
+            // Create the factory 
+            ShieldFactory SF = new ShieldFactory(SpriteBatch.Name.Shields, SpriteBatch.Name.Boxes);
+            
+            float start_x = 110.0f;
+            float start_y = 130.0f;
+            float off_x;
+            float brickWidth = 14.0f;
+            float brickHeight = 7.0f;
+
+            GameObject pShieldGrid;
+            GameObject pShieldCol;
+
+            for (int i = 0; i < 4; i++)
+            {
+                off_x = 0;
+                pShieldGrid = SF.Create(GameObject.Name.ShieldGrid);
+
+                //------Col1
+                SF.SetParent(pShieldGrid);
+                pShieldCol = SF.Create(GameObject.Name.ShieldColumn);
+                SF.SetParent(pShieldCol);
+
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y);
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y + brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y + 2 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y + 3 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y + 4 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y + 5 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y + 6 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x, start_y + 7 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick_LeftTop1, start_x, start_y + 8 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick_LeftTop0, start_x, start_y + 9 * brickHeight);
+
+                //-------Col2
+                SF.SetParent(pShieldGrid);
+                pShieldCol = SF.Create(GameObject.Name.ShieldColumn);
+                SF.SetParent(pShieldCol);
+
+                off_x += brickWidth;
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 2 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 3 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 4 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 5 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 6 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 7 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 8 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 9 * brickHeight);
+
+                //-------Col3
+                SF.SetParent(pShieldGrid);
+                pShieldCol = SF.Create(GameObject.Name.ShieldColumn);
+                SF.SetParent(pShieldCol);
+
+                off_x += brickWidth;
+                SF.Create(GameObject.Name.ShieldBrick_LeftBottom, start_x + off_x, start_y + 2 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 3 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 4 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 5 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 6 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 7 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 8 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 9 * brickHeight);
+
+                //-------Col4
+                SF.SetParent(pShieldGrid);
+                pShieldCol = SF.Create(GameObject.Name.ShieldColumn);
+                SF.SetParent(pShieldCol);
+
+                off_x += brickWidth;
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 3 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 4 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 5 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 6 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 7 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 8 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 9 * brickHeight);
+
+                //-------Col5
+                SF.SetParent(pShieldGrid);
+                pShieldCol = SF.Create(GameObject.Name.ShieldColumn);
+                SF.SetParent(pShieldCol);
+
+                off_x += brickWidth;
+                SF.Create(GameObject.Name.ShieldBrick_RightBottom, start_x + off_x, start_y + 2 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 3 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 4 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 5 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 6 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 7 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 8 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 9 * brickHeight);
+
+                //-------Col6
+                SF.SetParent(pShieldGrid);
+                pShieldCol = SF.Create(GameObject.Name.ShieldColumn);
+                SF.SetParent(pShieldCol);
+
+                off_x += brickWidth;
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 0 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 1 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 2 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 3 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 4 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 5 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 6 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 7 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 8 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 9 * brickHeight);
+
+                //-------Col7
+                SF.SetParent(pShieldGrid);
+                pShieldCol = SF.Create(GameObject.Name.ShieldColumn);
+                SF.SetParent(pShieldCol);
+
+                off_x += brickWidth;
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 0 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 1 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 2 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 3 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 4 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 5 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 6 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick, start_x + off_x, start_y + 7 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick_RightTop1, start_x + off_x, start_y + 8 * brickHeight);
+                SF.Create(GameObject.Name.ShieldBrick_RightTop0, start_x + off_x, start_y + 9 * brickHeight);
+
+                start_x += 150;
+
+                GameObjectManager.Attach(pShieldGrid);
+            }
             //---------------------------------------------------------------------------------------------------------
             // Create CollisionPairs 
             //---------------------------------------------------------------------------------------------------------
@@ -285,7 +440,7 @@ namespace SpaceInvaders
 
             pAlienWallPair.Attach(new GridObserver());
 
-            pBombWallPair.Attach(new BombObserver());
+            pBombWallPair.Attach(new RemoveBombObserver());
 
             //---------------------------------------------------------------------------------------------------------
             // Dumps
