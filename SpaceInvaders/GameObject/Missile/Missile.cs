@@ -7,7 +7,7 @@ namespace SpaceInvaders
     {
 
         // Data -------------------------------------
-        private bool enable;
+        
         public float delta;
 
         public Missile(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
@@ -15,7 +15,7 @@ namespace SpaceInvaders
         {
             this.x = posX;
             this.y = posY;
-            this.enable = false;
+            
             this.delta = 5.0f;
         }
 
@@ -34,14 +34,17 @@ namespace SpaceInvaders
             // Keenan(delete.E)
             // Since the Root object is being drawn
             // 1st set its size to zero
-            this.poColObj.poColRect.Set(0, 0, 0, 0);
-            base.Update();
+            //this.poColObj.poColRect.Set(0, 0, 0, 0);
+            //base.Update();
 
             //// Update the parent (missile root)
             GameObject pParent = (GameObject)this.pParent;
-            pParent.Update();
-            //remove missile from composite... missile only has one parent..need to find root for others? 
+           
+            //remove missile from composite... 
             pParent.Remove(this);
+            pParent.Update();
+
+            
 
             // Now remove it
             base.Remove();
@@ -53,14 +56,35 @@ namespace SpaceInvaders
             // Call the appropriate collision reaction            
             other.VisitMissile(this);
         }
-        public void SetPos(float xPos, float yPos)
-        {
+        //public void SetPos(float xPos, float yPos)
+        //{
+        //    this.x = xPos;
+        //    this.y = yPos;
+        //}
+        //public void SetActive(bool state)
+        //{
+        //    this.enable = state;
+        //}
+
+        public void ResetMissile(float xPos, float yPos) {
             this.x = xPos;
             this.y = yPos;
+
+            this.bMarkForDeath = false;
+          
         }
-        public void SetActive(bool state)
+
+        public override void VisitBombRoot(BombRoot b)
         {
-            this.enable = state;
+            GameObject pGameObj = (GameObject)Iterator.GetChild(b);
+            CollisionPair.Collide(pGameObj, this);
+        }
+        public override void VisitBomb(Bomb b)
+        {
+            //Debug.WriteLine(" ---> Done");
+            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+            pColPair.SetCollision(b, this);
+            pColPair.NotifyListeners();
         }
 
     }

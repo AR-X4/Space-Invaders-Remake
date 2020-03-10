@@ -3,17 +3,17 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    public class ShipRemoveMissileObserver : CollisionObserver
+    public class ShipRemoveMissileObserverAltPair : CollisionObserver
     {
         // data
         private GameObject pMissile;
 
-        public ShipRemoveMissileObserver()
+        public ShipRemoveMissileObserverAltPair()
         {
             this.pMissile = null;
         }
 
-        public ShipRemoveMissileObserver(ShipRemoveMissileObserver m)
+        public ShipRemoveMissileObserverAltPair(ShipRemoveMissileObserverAltPair m)
         {
             Debug.Assert(m.pMissile != null);
             this.pMissile = m.pMissile;
@@ -21,15 +21,13 @@ namespace SpaceInvaders
 
         public override void Notify()
         {
-            // Delete missile
-            //Debug.WriteLine("ShipRemoveMissileObserver: {0} {1}", this.pSubject.pObjA, this.pSubject.pObjB);
 
             // At this point we have two game objects
             // Actually we can control the objects in the visitor
             // Alphabetical ordering... A is missile,  B is wall
 
             // This cast will throw an exception if I'm wrong
-            this.pMissile = (Missile)this.pSubject.pObjA;
+            this.pMissile = (Missile)this.pSubject.pObjB;
 
             Debug.WriteLine("MissileRemoveObserver: --> delete missile {0}", pMissile);
 
@@ -39,7 +37,7 @@ namespace SpaceInvaders
 
                 // Delay - remove object later
                 // TODO - reduce the new functions
-                ShipRemoveMissileObserver pObserver = new ShipRemoveMissileObserver(this);
+                ShipRemoveMissileObserverAltPair pObserver = new ShipRemoveMissileObserverAltPair(this);
                 DelayedObjectManager.Attach(pObserver);
             }
         }

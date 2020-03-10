@@ -16,6 +16,7 @@ namespace SpaceInvaders
             Bomb_Wall_Bottom,
             Bomb_Ship,
             Bomb_Shield,
+            Bomb_Missile,
 
             NullObject,
             Not_Initialized

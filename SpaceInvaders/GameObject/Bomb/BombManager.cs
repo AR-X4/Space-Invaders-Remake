@@ -79,7 +79,7 @@ namespace SpaceInvaders
 
         public static void Remove(Bomb pNode)
         {
-            Debug.WriteLine("Remove Bomb!!!!");
+           // Debug.WriteLine("Remove Bomb!!!!");
           
             Debug.Assert(pNode != null);
 

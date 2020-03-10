@@ -11,6 +11,7 @@ namespace SpaceInvaders
             Aliens,
             Shields,
             Boxes,
+            Texts,
             Uninitialized
         }
 

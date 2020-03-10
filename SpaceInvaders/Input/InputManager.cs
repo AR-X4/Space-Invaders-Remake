@@ -7,6 +7,8 @@ namespace SpaceInvaders
     {
         // Data: ----------------------------------------------
         private static InputManager pInstance = null;
+        private static InputManager pActiveMan = null;
+
         private bool pSpaceKeyPrev;
         private bool pCKeyPrev;
 
@@ -14,32 +16,49 @@ namespace SpaceInvaders
         private InputSubject pSubjectArrowLeft;
         private InputSubject pSubjectSpace;
         private InputSubject pSubjectCKey;
+        private InputSubject pSubjectPKey;
 
-        private InputManager()
+        public InputManager()
         {
             this.pSubjectArrowLeft = new InputSubject();
             this.pSubjectArrowRight = new InputSubject();
             this.pSubjectSpace = new InputSubject();
             this.pSubjectCKey = new InputSubject();
+            this.pSubjectPKey = new InputSubject();
 
             this.pSpaceKeyPrev = false;
             this.pCKeyPrev = false;
+
+            
         }
 
-        private static InputManager GetInstance()
-        {
+        public static void Create() {
             if (pInstance == null)
             {
                 pInstance = new InputManager();
             }
             Debug.Assert(pInstance != null);
 
+        }
+
+        public static void SetActive(InputManager pIMan)
+        {
+            InputManager pMan = InputManager.GetInstance();
+            Debug.Assert(pMan != null);
+
+            Debug.Assert(pIMan != null);
+            InputManager.pActiveMan = pIMan;
+        }
+
+        private static InputManager GetInstance()
+        {
+            Debug.Assert(pInstance != null);
             return pInstance;
         }
 
         public static InputSubject GetArrowRightSubject()
         {
-            InputManager pMan = InputManager.GetInstance();
+            InputManager pMan = InputManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             return pMan.pSubjectArrowRight;
@@ -47,7 +66,7 @@ namespace SpaceInvaders
 
         public static InputSubject GetArrowLeftSubject()
         {
-            InputManager pMan = InputManager.GetInstance();
+            InputManager pMan = InputManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             return pMan.pSubjectArrowLeft;
@@ -55,22 +74,30 @@ namespace SpaceInvaders
 
         public static InputSubject GetSpaceSubject()
         {
-            InputManager pMan = InputManager.GetInstance();
+            InputManager pMan = InputManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             return pMan.pSubjectSpace;
         }
         public static InputSubject GetCKeySubject()
         {
-            InputManager pMan = InputManager.GetInstance();
+            InputManager pMan = InputManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             return pMan.pSubjectCKey;
         }
 
+        public static InputSubject GetPKeySubject()
+        {
+            InputManager pMan = InputManager.pActiveMan;
+            Debug.Assert(pMan != null);
+
+            return pMan.pSubjectPKey;
+        }
+
         public static void Update()
         {
-            InputManager pMan = InputManager.GetInstance();
+            InputManager pMan = InputManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             // LeftKey: (no history) -----------------------------------------------------------
@@ -83,6 +110,12 @@ namespace SpaceInvaders
             if (Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_ARROW_RIGHT) == true)
             {
                 pMan.pSubjectArrowRight.Notify();
+            }
+
+            // P Key: (no history) -----------------------------------------------------------
+            if (Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_P) == true)
+            {
+                pMan.pSubjectPKey.Notify();
             }
 
             // SpaceKey: (with key history) -----------------------------------------------------------

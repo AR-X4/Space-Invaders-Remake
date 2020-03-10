@@ -8,6 +8,7 @@ namespace SpaceInvaders
         {
             Default,
             SpaceInvaders,
+            Consolas36pt,
             NullObject,
             Uninitialized
         }

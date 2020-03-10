@@ -12,35 +12,56 @@ namespace SpaceInvaders
         // Data - unique data for this manager 
         //----------------------------------------------------------------------
         private static SpriteBatchManager pInstance = null;
-        private SpriteBatch poNodeCompare;
+        private static SpriteBatchManager pActiveSBMan = null;
+        private static SpriteBatch poNodeCompare;
 
        
-        private SpriteBatchManager(int reserveNum = 3, int reserveGrow = 1)
-        : base() // <--- Kick the can (delegate)
+        public SpriteBatchManager(int reserveNum = 3, int reserveGrow = 1)
+            : base() // <--- Kick the can (delegate)
         {
             // At this point SpriteBatchMan is created, now initialize the reserve
             this.BaseInitialize(reserveNum, reserveGrow);
 
             // initialize derived data here
-            this.poNodeCompare = new SpriteBatch();
+            //this.poNodeCompare = new SpriteBatch();
+        }
+
+        private SpriteBatchManager()
+            : base() // <--- Kick the can (delegate)
+        {
+            SpriteBatchManager.pActiveSBMan = null;
+            // initialize derived data here
+            SpriteBatchManager.poNodeCompare = new SpriteBatch();
         }
 
         //----------------------------------------------------------------------
         // Static Methods
         //----------------------------------------------------------------------
-        public static void Create(int reserveNum = 3, int reserveGrow = 1)
-        {
-            // make sure values are ressonable 
-            Debug.Assert(reserveNum > 0);
-            Debug.Assert(reserveGrow > 0);
+        //public static void Create(int reserveNum = 3, int reserveGrow = 1)
+        //{
+        //    // make sure values are ressonable 
+        //    Debug.Assert(reserveNum > 0);
+        //    Debug.Assert(reserveGrow > 0);
 
+        //    // initialize the singleton here
+        //    Debug.Assert(pInstance == null);
+
+        //    // Do the initialization
+        //    if (pInstance == null)
+        //    {
+        //        pInstance = new SpriteBatchManager(reserveNum, reserveGrow);
+        //    }
+        //}
+
+        public static void Create()
+        {
             // initialize the singleton here
             Debug.Assert(pInstance == null);
 
             // Do the initialization
             if (pInstance == null)
             {
-                pInstance = new SpriteBatchManager(reserveNum, reserveGrow);
+                pInstance = new SpriteBatchManager();
             }
         }
         public static void Destroy()
@@ -57,7 +78,7 @@ namespace SpaceInvaders
 
         public static SpriteBatch Add(SpriteBatch.Name name, uint priority, int reserveNum = 3, int reserveGrow = 1)
         {
-            SpriteBatchManager pMan = SpriteBatchManager.GetInstance();
+            SpriteBatchManager pMan = SpriteBatchManager.pActiveSBMan;
             Debug.Assert(pMan != null);
 
             SpriteBatch pNode = (SpriteBatch)pMan.BaseSortedAdd(priority);
@@ -66,10 +87,18 @@ namespace SpaceInvaders
             pNode.Set(name, reserveNum, reserveGrow);
             return pNode;
         }
+        public static void SetActive(SpriteBatchManager pSBMan)
+        {
+            SpriteBatchManager pMan = SpriteBatchManager.GetInstance();
+            Debug.Assert(pMan != null);
+
+            Debug.Assert(pSBMan != null);
+            SpriteBatchManager.pActiveSBMan = pSBMan;
+        }
 
         public static void Draw()
         {
-            SpriteBatchManager pMan = SpriteBatchManager.GetInstance();
+            SpriteBatchManager pMan = SpriteBatchManager.pActiveSBMan;
             Debug.Assert(pMan != null);
 
             // walk through the list and render
@@ -93,21 +122,21 @@ namespace SpaceInvaders
 
         public static SpriteBatch Find(SpriteBatch.Name name)
         {
-            SpriteBatchManager pMan = SpriteBatchManager.GetInstance();
+            SpriteBatchManager pMan = SpriteBatchManager.pActiveSBMan;
             Debug.Assert(pMan != null);
 
             // Compare functions only compares two Nodes
 
             // So:  Use the Compare Node - as a reference
             //      use in the Compare() function
-            pMan.poNodeCompare.name = name;
+            SpriteBatchManager.poNodeCompare.SetName(name);
 
-            SpriteBatch pData = (SpriteBatch)pMan.BaseFind(pMan.poNodeCompare);
+            SpriteBatch pData = (SpriteBatch)pMan.BaseFind(SpriteBatchManager.poNodeCompare);
             return pData;
         }
         public static void Remove(SpriteBatch pNode)
         {
-            SpriteBatchManager pMan = SpriteBatchManager.GetInstance();
+            SpriteBatchManager pMan = SpriteBatchManager.pActiveSBMan;
             Debug.Assert(pMan != null);
 
             Debug.Assert(pNode != null);

@@ -66,5 +66,35 @@ namespace SpaceInvaders
         {
             return this.state;
         }
+
+        public override void VisitBombRoot(BombRoot b)//this necessary?
+        {
+            GameObject pGameObj = (GameObject)Iterator.GetChild(b);
+            CollisionPair.Collide(pGameObj, this);
+        }
+        public override void VisitBomb(Bomb b)
+        {
+            //Debug.WriteLine(" ---> Done");
+            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+            pColPair.SetCollision(b, this);
+            pColPair.NotifyListeners();
+        }
+
+        public override void Remove()
+        {
+            // Since the Root object is being drawn
+            // 1st set its size to zero
+            //this.poColObj.poColRect.Set(0, 0, 0, 0);
+            //base.Update();
+
+            // Update the parent (bomb root)
+            GameObject pParent = (GameObject)this.pParent;
+
+            pParent.Remove(this);
+            pParent.Update();
+
+            // Now remove from sprite batches
+            base.Remove();
+        }
     }
 }

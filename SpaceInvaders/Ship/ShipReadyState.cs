@@ -29,9 +29,6 @@ namespace SpaceInvaders
         {
             Missile pMissile = ShipManager.ActivateMissile();
 
-            pMissile.SetPos(pShip.x, pShip.y + 20);
-            pMissile.SetActive(true);
-
             // switch states
             this.Handle(pShip);
         }

@@ -100,6 +100,8 @@
     <Compile Include="GameObject\Shield\ShieldFactory.cs" />
     <Compile Include="GameObject\Shield\ShieldGrid.cs" />
     <Compile Include="GameObject\Shield\ShieldRoot.cs" />
+    <Compile Include="Input\SelectPlayObserver.cs" />
+    <Compile Include="Input\Simulation.cs" />
     <Compile Include="Input\ToggleCollisionBoxObserver.cs" />
     <Compile Include="Observer\DeadAlienSoundObserver.cs" />
     <Compile Include="Observer\DeadShipSoundObserver.cs" />
@@ -107,8 +109,15 @@
     <Compile Include="Observer\MoveAlienSoundObserver.cs" />
     <Compile Include="Observer\RemoveBombObserver.cs" />
     <Compile Include="Observer\RemoveBrickObserver.cs" />
+    <Compile Include="Observer\RemoveShipObserver.cs" />
+    <Compile Include="Observer\ShipRemoveMissileObserverAltPair.cs" />
     <Compile Include="Observer\ShootSoundObserver.cs" />
     <Compile Include="Observer\UFOSoundObserver.cs" />
+    <Compile Include="Scene\SceneContext.cs" />
+    <Compile Include="Scene\SceneOver.cs" />
+    <Compile Include="Scene\ScenePlay.cs" />
+    <Compile Include="Scene\SceneSelect.cs" />
+    <Compile Include="Scene\SceneState.cs" />
     <Compile Include="Timer\Events\AlienGridMoveEvent.cs" />
     <Compile Include="GameObject\Aliens\BlueCrab.cs" />
     <Compile Include="GameObject\Aliens\GreenSquid.cs" />

@@ -49,6 +49,11 @@ namespace SpaceInvaders
             this.pFontSprite.Set(name, pMessage, glyphName, xStart, yStart);
         }
 
+        public void SetColor(float red, float green, float blue)
+        {
+            this.pFontSprite.SetColor(red, green, blue);
+        }
+
         public void Wash()
         {
             this.name = Name.Uninitialized;

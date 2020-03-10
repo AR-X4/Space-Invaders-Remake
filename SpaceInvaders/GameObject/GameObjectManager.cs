@@ -14,40 +14,64 @@ namespace SpaceInvaders
         // Data - unique data for this manager 
         //----------------------------------------------------------------------
         private static GameObjectManager pInstance = null;
-        private GameObjectNode poNodeCompare;
-        private readonly NullGameObject poNullGameObject;
+        private static GameObjectManager pActiveMan = null;
+
+        private static GameObjectNode poNodeCompare;
+        private static NullGameObject poNullGameObject;
         //----------------------------------------------------------------------
         // Constructor
         //----------------------------------------------------------------------
-        private GameObjectManager(int reserveNum = 3, int reserveGrow = 1)
+        public GameObjectManager(int reserveNum = 3, int reserveGrow = 1)
         : base() // <--- Kick the can (delegate)
         {
             // At this point ImageMan is created, now initialize the reserve
             this.BaseInitialize(reserveNum, reserveGrow);
 
             // initialize derived data here
-            this.poNodeCompare = new GameObjectNode();
-            this.poNullGameObject = new NullGameObject();
+            //this.poNodeCompare = new GameObjectNode();
+            //this.poNullGameObject = new NullGameObject();
 
-            this.poNodeCompare.pGameObj = this.poNullGameObject; 
+            //GameObjectManager.poNodeCompare.pGameObj = this.poNullGameObject; 
+        }
+
+        private GameObjectManager() 
+            :base()
+        {
+            GameObjectManager.pActiveMan = null;
+
+            GameObjectManager.poNodeCompare = new GameObjectNode();
+            GameObjectManager.poNullGameObject = new NullGameObject();
+            GameObjectManager.poNodeCompare.pGameObj = GameObjectManager.poNullGameObject;
         }
 
         //----------------------------------------------------------------------
         // Static Methods
         //----------------------------------------------------------------------
-        public static void Create(int reserveNum = 3, int reserveGrow = 1)
-        {
-            // make sure values are ressonable 
-            Debug.Assert(reserveNum > 0);
-            Debug.Assert(reserveGrow > 0);
+        //public static void Create(int reserveNum = 3, int reserveGrow = 1)
+        //{
+        //    // make sure values are ressonable 
+        //    Debug.Assert(reserveNum > 0);
+        //    Debug.Assert(reserveGrow > 0);
 
+        //    // initialize the singleton here
+        //    Debug.Assert(pInstance == null);
+
+        //    // Do the initialization
+        //    if (pInstance == null)
+        //    {
+        //        pInstance = new GameObjectManager(reserveNum, reserveGrow);
+        //    }
+        //}
+
+        public static void Create()
+        {
             // initialize the singleton here
             Debug.Assert(pInstance == null);
 
             // Do the initialization
             if (pInstance == null)
             {
-                pInstance = new GameObjectManager(reserveNum, reserveGrow);
+                pInstance = new GameObjectManager();
             }
         }
 
@@ -61,7 +85,7 @@ namespace SpaceInvaders
             Debug.Assert(pGameObject != null);
             Debug.Assert(pGameObject.holder == Component.Container.COMPOSITE);
 
-            GameObjectManager pMan = GameObjectManager.GetInstance();
+            GameObjectManager pMan = GameObjectManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             GameObjectNode pNode = (GameObjectNode)pMan.BaseAdd();
@@ -70,16 +94,24 @@ namespace SpaceInvaders
             pNode.Set(pGameObject);
             return pNode;
         }
-
-        public static GameObject Find(GameObject.Name name)
+        public static void SetActive(GameObjectManager pSBMan)
         {
             GameObjectManager pMan = GameObjectManager.GetInstance();
             Debug.Assert(pMan != null);
 
-            // Compare functions only compares two Nodes
-            pMan.poNodeCompare.pGameObj.name = name;
+            Debug.Assert(pSBMan != null);
+            GameObjectManager.pActiveMan = pSBMan;
+        }
 
-            GameObjectNode pNode = (GameObjectNode)pMan.BaseFind(pMan.poNodeCompare);
+        public static GameObject Find(GameObject.Name name)
+        {
+            GameObjectManager pMan = GameObjectManager.pActiveMan;
+            Debug.Assert(pMan != null);
+
+            // Compare functions only compares two Nodes
+            GameObjectManager.poNodeCompare.pGameObj.name = name;
+
+            GameObjectNode pNode = (GameObjectNode)pMan.BaseFind(GameObjectManager.poNodeCompare);
             Debug.Assert(pNode != null);
 
             return pNode.pGameObj;
@@ -87,7 +119,7 @@ namespace SpaceInvaders
 
         public static void Remove(GameObjectNode pNode)
         {
-            GameObjectManager pMan = GameObjectManager.GetInstance();
+            GameObjectManager pMan = GameObjectManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             Debug.Assert(pNode != null);
@@ -98,7 +130,7 @@ namespace SpaceInvaders
         {
             // Keenan(delete.E)
             Debug.Assert(pNode != null);
-            GameObjectManager pMan = GameObjectManager.GetInstance();
+            GameObjectManager pMan = GameObjectManager.pActiveMan;
 
             GameObject pSafetyNode = pNode;
 
@@ -156,7 +188,7 @@ namespace SpaceInvaders
 
         public static void Update()
         {
-            GameObjectManager pMan = GameObjectManager.GetInstance();
+            GameObjectManager pMan = GameObjectManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             GameObjectNode pGameObjectNode = (GameObjectNode)pMan.BaseGetActive();

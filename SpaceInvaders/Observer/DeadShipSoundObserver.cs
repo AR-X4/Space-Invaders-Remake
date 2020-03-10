@@ -3,7 +3,13 @@
 
 namespace SpaceInvaders
 {
-    class DeadShipSoundObserver
+    class DeadShipSoundObserver : CollisionObserver
     {
+        public override void Notify()
+        {
+            Sound pSound = SoundManager.Find(Sound.Name.Explosion);
+            pSound.PlaySound();
+        }
+
     }
 }
