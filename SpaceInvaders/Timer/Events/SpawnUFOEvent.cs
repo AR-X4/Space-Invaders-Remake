@@ -4,20 +4,19 @@ namespace SpaceInvaders
 {
     public class SpawnUFOEvent : Command
     {
-        private Random pRandom;
+        
         private UFOFlyingSoundEvent pSoundEvent;
 
-        public SpawnUFOEvent(Random pRandom)
+        public SpawnUFOEvent()
         {
-            this.pRandom = pRandom;
+            
             this.pSoundEvent = new UFOFlyingSoundEvent();
         }
 
         public override void Execute(float deltaTime)
         {
+            float NewTime = RandomManager.RandomInt(7, 15);
 
-            float NewTime = pRandom.Next(7, 15);
-            
             UFORoot pUFORoot = (UFORoot)GameObjectManager.Find(GameObject.Name.UFORoot);
             OrangeSaucer pUFO = (OrangeSaucer)pUFORoot.GetFirstChild();
 

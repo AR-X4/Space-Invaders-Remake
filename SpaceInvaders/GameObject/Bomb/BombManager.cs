@@ -21,14 +21,11 @@ namespace SpaceInvaders
         private static BombReadyState pReadyState;
         private static BombFallingState pFallingState;
 
-        private Random pRandom;
+        
 
         private BombManager()
            
         {
-            
-            this.pRandom = new Random();
-
 
             pReadyState = new BombReadyState();
             pFallingState = new BombFallingState();
@@ -114,7 +111,7 @@ namespace SpaceInvaders
         public static void RandomizeBombType(Bomb pBomb)
         {
             BombManager pBombMan = BombManager.GetInstance();
-            float rand = pBombMan.pRandom.Next(1, 3);
+            float rand = RandomManager.RandomInt(1, 3);
 
             switch (rand)
             {

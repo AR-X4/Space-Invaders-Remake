@@ -55,6 +55,7 @@ namespace SpaceInvaders
             GlyphManager.Create(3, 1);
             Simulation.Create();
             FontManager.Create();
+            RandomManager.Create();
 
             //State-unique Managers
 

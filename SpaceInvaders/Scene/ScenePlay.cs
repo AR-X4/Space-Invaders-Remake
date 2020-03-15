@@ -28,9 +28,7 @@ namespace SpaceInvaders
 
         public override void Initialize()
         {
-            Random pRandom = new Random();
-
-
+         
 
             this.poGameObjectManager = new GameObjectManager(3, 1);
             GameObjectManager.SetActive(this.poGameObjectManager);
@@ -123,7 +121,7 @@ namespace SpaceInvaders
             BombManager.Create();
 
             
-            DropBombEvent pBombEvent = new DropBombEvent(pRandom);
+            DropBombEvent pBombEvent = new DropBombEvent();
             TimerManager.Add(TimeEvent.Name.DropBomb, pBombEvent, 3.0f);
 
             //---------------------------------------------------------------------------------------------------------
@@ -166,7 +164,7 @@ namespace SpaceInvaders
             pUFO.Remove();
 
 
-            SpawnUFOEvent pUFOEvent = new SpawnUFOEvent(pRandom);
+            SpawnUFOEvent pUFOEvent = new SpawnUFOEvent();
             TimerManager.Add(TimeEvent.Name.UFOSpawn, pUFOEvent, 14f);
 
             //---------------------------------------------------------------------------------------------------------

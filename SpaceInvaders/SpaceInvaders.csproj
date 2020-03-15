@@ -121,6 +121,7 @@
     <Compile Include="Observer\ShipRemoveMissileObserverAltPair.cs" />
     <Compile Include="Observer\ShootSoundObserver.cs" />
     <Compile Include="Observer\UFOSoundObserver.cs" />
+    <Compile Include="Random\RandomManager.cs" />
     <Compile Include="Scene\SceneContext.cs" />
     <Compile Include="Scene\SceneOver.cs" />
     <Compile Include="Scene\ScenePlay.cs" />

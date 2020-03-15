@@ -6,19 +6,19 @@ namespace SpaceInvaders
 {
     class DropBombEvent : Command
     {
-        private Random pRandom;
+       
 
-        public DropBombEvent(Random pRandom)
+        public DropBombEvent()
         {
-            this.pRandom = pRandom;
+            
         }
 
 
         public override void Execute(float deltaTime)
         {
 
-            float NewTime = pRandom.Next(1, 2);
-            float randColumn = pRandom.Next(1, 11);
+            float NewTime = RandomManager.RandomInt(1, 2);
+            float randColumn = RandomManager.RandomInt(1, 11);
 
             AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
             AlienColumn pColumn = (AlienColumn)pGrid.GetFirstChild();

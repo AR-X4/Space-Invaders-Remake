@@ -7,7 +7,7 @@ namespace SpaceInvaders
     {
         // Data: ---------------
         private float delta;
-        private Random pRandom;
+        
        
 
         public OrangeSaucer(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
@@ -17,7 +17,6 @@ namespace SpaceInvaders
             this.y = posY;
 
             this.delta = 0.0f;
-            this.pRandom = new Random();
 
         }
 
@@ -88,7 +87,7 @@ namespace SpaceInvaders
         public void RandomizeDirection() {
             float NewDelta = 0.0f;
             float NewX = 0.0f;
-            float randF = this.pRandom.Next(1, 3);
+            float randF = RandomManager.RandomInt(1, 3);
             switch (randF) {
                 case 1: 
                     NewX = 20f;
