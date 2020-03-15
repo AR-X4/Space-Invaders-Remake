@@ -12,7 +12,7 @@ namespace SpaceInvaders
             AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
             pGrid.NotifyListeners();
             // Add itself back to timer
-            TimerManager.Add(TimeEvent.Name.MoveAlienGrid, this, deltaTime);
+            TimerManager.Add(TimeEvent.Name.MoveAlienGrid, this, pGrid.GetMoveRate());
         }
     }
 }

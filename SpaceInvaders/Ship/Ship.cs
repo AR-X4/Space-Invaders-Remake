@@ -12,7 +12,7 @@ namespace SpaceInvaders
         public ShipManager.State CurrentStateName;
 
         public Ship(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
-         : base(name, spriteName)
+         : base(name, spriteName, posX, posY)
         {
             this.x = posX;
             this.y = posY;
@@ -74,27 +74,34 @@ namespace SpaceInvaders
         }
         public override void VisitBomb(Bomb b)
         {
-            //Debug.WriteLine(" ---> Done");
-            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
-            pColPair.SetCollision(b, this);
-            pColPair.NotifyListeners();
+            if (b.bMarkForDeath == false)
+            {
+                //Debug.WriteLine(" ---> Done");
+                CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+                pColPair.SetCollision(b, this);
+                pColPair.NotifyListeners();
+            }
         }
 
-        public override void Remove()
-        {
-            // Since the Root object is being drawn
-            // 1st set its size to zero
-            //this.poColObj.poColRect.Set(0, 0, 0, 0);
-            //base.Update();
+        //public override void Remove()
+        //{
+        //    // Since the Root object is being drawn
+        //    // 1st set its size to zero
+        //    this.poColObj.poColRect.Set(0, 0, 0, 0);
+        //    //base.Update();
 
-            // Update the parent (bomb root)
-            GameObject pParent = (GameObject)this.pParent;
+        //    this.pProxySprite.Set(GameSprite.Name.NullObject);
 
-            pParent.Remove(this);
-            pParent.Update();
+        //    // Update the parent (bomb root)
+        //    //GameObject pParent = (GameObject)this.pParent;
 
-            // Now remove from sprite batches
-            base.Remove();
-        }
+        //   // pParent.Remove(this);
+        //    //pParent.Update();
+
+        //    // Now remove from sprite batches
+        //    //base.Remove();
+        //}
+
+        
     }
 }

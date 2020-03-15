@@ -8,16 +8,20 @@ namespace SpaceInvaders
     {
         // data
         private GameObject pAlien;
+        private RemoveAlienEvent pEvent;
 
         public RemoveAlienObserver()
         {
             this.pAlien = null;
+            this.pEvent = null;
         }
 
-        public RemoveAlienObserver(RemoveAlienObserver m)
+        private RemoveAlienObserver(RemoveAlienObserver m)
         {
             Debug.Assert(m.pAlien != null);
             this.pAlien = m.pAlien;
+
+            this.pEvent = new RemoveAlienEvent();
         }
 
         public override void Notify()
@@ -38,7 +42,13 @@ namespace SpaceInvaders
         public override void Execute()
         {
             // Let the gameObject deal with this... 
-            this.pAlien.Remove();
+            this.pAlien.pProxySprite.Set(GameSprite.Name.AlienExplosion);
+            //add removal to timer event
+            this.pEvent.SetAlien(this.pAlien);
+
+            TimerManager.Add(TimeEvent.Name.RemoveAlien, this.pEvent, 0.5f);
+
+            //this.pAlien.Remove();
         }
     }
 }

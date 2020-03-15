@@ -14,8 +14,17 @@ namespace SpaceInvaders
             SquidA,
             SquidB,
             Saucer,
+
             Ship,
             Missile,
+
+            AlienExplosion,
+            SaucerExplosion,
+            ShipExplosionA,
+            ShipExplosionB,
+            MissileExplosion,
+            BombExplosion,
+
             BombDagger,
             BombZigZag,
 

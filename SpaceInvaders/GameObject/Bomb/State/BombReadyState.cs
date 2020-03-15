@@ -8,12 +8,13 @@ namespace SpaceInvaders
     {
         public override void Handle(AlienColumn pCol) {
             BombManager.SetState(BombManager.StateName.BombDropping, pCol);
+            //Debug.WriteLine("BOMB DROPPING STATE\n");
         }
 
         public override void DropBomb(AlienColumn pCol) {
 
 
-            BombManager.ActivateBomb(pCol, pCol.x, pCol.GetBottom());
+            BombManager.ActivateBomb(pCol);
 
             this.Handle(pCol);
         }

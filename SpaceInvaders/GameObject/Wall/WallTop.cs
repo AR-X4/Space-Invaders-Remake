@@ -38,11 +38,14 @@ namespace SpaceInvaders
         }
         public override void VisitMissile(Missile m)
         {
-            // Missile vs WallTop
-            //Debug.WriteLine(" ---> Done");
-            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
-            pColPair.SetCollision(m, this);
-            pColPair.NotifyListeners();
+            if (m.bMarkForDeath == false)
+            {
+                // Missile vs WallTop
+                //Debug.WriteLine(" ---> Done");
+                CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+                pColPair.SetCollision(m, this);
+                pColPair.NotifyListeners();
+            }
         }
     }
 }

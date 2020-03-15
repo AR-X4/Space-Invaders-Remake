@@ -15,10 +15,12 @@ namespace SpaceInvaders
         private Azul.Color pColor;   // this color is multplied by the texture
 
         private String pMessage;
-        public Glyph.Name glyphName;
+        
 
         public float x;
         public float y;
+        public float sx;
+        public float sy;
 
         public FontSprite()
             : base()
@@ -30,7 +32,7 @@ namespace SpaceInvaders
             this.pColor = new Azul.Color(1.0f, 1.0f, 1.0f);
 
             this.pMessage = null;
-            this.glyphName = Glyph.Name.Uninitialized;
+            
 
             this.x = 0.0f;
             this.y = 0.0f;
@@ -41,18 +43,17 @@ namespace SpaceInvaders
         {
         }
 
-        public void Set(Font.Name name, String pMessage, Glyph.Name glyphName, float xStart, float yStart)
+        public void Set(Font.Name name, String pMessage, float xStart, float yStart, float width, float height)
         {
             Debug.Assert(pMessage != null);
             this.pMessage = pMessage;
 
             this.x = xStart;
             this.y = yStart;
+            this.sx = width;
+            this.sy = height;
 
             this.name = name;
-
-            // TODO: for wash... this should be a nullGlyph
-            this.glyphName = glyphName;
 
             // Force color to white
             Debug.Assert(this.pColor != null);
@@ -70,10 +71,7 @@ namespace SpaceInvaders
             Debug.Assert(pMessage != null);
             this.pMessage = pMessage;
         }
-        public Glyph.Name GetGlyphName()
-        {
-            return this.glyphName;
-        }
+        
 
         override public void Update()
         {
@@ -98,11 +96,11 @@ namespace SpaceInvaders
             {
                 int key = Convert.ToByte(pMessage[i]);
 
-                Glyph pGlyph = GlyphManager.Find(this.glyphName, key);
+                Glyph pGlyph = GlyphManager.Find(key);
                 Debug.Assert(pGlyph != null);
 
-                xTmp = xEnd + pGlyph.GetAzulSubRect().width / 2;
-                this.pScreenRect.Set(xTmp, yTmp, pGlyph.GetAzulSubRect().width, pGlyph.GetAzulSubRect().height);
+                xTmp = xEnd + this.sx;
+                this.pScreenRect.Set(xTmp, yTmp, this.sx, this.sy);
 
                 pAzulSprite.Swap(pGlyph.GetAzulTexture(), pGlyph.GetAzulSubRect(), this.pScreenRect, this.pColor);
 
@@ -110,7 +108,7 @@ namespace SpaceInvaders
                 pAzulSprite.Render();
 
                 // move the starting to the next character
-                xEnd = pGlyph.GetAzulSubRect().width / 2 + xTmp;
+                xEnd = this.sx / 2 + xTmp;
 
             }
         }

@@ -27,7 +27,7 @@ namespace SpaceInvaders
 
         public override void ShootMissile(Ship pShip)
         {
-            Missile pMissile = ShipManager.ActivateMissile();
+            ShipManager.ActivateMissile();
 
             // switch states
             this.Handle(pShip);

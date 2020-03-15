@@ -7,7 +7,9 @@ namespace SpaceInvaders
         public enum Scene
         {
             Select,
-            Play,
+            PlayerSelect,
+            Play1,
+            Play2,
             Over
         }
 
@@ -16,6 +18,7 @@ namespace SpaceInvaders
         // -------------------------------------------o---------
         public SceneState pSceneState;
         SceneSelect poSceneSelect;
+        ScenePlayerSelect poScenePlayerSelect;
         SceneOver poSceneOver;
         ScenePlay poScenePlay;
 
@@ -23,6 +26,7 @@ namespace SpaceInvaders
         {
             // reserve the states
             this.poSceneSelect = new SceneSelect();
+            this.poScenePlayerSelect = new ScenePlayerSelect();
             this.poScenePlay = new ScenePlay();
             this.poSceneOver = new SceneOver();
 
@@ -44,7 +48,12 @@ namespace SpaceInvaders
                     this.pSceneState.Transition();
                     break;
 
-                case Scene.Play:
+                case Scene.PlayerSelect:
+                    this.pSceneState = this.poScenePlayerSelect;
+                    this.pSceneState.Transition();
+                    break;
+
+                case Scene.Play1:
                     this.pSceneState = this.poScenePlay;
                     this.pSceneState.Transition();
                     break;

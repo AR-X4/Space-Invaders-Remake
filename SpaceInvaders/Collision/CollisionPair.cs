@@ -8,7 +8,9 @@ namespace SpaceInvaders
         public enum Name
         {
             Alien_Missile,
+            UFO_Missile,
             Alien_Wall,
+            Alien_Shield,
             Missile_Wall_Top,
             Missile_Shield,
             Ship_Wall_Right,

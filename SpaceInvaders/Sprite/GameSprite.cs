@@ -11,10 +11,20 @@ namespace SpaceInvaders
             BlueCrab,
             GreenSquid,
             OrangeSaucer,
+
             Ship,
             Missile,
+
             BombDagger,
             BombZigZag,
+
+            AlienExplosion,
+            SaucerExplosion,
+            ShipExplosion,
+            MissileExplosionWhite,
+            MissileExplosionRed,
+            MissileExplosionGreen,
+            BombExplosion,
 
             ShieldBrick,
             ShieldBrick_LeftTop0,

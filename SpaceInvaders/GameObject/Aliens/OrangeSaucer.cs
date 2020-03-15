@@ -5,11 +5,20 @@ namespace SpaceInvaders
 {
     public class OrangeSaucer : Leaf
     {
+        // Data: ---------------
+        private float delta;
+        private Random pRandom;
+       
+
         public OrangeSaucer(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
-            : base(name, spriteName)
+            : base(name, spriteName, posX, posY)
         {
             this.x = posX;
             this.y = posY;
+
+            this.delta = 0.0f;
+            this.pRandom = new Random();
+
         }
 
         ~OrangeSaucer()
@@ -25,9 +34,12 @@ namespace SpaceInvaders
         }
         public override void VisitMissileGroup(MissileGroup m)
         {
-            // MissileRoot vs WallRoot
-            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
-            CollisionPair.Collide(pGameObj, this);
+            if (this.bMarkForDeath == false)// to fix bug with collision with null objs
+            {
+                // MissileRoot vs WallRoot
+                GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+                CollisionPair.Collide(pGameObj, this);
+            }
         }
 
         public override void VisitMissile(Missile m)
@@ -38,26 +50,59 @@ namespace SpaceInvaders
         }
         public override void Update()
         {
-
             base.Update();
+
+            this.x += delta;
+
+            if (this.x < 20.0f || this.x > SpaceInvaders.ScreenWidth)
+            {
+                this.Remove();
+            }
         }
         public override void Remove()
         {
-            // Keenan(delete.E)
-            // Since the Root object is being drawn
-            // 1st set its size to zero
             this.poColObj.poColRect.Set(0, 0, 0, 0);
-            base.Update();
-
-            //// Update the parent (missile root)
-            GameObject pParent = (GameObject)this.pParent;
-            pParent.Update();
-            //remove missile from composite... missile only has one parent..need to find root for others? 
-            pParent.Remove(this);
-
-            // Now remove it
-            base.Remove();
+            this.pProxySprite.Set(GameSprite.Name.NullObject);
+            this.delta = 0.0f;
+            this.x = 0.0f;
+        }
+        public void SetDelta(float inDelta)
+        {
+            this.delta = inDelta;
         }
 
+        private void Reset(float x, float delta) {
+            this.pProxySprite.Set(this.pSpriteName);
+            this.poColObj.poColRect.Set(this.pProxySprite.pSprite.GetScreenRect());
+            this.x = x;
+            this.delta = delta;
+
+            this.bMarkForDeath = false;
+        }
+
+        //private void SetX(float x)
+        //{
+        //    this.x = x;
+        //}
+
+        public void RandomizeDirection() {
+            float NewDelta = 0.0f;
+            float NewX = 0.0f;
+            float randF = this.pRandom.Next(1, 3);
+            switch (randF) {
+                case 1: 
+                    NewX = 20f;
+                    NewDelta = 1f;
+                    break;
+                case 2:
+                    NewX = SpaceInvaders.ScreenWidth - 20f;
+                    NewDelta = -1f;
+                    break;
+            
+            }
+            Debug.Assert(NewX != 0.0f);
+            Debug.Assert(NewDelta != 0.0f);
+            this.Reset(NewX, NewDelta);
+        }
     }
 }

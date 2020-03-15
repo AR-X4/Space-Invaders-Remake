@@ -5,8 +5,8 @@ namespace SpaceInvaders
 {
     public abstract class Leaf : GameObject
     {
-        public Leaf(GameObject.Name gameName, GameSprite.Name spriteName)
-               : base(gameName, spriteName)
+        public Leaf(GameObject.Name gameName, GameSprite.Name spriteName, float posX = 0.0f, float posY = 0.0f)
+               : base(gameName, spriteName, posX, posY)
         {
             this.holder = Container.LEAF;
         }

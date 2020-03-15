@@ -9,7 +9,10 @@ namespace SpaceInvaders
         public enum Name
         {
             TestMessage,
-            TestOneOff,
+            Header,
+            Player1Score,
+            Player2Score,
+            HiScore,
 
             NullObject,
             Uninitialized
@@ -41,12 +44,12 @@ namespace SpaceInvaders
             this.pFontSprite.UpdateMessage(pMessage);
         }
 
-        public void Set(Font.Name name, String pMessage, Glyph.Name glyphName, float xStart, float yStart)
+        public void Set(Font.Name name, String pMessage, float xStart, float yStart, float width, float height)
         {
             Debug.Assert(pMessage != null);
 
             this.name = name;
-            this.pFontSprite.Set(name, pMessage, glyphName, xStart, yStart);
+            this.pFontSprite.Set(name, pMessage, xStart, yStart, width, height);
         }
 
         public void SetColor(float red, float green, float blue)
@@ -57,7 +60,7 @@ namespace SpaceInvaders
         public void Wash()
         {
             this.name = Name.Uninitialized;
-            this.pFontSprite.Set(Font.Name.NullObject, pNullString, Glyph.Name.NullObject, 0.0f, 0.0f);
+            this.pFontSprite.Set(Font.Name.NullObject, pNullString, 0.0f, 0.0f, 0.0f, 0.0f);
         }
 
         public void Dump()

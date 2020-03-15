@@ -20,7 +20,7 @@ namespace SpaceInvaders
         private static ShipManager instance = null;
 
         // Active
-        private Ship pShip;
+        private static Ship pShip;
         private static Missile pMissile;
 
         // Reference
@@ -46,8 +46,20 @@ namespace SpaceInvaders
 
 
             // set active
-            this.pShip = null;
-            pMissile = new Missile(GameObject.Name.Missile, GameSprite.Name.Missile, 0.0f, 0.0f); 
+            pShip = new Ship(GameObject.Name.Ship, GameSprite.Name.Ship, 200, 65);
+            pMissile = new Missile(GameObject.Name.Missile, GameSprite.Name.Missile, pShip);
+
+            SpriteBatch pSB_Aliens = SpriteBatchManager.Find(SpriteBatch.Name.Aliens);
+            SpriteBatch pSB_Boxes = SpriteBatchManager.Find(SpriteBatch.Name.Boxes);
+
+            pMissile.ActivateCollisionSprite(pSB_Boxes);
+            pMissile.ActivateGameSprite(pSB_Aliens);
+
+            GameObject pMissileGroup = GameObjectManager.Find(GameObject.Name.MissileGroup);
+            Debug.Assert(pMissileGroup != null);
+
+            // Add to GameObject Tree - {update and collisions}
+            pMissileGroup.Add(pMissile);
         }
 
         public static void Create()
@@ -64,8 +76,8 @@ namespace SpaceInvaders
             Debug.Assert(instance != null);
 
             // Stuff to initialize after the instance was created
-            instance.pShip = ActivateShip();
-            instance.pShip.SetState(ShipManager.State.Ready);
+            pShip = ActivateShip();
+            pShip.SetState(ShipManager.State.Ready);
 
         }
 
@@ -78,12 +90,12 @@ namespace SpaceInvaders
 
         public static Ship GetShip()
         {
-            ShipManager pShipMan = ShipManager.PrivInstance();
+            //ShipManager pShipMan = ShipManager.PrivInstance();
 
-            Debug.Assert(pShipMan != null);
-            Debug.Assert(pShipMan.pShip != null);
+            //Debug.Assert(pShipMan != null);
+            //Debug.Assert(pShipMan.pShip != null);
 
-            return pShipMan.pShip;
+            return pShip;
         }
 
         public static Missile GetMissile()
@@ -141,36 +153,20 @@ namespace SpaceInvaders
             return pShipState;
         }
 
-        //public static Missile GetMissile()
-        //{
-        //    ShipManager pShipMan = ShipManager.PrivInstance();
-        //    Debug.Assert(pShipMan != null);
-        //    return pShipMan.pMissile;
-        //}
+       
 
-        public static Missile ActivateMissile()
+        public static void ActivateMissile()
         {
-            ShipManager pShipMan = ShipManager.PrivInstance();
-            Debug.Assert(pShipMan != null);
+            //ShipManager pShipMan = ShipManager.PrivInstance();
+            //Debug.Assert(pShipMan != null);
 
-            pMissile.ResetMissile(pShipMan.pShip.x, pShipMan.pShip.y + 20);
+            //pMissile.ResetMissile();
+            pMissile.delta = 5.0f;
+            pMissile.bMarkForDeath = false;
+            pMissile.pProxySprite.Set(GameSprite.Name.Missile);
+            pMissile.poColObj.poColRect.Set(pMissile.pProxySprite.pSprite.GetScreenRect());
 
-            // Attached to SpriteBatches
-            SpriteBatch pSB_Aliens = SpriteBatchManager.Find(SpriteBatch.Name.Aliens);
-            SpriteBatch pSB_Boxes = SpriteBatchManager.Find(SpriteBatch.Name.Boxes);
-
-            pMissile.ActivateCollisionSprite(pSB_Boxes);
-            pMissile.ActivateGameSprite(pSB_Aliens);
-
-
-            // Attach the missile to the missile root
-            GameObject pMissileGroup = GameObjectManager.Find(GameObject.Name.MissileGroup);
-            Debug.Assert(pMissileGroup != null);
-
-            // Add to GameObject Tree - {update and collisions}
-            pMissileGroup.Add(pMissile);
-
-            return pMissile;
+            
         }
 
 
@@ -179,14 +175,7 @@ namespace SpaceInvaders
             ShipManager pShipMan = ShipManager.PrivInstance();
             Debug.Assert(pShipMan != null);
 
-            // copy over safe copy
-            Ship pShip = new Ship(GameObject.Name.Ship, GameSprite.Name.Ship, 200, 65);
-            pShipMan.pShip = pShip;
-
-            // Attach the sprite to the correct sprite batch???? change to ship batch?
-            //SpriteBatch pSB_Aliens = SpriteBatchManager.Find(SpriteBatch.Name.Aliens);
-            //pSB_Aliens.Attach(pShip.pProxySprite);
-
+            
 
             // Attached to SpriteBatches
             SpriteBatch pSB_Aliens = SpriteBatchManager.Find(SpriteBatch.Name.Aliens);
@@ -195,20 +184,25 @@ namespace SpaceInvaders
             pShip.ActivateCollisionSprite(pSB_Boxes);
             pShip.ActivateGameSprite(pSB_Aliens);
 
-
-
-
             // Attach the missile to the missile root???
             GameObject pShipRoot = GameObjectManager.Find(GameObject.Name.ShipRoot);
             Debug.Assert(pShipRoot != null);
 
             // Add to GameObject Tree - {update and collisions}
-            pShipRoot.Add(pShipMan.pShip);
+            pShipRoot.Add(pShip);
 
-            return pShipMan.pShip;
+            return pShip;
         }
 
-        
+        public static void ResetShip()
+        {
+            pShip.pProxySprite.Set(GameSprite.Name.Ship);
+            pShip.ResetLocation();
+            pShip.bMarkForDeath = false;
+            
+            pShip.Handle();
+        }
 
+     
     }
 }

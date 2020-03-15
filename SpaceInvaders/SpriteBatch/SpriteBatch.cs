@@ -12,6 +12,7 @@ namespace SpaceInvaders
             Shields,
             Boxes,
             Texts,
+            NullObjects,
             Uninitialized
         }
 

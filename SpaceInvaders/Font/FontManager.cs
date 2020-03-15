@@ -10,16 +10,24 @@ namespace SpaceInvaders
         // Data
         //----------------------------------------------------------------------
         private static FontManager pInstance = null;
-        private Font pRefNode;
+        private static FontManager pActiveMan = null;
+        private static Font poNodeCompare;
 
         //----------------------------------------------------------------------
         // Constructor
         //----------------------------------------------------------------------
-        private FontManager(int reserveNum = 3, int reserveGrow = 1)
+        public FontManager(int reserveNum = 3, int reserveGrow = 1)
             : base()
         {
             this.BaseInitialize(reserveNum, reserveGrow);
-            this.pRefNode = (Font)this.DerivedCreateNode();
+            
+        }
+
+        private FontManager() 
+            : base()
+        {
+            FontManager.pActiveMan = null;
+            FontManager.poNodeCompare = new Font();
         }
         ~FontManager()
         {
@@ -30,33 +38,46 @@ namespace SpaceInvaders
         // Static Manager methods can be implemented with base methods 
         // Can implement/specialize more or less methods your choice
         //----------------------------------------------------------------------
-        public static void Create(int reserveNum = 3, int reserveGrow = 1)
-        {
-            // make sure values are ressonable 
-            Debug.Assert(reserveNum > 0);
-            Debug.Assert(reserveGrow > 0);
+        //public static void Create(int reserveNum = 3, int reserveGrow = 1)
+        //{
+        //    // make sure values are ressonable 
+        //    Debug.Assert(reserveNum > 0);
+        //    Debug.Assert(reserveGrow > 0);
 
+        //    // initialize the singleton here
+        //    Debug.Assert(pInstance == null);
+
+        //    // Do the initialization
+        //    if (pInstance == null)
+        //    {
+        //        pInstance = new FontManager(reserveNum, reserveGrow);
+        //    }
+        //}
+
+        public static void Create()
+        {
             // initialize the singleton here
             Debug.Assert(pInstance == null);
 
             // Do the initialization
             if (pInstance == null)
             {
-                pInstance = new FontManager(reserveNum, reserveGrow);
+                pInstance = new FontManager();
             }
         }
+
         public static void Destroy()
         {
 
         }
-        public static Font Add(Font.Name name, SpriteBatch.Name SB_Name, String pMessage, Glyph.Name glyphName, float xStart, float yStart)
+        public static Font Add(Font.Name name, SpriteBatch.Name SB_Name, String pMessage, float xStart, float yStart, float width, float height)
         {
-            FontManager pMan = FontManager.GetInstance();
+            FontManager pMan = FontManager.pActiveMan;
 
             Font pNode = (Font)pMan.BaseAdd();
             Debug.Assert(pNode != null);
 
-            pNode.Set(name, pMessage, glyphName, xStart, yStart);
+            pNode.Set(name, pMessage, xStart, yStart, width, height);
 
             // Add to sprite batch
             SpriteBatch pSB = SpriteBatchManager.Find(SB_Name);
@@ -66,26 +87,64 @@ namespace SpaceInvaders
 
             return pNode;
         }
-
-        public static void AddXml(Glyph.Name glyphName, String assetName, Texture.Name textName)
+        public static void SetActive(FontManager pFMan)
         {
-            GlyphManager.AddXml(glyphName, assetName, textName);
+            FontManager pMan = FontManager.GetInstance();
+            Debug.Assert(pMan != null);
+
+            Debug.Assert(pFMan != null);
+            FontManager.pActiveMan = pFMan;
+        }
+
+        //public static void AddXml(Glyph.Name glyphName, String assetName, Texture.Name textName)
+        //{
+        //    GlyphManager.AddXml(glyphName, assetName, textName);
+        //}
+
+        public static void Update(Font.Name name, String pNewMessage) {
+            Font pFont = FontManager.Find(name);
+            Debug.Assert(pFont != null);
+
+            Debug.Assert(pNewMessage != null);
+            pFont.UpdateMessage(pNewMessage);
+
+        }
+        public static void Update(Font.Name name, int pNewMessage)
+        {
+            Font pFont = FontManager.Find(name);
+            Debug.Assert(pFont != null);
+
+            
+            String temp = pNewMessage.ToString();
+            if (pNewMessage < 10)
+            {
+                temp = "000" + temp;
+            }
+            else if (pNewMessage < 100)
+            {
+                temp = "00" + temp;
+            }
+            else if (pNewMessage < 1000) {
+                temp = "0" + temp;
+            }
+
+            pFont.UpdateMessage(temp);
         }
 
         public static void Remove(Glyph pNode)
         {
             Debug.Assert(pNode != null);
-            FontManager pMan = FontManager.GetInstance();
+            FontManager pMan = FontManager.pActiveMan;
             pMan.BaseRemove(pNode);
         }
         public static Font Find(Font.Name name)
         {
-            FontManager pMan = FontManager.GetInstance();
+            FontManager pMan = FontManager.pActiveMan;
 
             // Compare functions only compares two Nodes
-            pMan.pRefNode.name = name;
+            FontManager.poNodeCompare.name = name;
 
-            Font pData = (Font)pMan.BaseFind(pMan.pRefNode);
+            Font pData = (Font)pMan.BaseFind(FontManager.poNodeCompare);
             return pData;
         }
 

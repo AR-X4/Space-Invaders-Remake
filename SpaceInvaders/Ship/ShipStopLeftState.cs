@@ -29,13 +29,9 @@ namespace SpaceInvaders
         }
         public override void ShootMissile(Ship pShip)
         {
-            Missile pMissile = ShipManager.ActivateMissile();
+            ShipManager.ActivateMissile();
 
-            //pMissile.SetPos(pShip.x, pShip.y + 20);
-            //pMissile.SetActive(true);
-
-            // switch states
-            //this.Handle(pShip);
+            
             pShip.SetState(ShipManager.State.StopLeftMissileFlying);
         }
     }

@@ -12,6 +12,7 @@ namespace SpaceInvaders
             GreenSquid,
             OrangeSaucer,
 
+            UFORoot,
             AlienColumn,
             AlienGrid,
 
@@ -49,10 +50,13 @@ namespace SpaceInvaders
         public GameObject.Name name;
         public float x;
         public float y;
+        private readonly float xStartCopy;
+        private readonly float yStartCopy;
         public bool bMarkForDeath;
         public ProxySprite pProxySprite;
         public CollisionObject poColObj;
-        
+        public GameSprite.Name pSpriteName;
+
 
         protected GameObject()
         {
@@ -66,13 +70,19 @@ namespace SpaceInvaders
             this.pProxySprite = null;
         }
 
-        protected GameObject(GameObject.Name gameName, GameSprite.Name spriteName)
+        protected GameObject(GameObject.Name gameName, GameSprite.Name spriteName, float posX = 0.0f, float posY = 0.0f)
         {
             this.name = gameName;
-            this.x = 0.0f;
-            this.y = 0.0f;
+            this.x = posX;
+            this.y = posY;
+
+            this.xStartCopy = posX;
+            this.yStartCopy = posY;
+
             this.bMarkForDeath = false;
-            this.pProxySprite = new ProxySprite(spriteName);
+            this.pProxySprite = new ProxySprite(spriteName, posX, posY);
+
+            this.pSpriteName = spriteName;
             
 
             this.poColObj = new CollisionObject(this.pProxySprite);
@@ -207,6 +217,11 @@ namespace SpaceInvaders
         public GameObject.Name GetName()
         {
             return this.name;
+        }
+
+        public void ResetLocation() {
+            this.x = this.xStartCopy;
+            this.y = this.yStartCopy;
         }
 
         //public void SetGameObjectNode(GameObjectNode pGameObjectNode)

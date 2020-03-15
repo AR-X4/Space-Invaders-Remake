@@ -15,7 +15,7 @@ namespace SpaceInvaders
             this.y = posY;
 
             BombManager.SetState(BombManager.StateName.Ready, this);
-            this.pBomb = BombManager.CreateBomb();
+            this.pBomb = BombManager.CreateBomb(this);
 
             this.poColObj.pColSprite.SetLineColor(0, 1, 1);
         }
@@ -33,6 +33,39 @@ namespace SpaceInvaders
             // MissileGroup vs Columns
             GameObject pGameObj = (GameObject)Iterator.GetChild(this);
             CollisionPair.Collide(m, pGameObj);
+        }
+        public override void VisitShieldRoot(ShieldRoot m)
+        {
+            // BirdGroup vs MissileGroup
+            //Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+
+            // MissileGroup vs Columns
+            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+            CollisionPair.Collide(pGameObj, this);
+        }
+        public override void VisitShieldGrid(ShieldGrid m)
+        {
+            // BirdGroup vs MissileGroup
+            //Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+
+            // MissileGroup vs Columns
+            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+            CollisionPair.Collide(pGameObj, this);
+        }
+        public override void VisitShieldColumn(ShieldColumn m)
+        {
+            // BirdGroup vs MissileGroup
+            //Debug.WriteLine("         collide:  {0} <-> {1}", m.name, this.name);
+
+            // MissileGroup vs Columns
+            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+            CollisionPair.Collide(pGameObj, this);
+        }
+        public override void VisitShieldBrick(ShieldBrick m)
+        {
+            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+            pColPair.SetCollision(this, m);
+            pColPair.NotifyListeners();
         }
 
         public override void Update()
@@ -64,14 +97,20 @@ namespace SpaceInvaders
         public float GetBottom() {
             return this.poColObj.poColRect.y - this.poColObj.poColRect.height / 2;
         }
+        public float GetTop()
+        {
+            return this.poColObj.poColRect.y + this.poColObj.poColRect.height / 2;
+        }
 
         public void DropBomb() {
             this.state.DropBomb(this);
+            //Debug.WriteLine("DROP BOMB\n");
          
         }
 
         public void Handle()
         {
+            
             this.state.Handle(this);
         }
     }

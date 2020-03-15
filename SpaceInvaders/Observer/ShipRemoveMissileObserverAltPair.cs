@@ -6,7 +6,7 @@ namespace SpaceInvaders
     public class ShipRemoveMissileObserverAltPair : CollisionObserver
     {
         // data
-        private GameObject pMissile;
+        private Missile pMissile;
 
         public ShipRemoveMissileObserverAltPair()
         {
@@ -45,7 +45,12 @@ namespace SpaceInvaders
         public override void Execute()
         {
             // Let the gameObject deal with this... 
-            this.pMissile.Remove();
+            this.pMissile.ResetMissile();
+            Ship pShip = ShipManager.GetShip();
+            if (pShip.CurrentStateName != ShipManager.State.Dead)
+            {
+                pShip.Handle();
+            }
         }
     }
 }

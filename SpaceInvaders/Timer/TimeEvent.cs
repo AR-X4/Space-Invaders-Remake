@@ -13,6 +13,14 @@ namespace SpaceInvaders
             MoveAlienGrid,
             SpriteAnimation,
             DropBomb,
+            UFOSpawn,
+            PlayUFOSound,
+            RemoveAlien,
+            RemoveShip,
+            RemoveBomb,
+            RemoveMissile,
+            SwapShipExplosion,
+            GameOver,
             Uninitialized
         }
 

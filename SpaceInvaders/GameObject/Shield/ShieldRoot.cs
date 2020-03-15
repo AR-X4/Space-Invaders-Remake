@@ -23,16 +23,11 @@ namespace SpaceInvaders
         }
         public override void VisitMissileGroup(MissileGroup m)
         {
-            // MissileRoot vs ShieldRoot
-            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
-            CollisionPair.Collide(pGameObj, this);
-        }
-        public override void VisitMissile(Missile m)
-        {
-            // Missile vs ShieldRoot
+
             GameObject pGameObj = (GameObject)Iterator.GetChild(this);
             CollisionPair.Collide(m, pGameObj);
         }
+
         public override void VisitBombRoot(BombRoot b)
         {
             // BombRoot vs ShieldRoot
@@ -48,6 +43,32 @@ namespace SpaceInvaders
             // Go to first child
             base.BaseUpdateBoundingBox(this);
             base.Update();
+        }
+
+        public void ResetShields() {
+            ForwardIterator pFor = new ForwardIterator(this);
+
+            GameObject pGameObj;
+            GameObject pParent;
+            Component pNode = pFor.First();
+
+            while (!pFor.IsDone())
+            {
+                pGameObj = (GameObject)pNode;
+
+                pGameObj.pProxySprite.Set(pGameObj.pSpriteName);
+                pGameObj.poColObj.poColRect.Set(pGameObj.pProxySprite.pSprite.GetScreenRect());
+                pGameObj.bMarkForDeath = false;
+
+
+                pParent = (GameObject)pGameObj.pParent;
+                if (pParent != null)
+                {
+                    pParent.Update();
+                }
+                pNode = pFor.Next();
+            }
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace SpaceInvaders
             DeadAlien,
 
             UFO,
+            UFOExplosion,
 
             Uninitialized
         }

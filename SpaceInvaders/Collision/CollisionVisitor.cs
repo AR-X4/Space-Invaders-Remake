@@ -51,6 +51,13 @@ namespace SpaceInvaders
             Debug.Assert(false);
         }
 
+        public virtual void VisitUFORoot(UFORoot b)
+        {
+            // no differed to subcass
+            Debug.WriteLine("Visit by UFO Root not implemented");
+            Debug.Assert(false);
+        }
+
         public virtual void VisitMissile(Missile m)
         {
             // no differed to subcass

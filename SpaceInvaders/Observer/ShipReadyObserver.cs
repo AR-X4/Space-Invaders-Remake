@@ -13,7 +13,10 @@ namespace SpaceInvaders
             // Correction... only method that changes state is Handle
             // So correct this....
             // pShip.SetState(ShipMan.State.Ready);
-            pShip.Handle();
+            if (pShip.CurrentStateName != ShipManager.State.Dead)
+            {
+                pShip.Handle();
+            }
 
         }
     }

@@ -68,43 +68,45 @@ namespace SpaceInvaders
 
      
 
-        public static Bomb CreateBomb()
+        public static Bomb CreateBomb(AlienColumn pOwner)
         {
             // each column owns one instance of a bomb that is reused.
             // create a null bomb
-            Bomb pBomb = new Bomb();
+            Bomb pBomb = new Bomb(pOwner);
+
+            SpriteBatch pSB_Aliens = SpriteBatchManager.Find(SpriteBatch.Name.Aliens);
+            SpriteBatch pSB_Boxes = SpriteBatchManager.Find(SpriteBatch.Name.Boxes);
+
+            pBomb.ActivateCollisionSprite(pSB_Boxes);
+            pBomb.ActivateGameSprite(pSB_Aliens);
+
+            GameObject pBombRoot = GameObjectManager.Find(GameObject.Name.BombRoot);
+            Debug.Assert(pBombRoot != null);
+
+            // Add to GameObject Tree - {update and collisions}
+            pBombRoot.Add(pBomb);
 
             return pBomb;
         }
 
-        public static void Remove(Bomb pNode)
+        public static void Reset(Bomb pNode)
         {
            // Debug.WriteLine("Remove Bomb!!!!");
           
             Debug.Assert(pNode != null);
 
-            pNode.Remove();
+            pNode.ResetBomb();
             
             
         }
 
-        public static void ActivateBomb(AlienColumn pBombOwner, float posX, float posY) {
+        public static void ActivateBomb(AlienColumn pBombOwner) {
 
-            pBombOwner.pBomb.SetBomb(pBombOwner, posX, posY);
-
-            // Attached to SpriteBatches
-            SpriteBatch pSB_Aliens = SpriteBatchManager.Find(SpriteBatch.Name.Aliens);
-            SpriteBatch pSB_Boxes = SpriteBatchManager.Find(SpriteBatch.Name.Boxes);
-
-            pBombOwner.pBomb.ActivateCollisionSprite(pSB_Boxes);
-            pBombOwner.pBomb.ActivateGameSprite(pSB_Aliens);
-
-            // Attach the missile to the missile root
-            GameObject pBombRoot = GameObjectManager.Find(GameObject.Name.BombRoot);
-            Debug.Assert(pBombRoot != null);
-
-            // Add to GameObject Tree - {update and collisions}
-            pBombRoot.Add(pBombOwner.pBomb);
+            //pBombOwner.pBomb.ResetBomb(pBombOwner);
+            pBombOwner.pBomb.delta = 0.5f;
+            RandomizeBombType(pBombOwner.pBomb);
+            pBombOwner.pBomb.bMarkForDeath = false;
+            pBombOwner.pBomb.pStrategy.Reset(pBombOwner.pBomb.y);
 
         }
 
@@ -125,6 +127,7 @@ namespace SpaceInvaders
                     pBomb.pProxySprite.Set(GameSprite.Name.BombDagger);
                     break;
             }
+            pBomb.poColObj.poColRect.Set(pBomb.pProxySprite.pSprite.GetScreenRect());
         }
 
 

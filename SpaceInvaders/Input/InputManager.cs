@@ -16,7 +16,9 @@ namespace SpaceInvaders
         private InputSubject pSubjectArrowLeft;
         private InputSubject pSubjectSpace;
         private InputSubject pSubjectCKey;
-        private InputSubject pSubjectPKey;
+        //private InputSubject pSubjectPKey;
+        private InputSubject pSubject1Key;
+        private InputSubject pSubject2Key;
 
         public InputManager()
         {
@@ -24,7 +26,9 @@ namespace SpaceInvaders
             this.pSubjectArrowRight = new InputSubject();
             this.pSubjectSpace = new InputSubject();
             this.pSubjectCKey = new InputSubject();
-            this.pSubjectPKey = new InputSubject();
+            //this.pSubjectPKey = new InputSubject();
+            this.pSubject1Key = new InputSubject();
+            this.pSubject2Key = new InputSubject();
 
             this.pSpaceKeyPrev = false;
             this.pCKeyPrev = false;
@@ -86,14 +90,28 @@ namespace SpaceInvaders
 
             return pMan.pSubjectCKey;
         }
-
-        public static InputSubject GetPKeySubject()
+        public static InputSubject Get1KeySubject()
         {
             InputManager pMan = InputManager.pActiveMan;
             Debug.Assert(pMan != null);
 
-            return pMan.pSubjectPKey;
+            return pMan.pSubject1Key;
         }
+        public static InputSubject Get2KeySubject()
+        {
+            InputManager pMan = InputManager.pActiveMan;
+            Debug.Assert(pMan != null);
+
+            return pMan.pSubject2Key;
+        }
+
+        //public static InputSubject GetPKeySubject()
+        //{
+        //    InputManager pMan = InputManager.pActiveMan;
+        //    Debug.Assert(pMan != null);
+
+        //    return pMan.pSubjectPKey;
+        //}
 
         public static void Update()
         {
@@ -112,11 +130,23 @@ namespace SpaceInvaders
                 pMan.pSubjectArrowRight.Notify();
             }
 
-            // P Key: (no history) -----------------------------------------------------------
-            if (Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_P) == true)
+            // 1 Key: (no history) -----------------------------------------------------------
+            if (Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_1) == true)
             {
-                pMan.pSubjectPKey.Notify();
+                pMan.pSubject1Key.Notify();
             }
+
+            // 2 Key: (no history) -----------------------------------------------------------
+            if (Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_2) == true)
+            {
+                pMan.pSubject2Key.Notify();
+            }
+
+            // P Key: (no history) -----------------------------------------------------------
+            //if (Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_P) == true)
+            //{
+            //    pMan.pSubjectPKey.Notify();
+            //}
 
             // SpaceKey: (with key history) -----------------------------------------------------------
             bool spaceKeyCurr = Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_SPACE);
@@ -132,7 +162,7 @@ namespace SpaceInvaders
             if (CKeyCurr == true && pMan.pCKeyPrev == false)
             {
                 pMan.pSubjectCKey.Notify();
-                
+
             }
 
             pMan.pCKeyPrev = CKeyCurr;

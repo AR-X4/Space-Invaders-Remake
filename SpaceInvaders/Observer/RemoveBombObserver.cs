@@ -7,16 +7,23 @@ namespace SpaceInvaders
     {
         // data
         private Bomb pBomb;
+        private RemoveBombEvent pEvent;
+        private GameObject pSubB;
 
         public RemoveBombObserver()
         {
             this.pBomb = null;
+            this.pEvent = null;
+            this.pSubB = null;
         }
 
         public RemoveBombObserver(RemoveBombObserver m)
         {
             Debug.Assert(m.pBomb != null);
+            Debug.Assert(m.pSubB != null);
             this.pBomb = m.pBomb;
+            this.pEvent = new RemoveBombEvent();
+            this.pSubB = m.pSubB;
         }
 
         public override void Notify()
@@ -30,6 +37,7 @@ namespace SpaceInvaders
 
             // This cast will throw an exception if I'm wrong
             this.pBomb = (Bomb)this.pSubject.pObjA;
+            this.pSubB = this.pSubject.pObjB;
 
             //Debug.WriteLine("MissileRemoveObserver: --> delete missile {0}", pBomb);
 
@@ -43,15 +51,24 @@ namespace SpaceInvaders
                 DelayedObjectManager.Attach(pObserver);
             }
 
-            this.pBomb.pOwner.Handle();
+            //this.pBomb.pOwner.Handle();
         }
 
         public override void Execute()
         {
             // Let the gameObject deal with this...
-
-
-            BombManager.Remove(this.pBomb);
+            if (this.pSubB.name != GameObject.Name.Ship)
+            {
+                this.pBomb.delta = 0.0f;
+                this.pBomb.pProxySprite.Set(GameSprite.Name.BombExplosion);
+                this.pEvent.SetBomb(this.pBomb);
+                TimerManager.Add(TimeEvent.Name.RemoveBomb, this.pEvent, 0.5f);
+            }
+            else
+            {
+                BombManager.Reset(this.pBomb);
+            }
+            this.pBomb.pOwner.Handle();
         }
     }
 

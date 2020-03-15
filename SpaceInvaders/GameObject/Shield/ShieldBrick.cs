@@ -25,30 +25,40 @@ namespace SpaceInvaders
         }
         public override void VisitMissileGroup(MissileGroup m)
         {
-            // MissileRoot vs ShieldRoot
-            GameObject pGameObj = (GameObject)Iterator.GetChild(m);
-            CollisionPair.Collide(pGameObj, this);
+            
+            //if (this.bMarkForDeath == false && m.bMarkForDeath == false)// to fix bug with collision with null objs
+            //{
+                GameObject pGameObj = (GameObject)Iterator.GetChild(m);
+                CollisionPair.Collide(pGameObj, this);
+            //}
         }
         public override void VisitMissile(Missile m)
         {
-            // Missile vs ShieldBrick
-            //Debug.WriteLine(" ---> Done");
-            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
-            pColPair.SetCollision(m, this);
-            pColPair.NotifyListeners();
+            if (this.bMarkForDeath == false && m.bMarkForDeath == false)// to fix bug with collision with null objs
+            {
+                CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+                pColPair.SetCollision(m, this);
+                pColPair.NotifyListeners();
+            }
+
         }
         public override void VisitBombRoot(BombRoot b)
         {
-            // BombRoot vs ShieldRoot
-            CollisionPair.Collide((GameObject)Iterator.GetChild(b), this);
+          
+                // BombRoot vs ShieldRoot
+                CollisionPair.Collide((GameObject)Iterator.GetChild(b), this);
+            
         }
         public override void VisitBomb(Bomb b)
         {
-            // Bomb vs ShieldBrick
-            //Debug.WriteLine(" ---> Done");
-            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
-            pColPair.SetCollision(b, this);
-            pColPair.NotifyListeners();
+            if (this.bMarkForDeath == false)// to fix bug with collision with null objs
+            {
+                // Bomb vs ShieldBrick
+                //Debug.WriteLine(" ---> Done");
+                CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+                pColPair.SetCollision(b, this);
+                pColPair.NotifyListeners();
+            }
         }
         public override void Update()
         {
@@ -59,16 +69,20 @@ namespace SpaceInvaders
             // Since the Root object is being drawn
             // 1st set its size to zero
             this.poColObj.poColRect.Set(0, 0, 0, 0);
-            base.Update();
+            //base.Update();
+
+           
+
+            this.pProxySprite.Set(GameSprite.Name.NullObject);
 
             // Update the parent (bomb root)
-            GameObject pParent = (GameObject)this.pParent;
+            //GameObject pParent = (GameObject)this.pParent;
 
-            pParent.Remove(this);
-            pParent.Update();
+            //pParent.Remove(this);
+            //pParent.Update();
 
             // Now remove from sprite batches
-            base.Remove();
+            //base.Remove();
         }
     }
 }

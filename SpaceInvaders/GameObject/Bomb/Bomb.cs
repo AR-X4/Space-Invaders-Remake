@@ -13,60 +13,77 @@ namespace SpaceInvaders
         public FallStrategy pDaggers;
         public FallStrategy pZigZag;
 
-        public Bomb()
+        public Bomb(AlienColumn pOwner)
             : base(GameObject.Name.Bomb, GameSprite.Name.NullObject)
         {
-            this.x = 0.0f;
-            this.y = 0.0f;
-            this.delta = 0.5f;
-            //bombs are reused and these news are called once per bomb... must have strategy instances for each bomb
+            this.x = pOwner.x;
+            this.y = pOwner.GetBottom();
+            this.delta = 0.0f;
+
+            this.pOwner = pOwner;
+
             this.pDaggers = new FallDagger();
             this.pZigZag = new FallZigZag();
             this.pStrategy = null;
 
-        }
-
-        public void SetBomb(AlienColumn pOwner, float posX, float posY) {
-            this.x = posX;
-            this.y = posY;
-
-            this.pOwner = pOwner;
-            this.bMarkForDeath = false;
-
-            BombManager.RandomizeBombType(this);
-
-            Debug.Assert(this.poColObj != null);
-            this.poColObj.poColRect.Set(this.pProxySprite.pSprite.GetScreenRect());
             this.poColObj.pColSprite.SetLineColor(1, 1, 0);
 
-            this.pStrategy.Reset(this.y);
-            base.Update();
         }
 
-        public override void Remove()
-        {
-            // Since the Root object is being drawn
-            // 1st set its size to zero
-            this.poColObj.poColRect.Set(0, 0, 0, 0);
-            base.Update();
+        public void ResetBomb() {
+            this.x = this.pOwner.x;
+            this.y = this.pOwner.GetBottom();
 
-            // Update the parent (bomb root)
-            GameObject pParent = (GameObject)this.pParent;
-           
-            pParent.Remove(this);
-            pParent.Update();
+            this.delta = 0.0f;
 
-            // Now remove from sprite batches
-            base.Remove();
+            
+            this.pProxySprite.Set(GameSprite.Name.NullObject);
+            
+
+            
+
+            //this.pStrategy.Reset(this.y);
+            //base.Update();
         }
+
+        
+
+        //public override void Remove()
+        //{
+        //    // Since the Root object is being drawn
+        //    // 1st set its size to zero
+        //    this.poColObj.poColRect.Set(0, 0, 0, 0);
+        //    base.Update();
+
+        //    // Update the parent (bomb root)
+        //    GameObject pParent = (GameObject)this.pParent;
+
+        //    pParent.Remove(this);
+        //    pParent.Update();
+
+        //    // Now remove from sprite batches
+        //    base.Remove();
+        //}
         public override void Update()
         {
-            base.Update();
-            this.y -= delta;
+            if (this.pProxySprite.pSprite.name == GameSprite.Name.NullObject)
+            {
+                base.Update();
+                this.ResetBomb();
 
-            // Strategy
-            this.pStrategy.Fall(this);
-            
+            }
+            else
+            {
+
+                base.Update();
+                this.y -= delta;
+
+                // Strategy
+                if (this.pStrategy != null)//????
+                {
+                    this.pStrategy.Fall(this);
+                }
+            }
         }
         public float GetBoundingBoxHeight()
         {

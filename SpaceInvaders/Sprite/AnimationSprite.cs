@@ -44,6 +44,7 @@ namespace SpaceInvaders
         {
             // advance to next image 
             ImageHolder pImageHolder = (ImageHolder)this.pCurrImage.pSNext;
+            AlienGrid pAlienGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
 
             // if at end of list, set to first
             if (pImageHolder == null)
@@ -58,7 +59,7 @@ namespace SpaceInvaders
             this.pSprite.SwapImage(pImageHolder.pImage);
 
             // Add itself back to timer
-            TimerManager.Add(TimeEvent.Name.SpriteAnimation, this, deltaTime);
+            TimerManager.Add(TimeEvent.Name.SpriteAnimation, this, pAlienGrid.GetMoveRate());
         }
     }
 }

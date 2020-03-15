@@ -56,12 +56,12 @@ namespace SpaceInvaders
         // Methods
         //---------------------------------------------------------------------------------------------------------
 
-        public ProxySprite(GameSprite.Name name)
+        public ProxySprite(GameSprite.Name name, float posX = 0.0f, float posY = 0.0f)
         {
             this.name = ProxySprite.Name.Proxy;
 
-            this.x = 0.0f;
-            this.y = 0.0f;
+            this.x = posX;
+            this.y = posY;
             this.sx = 1.0f;
             this.sy = 1.0f;
 
