@@ -37,6 +37,16 @@ namespace SpaceInvaders
             pColPair.SetCollision(b, this);
             pColPair.NotifyListeners();
         }
+        public override void VisitGroup(AlienGrid a)
+        {
+
+            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+            Debug.Assert(pColPair != null);
+
+            pColPair.SetCollision(a, this);
+            pColPair.NotifyListeners();
+        }
+
 
         public override void Update()
         {

@@ -99,8 +99,8 @@ namespace SpaceInvaders
 
         public static void ActivateBomb(AlienColumn pBombOwner) {
 
-            //pBombOwner.pBomb.ResetBomb(pBombOwner);
-            pBombOwner.pBomb.delta = 0.5f;
+            
+            pBombOwner.pBomb.delta = 1.5f;
             RandomizeBombType(pBombOwner.pBomb);
             pBombOwner.pBomb.bMarkForDeath = false;
             pBombOwner.pBomb.pStrategy.Reset(pBombOwner.pBomb.y);
@@ -111,7 +111,7 @@ namespace SpaceInvaders
         public static void RandomizeBombType(Bomb pBomb)
         {
             BombManager pBombMan = BombManager.GetInstance();
-            float rand = RandomManager.RandomInt(1, 3);
+            float rand = RandomManager.RandomInt(1, 4);
 
             switch (rand)
             {
@@ -122,6 +122,10 @@ namespace SpaceInvaders
                 case 2:
                     pBomb.pStrategy = pBomb.pDaggers;
                     pBomb.pProxySprite.Set(GameSprite.Name.BombDagger);
+                    break;
+                case 3:
+                    pBomb.pStrategy = pBomb.pStraight;
+                    pBomb.pProxySprite.Set(GameSprite.Name.BombStraight);
                     break;
             }
             pBomb.poColObj.poColRect.Set(pBomb.pProxySprite.pSprite.GetScreenRect());

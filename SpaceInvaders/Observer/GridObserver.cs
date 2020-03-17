@@ -26,12 +26,8 @@ namespace SpaceInvaders
             {
                 pGrid.SetDelta(20.0f);
             }
-            else
-            {
-                Debug.Assert(false);
-            }
+            
             pGrid.SetYDelta(-35.0f);
-
         }
     }
 }

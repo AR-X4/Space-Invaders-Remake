@@ -7,6 +7,7 @@ namespace SpaceInvaders
     {
         public BombState state;
         public Bomb pBomb;
+        
 
         public AlienColumn(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
         : base(name, spriteName)
@@ -18,6 +19,7 @@ namespace SpaceInvaders
             this.pBomb = BombManager.CreateBomb(this);
 
             this.poColObj.pColSprite.SetLineColor(0, 1, 1);
+            
         }
         public override void Accept(CollisionVisitor other)
         {
@@ -102,10 +104,17 @@ namespace SpaceInvaders
             return this.poColObj.poColRect.y + this.poColObj.poColRect.height / 2;
         }
 
-        public void DropBomb() {
-            this.state.DropBomb(this);
-            //Debug.WriteLine("DROP BOMB\n");
-         
+        public void DropBomb()
+        {
+            GameObject temp = (GameObject)this.GetFirstChild();
+            while (temp != null)
+            {
+                if (temp.pProxySprite.pSprite.name != GameSprite.Name.NullObject) {
+                    this.state.DropBomb(this);
+                    break;
+                }
+                temp = (GameObject)Iterator.GetSibling(temp);
+            }
         }
 
         public void Handle()

@@ -15,7 +15,7 @@ namespace SpaceInvaders
 
         public override void Execute(float deltaTime)
         {
-            float NewTime = RandomManager.RandomInt(7, 15);
+            float NewTime = RandomManager.RandomInt(45, 61);
 
             UFORoot pUFORoot = (UFORoot)GameObjectManager.Find(GameObject.Name.UFORoot);
             OrangeSaucer pUFO = (OrangeSaucer)pUFORoot.GetFirstChild();

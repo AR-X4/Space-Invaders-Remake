@@ -22,6 +22,7 @@ namespace SpaceInvaders
         {
             //set state of scene context to Scene Select
             SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.PlayerSelect);
+            
         }
         public override void Initialize()
         {
@@ -42,6 +43,7 @@ namespace SpaceInvaders
             FontManager.Add(Font.Name.TestMessage, SpriteBatch.Name.Texts, "GAME  OVER", 300f, SpaceInvaders.ScreenHeight - 350f, 15f, 25f);
             FontManager.Add(Font.Name.Header, SpriteBatch.Name.Texts, "SCORE<1>       HI-SCORE       SCORE<2>", 20f, SpaceInvaders.ScreenHeight - 20f, 15f, 25f);
             FontManager.Add(Font.Name.Player1Score, SpriteBatch.Name.Texts, "0000", 65f, SpaceInvaders.ScreenHeight - 70f, 15f, 25f);
+            FontManager.Add(Font.Name.Player2Score, SpriteBatch.Name.Texts, "0000", SpaceInvaders.ScreenWidth - 156f, SpaceInvaders.ScreenHeight - 70f, 15f, 25f);
             FontManager.Add(Font.Name.HiScore, SpriteBatch.Name.Texts, "0000", 380f, SpaceInvaders.ScreenHeight - 70f, 15f, 25f);
 
             //---------------------------------------------------------------------------------------------------------
@@ -56,6 +58,7 @@ namespace SpaceInvaders
         public override void Update(float systemTime)
         {
             FontManager.Update(Font.Name.Player1Score, SpaceInvaders.pPlayer1Score);
+            FontManager.Update(Font.Name.Player2Score, SpaceInvaders.pPlayer2Score);
             FontManager.Update(Font.Name.HiScore, SpaceInvaders.pHiScore);
             InputManager.Update();
         }
@@ -73,6 +76,8 @@ namespace SpaceInvaders
             //GameObjectManager.SetActive(this.poGameObjectManager);
             InputManager.SetActive(this.poInputManager);
             FontManager.SetActive(this.poFontManager);
+
+           
         }
     }
 }

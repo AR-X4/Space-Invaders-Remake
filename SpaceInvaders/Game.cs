@@ -12,6 +12,7 @@ namespace SpaceInvaders
         public static int pHiScore;
         public static int pPlayer1Score;
         public static int pPlayer2Score;
+        public static bool Player1Mode;
 
         //-----------------------------------------------------------------------------
         // Game::Initialize()
@@ -48,25 +49,25 @@ namespace SpaceInvaders
             ImageManager.Create(5, 2);
             SoundManager.Create(3, 1);
             GameSpriteManager.Create(4, 2);
-            BoxSpriteManager.Create(3, 1);//?? delete this? not in use currently
-            TimerManager.Create(3, 1);
+            BoxSpriteManager.Create(3, 1);
             CollisionPairManager.Create(1, 1);
             CollisionStateManager.Create();
             GlyphManager.Create(3, 1);
             Simulation.Create();
-            FontManager.Create();
             RandomManager.Create();
+            BombManager.Create();
+            ShipManager.Create();
 
             //State-unique Managers
-
             SpriteBatchManager.Create();
             GameObjectManager.Create();
             InputManager.Create();
+            FontManager.Create();
+            TimerManager.Create();
 
-            
-            
 
-            ProxySpriteManager.Create(10, 1);//not in use currently
+
+            //ProxySpriteManager.Create(10, 1);//not in use currently
 
             //---------------------------------------------------------------------------------------------------------
             // Load the Textures
@@ -116,7 +117,8 @@ namespace SpaceInvaders
 
             ImageManager.Add(Image.Name.BombDagger, Texture.Name.SpaceInvaders, 42, 27, 3, 6);
             ImageManager.Add(Image.Name.BombZigZag, Texture.Name.SpaceInvaders, 18, 26, 3, 7);
-
+            ImageManager.Add(Image.Name.BombStraight, Texture.Name.SpaceInvaders, 65, 26, 3, 7);
+            
             ImageManager.Add(Image.Name.ShieldBrick, Texture.Name.SpaceInvaders, 120, 35, 4, 2);
             ImageManager.Add(Image.Name.ShieldBrick_LeftTop0, Texture.Name.SpaceInvaders, 115, 30, 4, 2);
             ImageManager.Add(Image.Name.ShieldBrick_LeftTop1, Texture.Name.SpaceInvaders, 116, 31, 4, 2);
@@ -191,7 +193,7 @@ namespace SpaceInvaders
             //-----Missile----
             GameSpriteManager.Add(GameSprite.Name.Missile, Image.Name.Missile, 50, 50, 3, 15);//, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
             //----Player Ship----
-            GameSpriteManager.Add(GameSprite.Name.Ship, Image.Name.Ship, 500, 100, 55, 25, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.Ship, Image.Name.Ship, 500, 100, 50, 30, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
 
             //---Explosions---
             GameSpriteManager.Add(GameSprite.Name.AlienExplosion, Image.Name.AlienExplosion, 50, 50, 33, 33);
@@ -205,14 +207,19 @@ namespace SpaceInvaders
             //----Bombs----
             GameSpriteManager.Add(GameSprite.Name.BombDagger, Image.Name.BombDagger, 50, 50, 10, 25);
             GameSpriteManager.Add(GameSprite.Name.BombZigZag, Image.Name.BombZigZag, 50, 50, 10, 25);
+            GameSpriteManager.Add(GameSprite.Name.BombStraight, Image.Name.BombStraight, 50, 50, 10, 25);
+
             //----Shield----
-            GameSpriteManager.Add(GameSprite.Name.ShieldBrick, Image.Name.ShieldBrick, 50, 25, 14, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftTop0, Image.Name.ShieldBrick_LeftTop0, 50, 25, 14, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftTop1, Image.Name.ShieldBrick_LeftTop1, 50, 25, 14, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftBottom, Image.Name.ShieldBrick_LeftBottom, 50, 25, 14, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightTop0, Image.Name.ShieldBrick_RightTop0, 50, 25, 14, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightTop1, Image.Name.ShieldBrick_RightTop1, 50, 25, 14, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightBottom, Image.Name.ShieldBrick_RightBottom, 50, 25, 14, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick, Image.Name.ShieldBrick, 50, 25, 12, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftTop0, Image.Name.ShieldBrick_LeftTop0, 50, 25, 12, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftTop1, Image.Name.ShieldBrick_LeftTop1, 50, 25, 12, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_LeftBottom, Image.Name.ShieldBrick_LeftBottom, 50, 25, 12, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightTop0, Image.Name.ShieldBrick_RightTop0, 50, 25, 12, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightTop1, Image.Name.ShieldBrick_RightTop1, 50, 25, 12, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.ShieldBrick_RightBottom, Image.Name.ShieldBrick_RightBottom, 50, 25, 12, 7, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+
+            //----Ground----
+            GameSpriteManager.Add(GameSprite.Name.Ground, Image.Name.ShieldBrick, 50, 50, SpaceInvaders.ScreenWidth - 10, 5, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
 
             //--------------------------------------------------------------------------
             //Create Scenes
@@ -235,6 +242,7 @@ namespace SpaceInvaders
         {
             SoundManager.Update();
             // Update the scene
+            Simulation.Update(this.GetTime());
             pSceneContext.GetState().Update(this.GetTime());
 
         }
@@ -265,7 +273,7 @@ namespace SpaceInvaders
             {
                 SpaceInvaders.pHiScore = SpaceInvaders.pPlayer1Score;
             }
-            else if (SpaceInvaders.pPlayer2Score > SpaceInvaders.pHiScore)
+            if (SpaceInvaders.pPlayer2Score > SpaceInvaders.pHiScore)
             {
                 SpaceInvaders.pHiScore = SpaceInvaders.pPlayer2Score;
             }

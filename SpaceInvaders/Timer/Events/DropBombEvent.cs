@@ -17,8 +17,8 @@ namespace SpaceInvaders
         public override void Execute(float deltaTime)
         {
 
-            float NewTime = RandomManager.RandomInt(1, 2);
-            float randColumn = RandomManager.RandomInt(1, 11);
+            float NewTime = RandomManager.RandomInt(2, 4);
+            float randColumn = RandomManager.RandomInt(1, 12);
 
             AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
             AlienColumn pColumn = (AlienColumn)pGrid.GetFirstChild();

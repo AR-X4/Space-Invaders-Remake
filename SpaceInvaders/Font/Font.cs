@@ -13,6 +13,7 @@ namespace SpaceInvaders
             Player1Score,
             Player2Score,
             HiScore,
+            Lives,
 
             NullObject,
             Uninitialized

@@ -23,7 +23,7 @@ namespace SpaceInvaders
             this.Y_Delta = 0.0f;
             this.delta = 10.0f;
 
-            this.MoveRate = 1.0f;
+            this.MoveRate = 1.3f;
 
             this.RateChange = 0.025f;
 
@@ -106,6 +106,8 @@ namespace SpaceInvaders
         }
 
         public void ResetAliens() {
+
+            this.MoveRate = 1.3f;
 
             ForwardIterator pFor = new ForwardIterator(this);
 

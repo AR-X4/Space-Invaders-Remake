@@ -3,11 +3,12 @@
 
 namespace SpaceInvaders
 {
-    class RemoveLifeObserver : CollisionObserver
+    class RemoveP2LifeObserver : CollisionObserver
     {
         private int count;
 
-        public RemoveLifeObserver() {
+        public RemoveP2LifeObserver()
+        {
             this.count = 1;
         }
 
@@ -15,9 +16,9 @@ namespace SpaceInvaders
         public override void Notify()
         {
             //-------RemoveLife-------
-            ScenePlay.ShipLives--;
+            ScenePlay2.ShipLives--;
             this.count++;
-            
+
             PlayerLivesComposite pNullObjs = (PlayerLivesComposite)GameObjectManager.Find(GameObject.Name.Null_Object);
             pNullObjs.RemoveLife(count);
 

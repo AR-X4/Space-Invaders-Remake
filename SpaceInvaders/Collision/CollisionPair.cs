@@ -10,6 +10,7 @@ namespace SpaceInvaders
             Alien_Missile,
             UFO_Missile,
             Alien_Wall,
+            Alien_WallBottom,
             Alien_Shield,
             Missile_Wall_Top,
             Missile_Shield,

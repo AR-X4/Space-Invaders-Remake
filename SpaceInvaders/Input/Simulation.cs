@@ -64,6 +64,7 @@ namespace SpaceInvaders
             //      Feels backwards, but its not, need to see how much time has passed
             pSim.stopWatch_toc = systemTime - pSim.stopWatch_tic;
             pSim.stopWatch_tic = systemTime;
+            //Debug.WriteLine(systemTime);
 
             if (pSim.PrivGetState() == State.FixedStep)
             {
@@ -161,7 +162,8 @@ namespace SpaceInvaders
         {
             Simulation pSim = Simulation.PrivGetInstance();
             Debug.Assert(pSim != null);
-            return pSim.totalWatch- pSim.stopWatch_toc;
+            return pSim.totalWatch;// - pSim.stopWatch_toc;
+            //return pSim.stopWatch_tic - pSim.stopWatch_toc;
         }
 
         // cannot create without going through singleton

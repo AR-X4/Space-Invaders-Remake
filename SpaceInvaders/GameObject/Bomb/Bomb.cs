@@ -12,6 +12,7 @@ namespace SpaceInvaders
         public FallStrategy pStrategy;
         public FallStrategy pDaggers;
         public FallStrategy pZigZag;
+        public FallStrategy pStraight;
 
         public Bomb(AlienColumn pOwner)
             : base(GameObject.Name.Bomb, GameSprite.Name.NullObject)
@@ -24,6 +25,7 @@ namespace SpaceInvaders
 
             this.pDaggers = new FallDagger();
             this.pZigZag = new FallZigZag();
+            this.pStraight = new FallStraight();
             this.pStrategy = null;
 
             this.poColObj.pColSprite.SetLineColor(1, 1, 0);

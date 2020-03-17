@@ -27,6 +27,7 @@ namespace SpaceInvaders
 
             BombDagger,
             BombZigZag,
+            BombStraight,
 
             ShieldBrick,
             ShieldBrick_LeftTop0,

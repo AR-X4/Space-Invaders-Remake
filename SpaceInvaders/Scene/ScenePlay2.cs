@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    public class ScenePlay : SceneState
+    public class ScenePlay2 : SceneState
     {
         // ---------------------------------------------------
         // Data
@@ -19,28 +19,28 @@ namespace SpaceInvaders
         public static float StartTimeDelta = 0f;
         public static float RunTime = 0f;
 
-        public ScenePlay()
+        public ScenePlay2()
         {
             this.Initialize();
-           
+
         }
         public override void Handle()
         {
             //set state of scene context to Scene Over
-            if (SpaceInvaders.Player1Mode == true)
+            if (ScenePlay.ShipLives == 0)
             {
                 SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Over);
             }
             else {
-                ScenePlay2.StartTimeDelta += ScenePlay.RunTime;
-                SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Play2);
+                ScenePlay.StartTimeDelta += ScenePlay2.RunTime;
+                SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Play1);
             }
         }
 
 
         public override void Initialize()
         {
-         
+
 
             this.poGameObjectManager = new GameObjectManager(3, 1);
             GameObjectManager.SetActive(this.poGameObjectManager);
@@ -84,7 +84,7 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
             // Create Texts
             //---------------------------------------------------------------------------------------------------------
-            
+
             this.poFontManager = new FontManager(3, 1);
             FontManager.SetActive(this.poFontManager);
 
@@ -104,13 +104,13 @@ namespace SpaceInvaders
             pWallGroup.ActivateGameSprite(pAliensBatch);//even need this?
             pWallGroup.ActivateCollisionSprite(pBoxBatch);
 
-            WallRight pWallRight = new WallRight(GameObject.Name.WallRight, GameSprite.Name.NullObject, SpaceInvaders.ScreenWidth - 15, SpaceInvaders.ScreenHeight/2, 20, SpaceInvaders.ScreenHeight - 110);
+            WallRight pWallRight = new WallRight(GameObject.Name.WallRight, GameSprite.Name.NullObject, SpaceInvaders.ScreenWidth - 15, SpaceInvaders.ScreenHeight / 2, 20, SpaceInvaders.ScreenHeight - 110);
             pWallRight.ActivateCollisionSprite(pBoxBatch);
 
             WallLeft pWallLeft = new WallLeft(GameObject.Name.WallLeft, GameSprite.Name.NullObject, 20, SpaceInvaders.ScreenHeight / 2, 20, SpaceInvaders.ScreenHeight - 110);
             pWallLeft.ActivateCollisionSprite(pBoxBatch);
 
-            WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 450, SpaceInvaders.ScreenHeight - 70+30, SpaceInvaders.ScreenWidth-10, 30);
+            WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 450, SpaceInvaders.ScreenHeight - 70, SpaceInvaders.ScreenWidth - 10, 30);
             pWallTop.ActivateCollisionSprite(pBoxBatch);
 
             WallBottom pWallBottom = new WallBottom(GameObject.Name.WallBottom, GameSprite.Name.Ground, 450, 60, SpaceInvaders.ScreenWidth - 10, 5);
@@ -161,7 +161,7 @@ namespace SpaceInvaders
 
             ShipManager.ActivateShip();
             ShipManager.ActivateMissile();
-            
+
             //---------------------------------------------------------------------------------------------------------
             // Create UFO and UFO Root
             //---------------------------------------------------------------------------------------------------------
@@ -206,7 +206,7 @@ namespace SpaceInvaders
                 pGameObject = AF.Create(GameObject.Name.BlueCrab, 50.0f + 66 * i, SpaceInvaders.ScreenHeight - 166f);
                 pCol.Add(pGameObject);
 
-                pGameObject = AF.Create(GameObject.Name.GreenSquid, 50.0f + 66 * i, SpaceInvaders.ScreenHeight-100f);
+                pGameObject = AF.Create(GameObject.Name.GreenSquid, 50.0f + 66 * i, SpaceInvaders.ScreenHeight - 100f);
                 pCol.Add(pGameObject);
 
                 pAlienGrid.Add(pCol);
@@ -387,7 +387,7 @@ namespace SpaceInvaders
             // Create Null Ship Lives 
             //---------------------------------------------------------------------------------------------------------
 
-            ScenePlay.ShipLives = 3;
+            ScenePlay2.ShipLives = 3;
 
             PlayerLivesComposite pNullObjs = new PlayerLivesComposite();
 
@@ -454,7 +454,7 @@ namespace SpaceInvaders
             pAlienMissilePair.Attach(new ShipRemoveMissileObserver());
             pAlienMissilePair.Attach(new RemoveAlienObserver());
             pAlienMissilePair.Attach(new DeadAlienSoundObserver());
-            pAlienMissilePair.Attach(new AddP1PointsObserver());
+            pAlienMissilePair.Attach(new AddP2PointsObserver());
             pAlienMissilePair.Attach(new IncreaseAlienSpeedObserver());
 
             pAlienWallPair.Attach(new GridObserver());
@@ -470,8 +470,8 @@ namespace SpaceInvaders
             pBombShipPair.Attach(new RemoveBombObserver());
             pBombShipPair.Attach(new RemoveShipObserver());
             pBombShipPair.Attach(new DeadShipSoundObserver());
-            pBombShipPair.Attach(new RemoveLifeObserver());
-            pBombShipPair.Attach(new ChangeStateObserver());
+            pBombShipPair.Attach(new RemoveP2LifeObserver());
+            pBombShipPair.Attach(new ChangeP2StateObserver());
 
             pBombMissilePair.Attach(new RemoveBombObserver());
             pBombMissilePair.Attach(new ShipRemoveMissileObserverAltPair());
@@ -480,12 +480,12 @@ namespace SpaceInvaders
 
             pUFOMissilePair.Attach(new RemoveUFOObserver());
             pUFOMissilePair.Attach(new ShipRemoveMissileObserver());
-            pUFOMissilePair.Attach(new AddP1PointsObserver());
+            pUFOMissilePair.Attach(new AddP2PointsObserver());
             pUFOMissilePair.Attach(new DeadUFOSoundObserver());
 
             pAlienWallBottomPair.Attach(new DeadShipSoundObserver());
-            pAlienWallBottomPair.Attach(new RemoveAllP1LivesObserver());
-           
+            pAlienWallBottomPair.Attach(new RemoveAllP2LivesObserver());
+            
 
         }
 
@@ -497,22 +497,23 @@ namespace SpaceInvaders
             FontManager.Update(Font.Name.Player1Score, SpaceInvaders.pPlayer1Score);
             FontManager.Update(Font.Name.Player2Score, SpaceInvaders.pPlayer2Score);
             FontManager.Update(Font.Name.HiScore, SpaceInvaders.pHiScore);
-            FontManager.Update(Font.Name.Lives, ScenePlay.ShipLives.ToString());
+            FontManager.Update(Font.Name.Lives, ScenePlay2.ShipLives.ToString());
 
 
-            
+            ScenePlay2.RunTime = Simulation.GetTotalTime() - ScenePlay2.StartTimeDelta;
 
-            ScenePlay.RunTime = Simulation.GetTotalTime() - ScenePlay.StartTimeDelta;
 
             if (Simulation.GetTimeStep() > 0.0f)
             {
-                TimerManager.Update(ScenePlay.RunTime);
+                TimerManager.Update(ScenePlay2.RunTime);
                 GameObjectManager.Update();
                 //Collision Checks
                 CollisionPairManager.Process();
                 // Delete any objects here...
                 DelayedObjectManager.Process();
             }
+
+
         }
         public override void Draw()
         {
@@ -528,21 +529,19 @@ namespace SpaceInvaders
             FontManager.SetActive(this.poFontManager);
             TimerManager.SetActive(this.poTimerManager);
 
-            if (ScenePlay.StartTimeDelta == 0f)
-            {
-                ScenePlay.StartTimeDelta = Simulation.GetTotalTime();
-            }
 
-            if (ScenePlay.ShipLives < 1) {
+            if (ScenePlay2.ShipLives < 1)
+            {
                 this.ResetAll();
             }
         }
 
-        private void ResetAll() {
+        private void ResetAll()
+        {
             //-----Reset Everything-----
             PlayerLivesComposite pNullObjs = (PlayerLivesComposite)GameObjectManager.Find(GameObject.Name.Null_Object);
             pNullObjs.ResetLives();
-            ScenePlay.ShipLives = 3;
+            ScenePlay2.ShipLives = 3;
 
             AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
             pGrid.ResetAliens();
@@ -550,7 +549,6 @@ namespace SpaceInvaders
             ShieldRoot pSRoot = (ShieldRoot)GameObjectManager.Find(GameObject.Name.ShieldRoot);
             pSRoot.ResetShields();
 
-            SpaceInvaders.pPlayer1Score = 0;
             SpaceInvaders.pPlayer2Score = 0;
 
         }

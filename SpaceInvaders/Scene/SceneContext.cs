@@ -21,6 +21,7 @@ namespace SpaceInvaders
         ScenePlayerSelect poScenePlayerSelect;
         SceneOver poSceneOver;
         ScenePlay poScenePlay;
+        ScenePlay2 poScenePlay2;
 
         public SceneContext()
         {
@@ -28,6 +29,7 @@ namespace SpaceInvaders
             this.poSceneSelect = new SceneSelect();
             this.poScenePlayerSelect = new ScenePlayerSelect();
             this.poScenePlay = new ScenePlay();
+            this.poScenePlay2 = new ScenePlay2();
             this.poSceneOver = new SceneOver();
 
             // initialize to the select state
@@ -55,6 +57,11 @@ namespace SpaceInvaders
 
                 case Scene.Play1:
                     this.pSceneState = this.poScenePlay;
+                    this.pSceneState.Transition();
+                    break;
+
+                case Scene.Play2:
+                    this.pSceneState = this.poScenePlay2;
                     this.pSceneState.Transition();
                     break;
 

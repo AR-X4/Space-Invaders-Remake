@@ -20,7 +20,7 @@ namespace SpaceInvaders
             RemoveBomb,
             RemoveMissile,
             SwapShipExplosion,
-            GameOver,
+            SwitchState,
             Uninitialized
         }
 

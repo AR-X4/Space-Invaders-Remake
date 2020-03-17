@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SpaceInvaders
 {
-    public class GameOverEvent : Command
+    public class SwitchStateEvent : Command
     {
         public override void Execute(float deltaTime)
         {

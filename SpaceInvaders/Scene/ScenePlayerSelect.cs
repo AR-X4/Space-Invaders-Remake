@@ -42,9 +42,6 @@ namespace SpaceInvaders
             //GameObjectManager.SetActive(this.poGameObjectManager);
 
 
-
-
-
             //---------------------------------------------------------------------------------------------------------
             // Create Texts
             //---------------------------------------------------------------------------------------------------------
@@ -59,6 +56,7 @@ namespace SpaceInvaders
 
             FontManager.Add(Font.Name.Header, SpriteBatch.Name.Texts, "SCORE<1>       HI-SCORE       SCORE<2>", 20f, SpaceInvaders.ScreenHeight - 20f, 15f, 25f);
             FontManager.Add(Font.Name.Player1Score, SpriteBatch.Name.Texts, "0000", 65f, SpaceInvaders.ScreenHeight - 70f, 15f, 25f);
+            FontManager.Add(Font.Name.Player2Score, SpriteBatch.Name.Texts, "0000", SpaceInvaders.ScreenWidth - 156f, SpaceInvaders.ScreenHeight - 70f, 15f, 25f);
             FontManager.Add(Font.Name.HiScore, SpriteBatch.Name.Texts, "0000", 380f, SpaceInvaders.ScreenHeight - 70f, 15f, 25f);
 
             //---------------------------------------------------------------------------------------------------------
@@ -66,15 +64,18 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
             this.poInputManager = new InputManager();
             InputManager.SetActive(this.poInputManager);
+
             InputSubject pInputSubject = InputManager.Get1KeySubject();
             pInputSubject.Attach(new SelectPlayObserver());
 
+            pInputSubject = InputManager.Get2KeySubject();
+            pInputSubject.Attach(new SelectPlay2Observer());
 
-           
         }
         public override void Update(float systemTime)
         {
             FontManager.Update(Font.Name.Player1Score, SpaceInvaders.pPlayer1Score);
+            FontManager.Update(Font.Name.Player2Score, SpaceInvaders.pPlayer2Score);
             FontManager.Update(Font.Name.HiScore, SpaceInvaders.pHiScore);
 
             InputManager.Update();
@@ -94,6 +95,9 @@ namespace SpaceInvaders
             //GameObjectManager.SetActive(this.poGameObjectManager);
             InputManager.SetActive(this.poInputManager);
             FontManager.SetActive(this.poFontManager);
+
+            SpaceInvaders.Player1Mode = true;
+            
         }
     }
 }

@@ -17,6 +17,7 @@ namespace SpaceInvaders
 
             BombDagger,
             BombZigZag,
+            BombStraight,
 
             AlienExplosion,
             SaucerExplosion,
@@ -25,6 +26,8 @@ namespace SpaceInvaders
             MissileExplosionRed,
             MissileExplosionGreen,
             BombExplosion,
+
+            Ground,
 
             ShieldBrick,
             ShieldBrick_LeftTop0,
