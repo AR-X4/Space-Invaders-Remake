@@ -12,6 +12,8 @@ namespace SpaceInvaders
         private InputManager poInputManager;
         private FontManager poFontManager;
 
+        public static float SwitchTime = 0f;
+
 
         public SceneOver()
         {
@@ -77,7 +79,9 @@ namespace SpaceInvaders
             InputManager.SetActive(this.poInputManager);
             FontManager.SetActive(this.poFontManager);
 
-           
+            SceneOver.SwitchTime = Simulation.GetTotalTime();
+
+
         }
     }
 }

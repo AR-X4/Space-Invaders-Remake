@@ -47,5 +47,11 @@ namespace SpaceInvaders
                 pColPair.NotifyListeners();
             }
         }
+        public override void VisitGroup(AlienGrid a)
+        {
+
+            
+        }
+
     }
 }

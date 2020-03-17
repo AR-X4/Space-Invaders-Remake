@@ -24,7 +24,7 @@ namespace SpaceInvaders
         {
             pVisibleState = new CollisionVisibleState();
             pInvisibleState = new CollisionInvisibleState();
-            pCurrentState = pVisibleState;
+            pCurrentState = pInvisibleState;
         }
 
         private static CollisionStateManager GetInstance()

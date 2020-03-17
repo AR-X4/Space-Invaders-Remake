@@ -22,6 +22,9 @@ namespace SpaceInvaders
         public override void Handle()
         {
             //set state of scene context to Scene Play
+
+            ScenePlay.StartTimeDelta += (Simulation.GetTotalTime() - SceneOver.SwitchTime);
+            ScenePlay2.StartTimeDelta += (Simulation.GetTotalTime() - SceneOver.SwitchTime);
             SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Play1);
         }
         public override void Initialize()

@@ -87,6 +87,9 @@ namespace SpaceInvaders
         {
             return this.name;
         }
+        public Command GetCommand() {
+            return this.pCommand;
+        }
         public void Dump()
         {
 

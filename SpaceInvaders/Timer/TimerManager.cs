@@ -22,6 +22,7 @@ namespace SpaceInvaders
         private static TimerManager pInstance = null;
         private static TimerManager pActiveMan;
         private static TimeEvent poNodeCompare;
+        private static TimeEvent poNodeCopy;
         protected float mCurrTime;
        
 
@@ -41,6 +42,7 @@ namespace SpaceInvaders
         {
             TimerManager.pActiveMan = null;
             TimerManager.poNodeCompare = new TimeEvent();
+            TimerManager.poNodeCopy = new TimeEvent();
         }
 
         //----------------------------------------------------------------------
@@ -121,6 +123,32 @@ namespace SpaceInvaders
             Debug.Assert(pNode != null);
             pMan.BaseRemove(pNode);
         }
+
+        public static void Reset() {
+            // Get the instance
+            TimerManager pMan = TimerManager.pActiveMan;
+            Debug.Assert(pMan != null);
+            // walk the list
+            TimeEvent pEvent = (TimeEvent)pMan.BaseGetActive();
+            TimeEvent pNextEvent = null;
+            
+
+            while (pEvent != null)
+            {
+                // Difficult to walk a list and remove itself from the list
+                // so squirrel away the next event now, use it at bottom of while
+                pNextEvent = (TimeEvent)pEvent.pNext;
+                TimerManager.poNodeCopy.Set(pEvent.GetName(), pEvent.GetCommand(), pEvent.deltaTime);
+
+                TimerManager.Remove(pEvent);
+                TimerManager.Add(TimerManager.poNodeCopy.GetName(), TimerManager.poNodeCopy.GetCommand(), TimerManager.poNodeCopy.deltaTime);
+                    
+                
+                pEvent = pNextEvent;
+            }
+
+        }
+
         public static void Dump()
         {
             TimerManager pMan = TimerManager.GetInstance();

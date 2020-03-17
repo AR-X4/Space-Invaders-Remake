@@ -56,7 +56,7 @@ namespace SpaceInvaders
         {
             this.state = ShipManager.GetState(inState);
             this.CurrentStateName = inState;
-            Debug.WriteLine(this.state);
+            //Debug.WriteLine(this.state);
         }
         public void Handle()
         {

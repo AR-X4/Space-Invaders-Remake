@@ -9,8 +9,11 @@ namespace SpaceInvaders
         // Data: ---------------
         private float delta;
         private float Y_Delta;
-        private float MoveRate;
+        private float StartingMoveRate;
+        private float CurrentMoveRate;
         private float RateChange;
+        private int AlienCount;
+        
 
         private AlienSubject poSubject;
 
@@ -23,9 +26,12 @@ namespace SpaceInvaders
             this.Y_Delta = 0.0f;
             this.delta = 10.0f;
 
-            this.MoveRate = 1.3f;
+            this.StartingMoveRate = 1.2f;
+            this.CurrentMoveRate = this.StartingMoveRate;
 
-            this.RateChange = 0.025f;
+            this.RateChange = 0.015f;
+
+            this.AlienCount = 55;
 
             this.poColObj.pColSprite.SetLineColor(1, 0, 0);
 
@@ -107,7 +113,8 @@ namespace SpaceInvaders
 
         public void ResetAliens() {
 
-            this.MoveRate = 1.3f;
+            this.CurrentMoveRate = this.StartingMoveRate;
+            this.AlienCount = 55;
 
             ForwardIterator pFor = new ForwardIterator(this);
 
@@ -124,6 +131,11 @@ namespace SpaceInvaders
                 pGameObj.ResetLocation();
                 pGameObj.bMarkForDeath = false;
 
+                if (pGameObj.name == Name.AlienColumn) {
+                    AlienColumn ptemp = (AlienColumn)pGameObj;
+                    ptemp.pBomb.ResetBomb();
+                }
+
                 pParent = (GameObject)pGameObj.pParent;
                 if (pParent != null)
                 {
@@ -135,15 +147,30 @@ namespace SpaceInvaders
         }
 
         public float GetMoveRate() {
-            return this.MoveRate;
+            return this.CurrentMoveRate;
         }
         public void SetMoveRate(float inRate) {
-            this.MoveRate = inRate;
+            this.CurrentMoveRate = inRate;
         }
 
         public float GetRateChange()
         {
             return this.RateChange;
+        }
+
+        public int GetAlienCount() {
+            return this.AlienCount;
+        }
+
+        public void DecreaseAlienCount() {
+            this.AlienCount--;
+        }
+
+        public void IncreaseStartRate() {
+            this.StartingMoveRate -= 0.2f;
+        }
+        public void ResetStartRate() {
+            this.StartingMoveRate = 1.2f;
         }
     }
 }

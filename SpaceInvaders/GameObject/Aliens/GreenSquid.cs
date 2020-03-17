@@ -35,9 +35,12 @@ namespace SpaceInvaders
 
         public override void VisitMissile(Missile m)
         {
-            CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
-            pColPair.SetCollision(m, this);
-            pColPair.NotifyListeners();
+            if (m.bMarkForDeath == false)
+            {
+                CollisionPair pColPair = CollisionPairManager.GetActiveColPair();
+                pColPair.SetCollision(m, this);
+                pColPair.NotifyListeners();
+            }
         }
         public override void Update()
         {

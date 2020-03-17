@@ -24,6 +24,13 @@ namespace SpaceInvaders
         {
             Debug.Assert(this.pAlien != null);
             this.pAlien.Remove();
+
+            if (this.pAlien.name != GameObject.Name.OrangeSaucer)
+            {
+                AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
+                Debug.Assert(pGrid != null);
+                pGrid.DecreaseAlienCount();
+            }
         }
     }
 }

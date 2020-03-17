@@ -16,8 +16,9 @@ namespace SpaceInvaders
 
         public static int ShipLives;
 
+        public static float SwitchTime = 0f;
         public static float StartTimeDelta = 0f;
-        public static float RunTime = 0f;
+        private float RunTime = 0f;
 
         public ScenePlay()
         {
@@ -29,10 +30,15 @@ namespace SpaceInvaders
             //set state of scene context to Scene Over
             if (SpaceInvaders.Player1Mode == true)
             {
+                //Debug.WriteLine("-------P1 " + this.RunTime);
+
                 SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Over);
             }
             else {
-                ScenePlay2.StartTimeDelta += ScenePlay.RunTime;
+                //Debug.WriteLine("-------P1 " + this.RunTime);
+                
+                ScenePlay2.StartTimeDelta += (Simulation.GetTotalTime() - ScenePlay.SwitchTime);
+
                 SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Play2);
             }
         }
@@ -59,6 +65,8 @@ namespace SpaceInvaders
             SpriteBatch pShieldsBatch = SpriteBatchManager.Add(SpriteBatch.Name.Shields, 3);
             SpriteBatch pNullBatch = SpriteBatchManager.Add(SpriteBatch.Name.NullObjects, 4);
             SpriteBatch pTexts = SpriteBatchManager.Add(SpriteBatch.Name.Texts, 5);
+
+            pBoxBatch.SetDrawBool(false);
 
             //---------------------------------------------------------------------------------------------------------
             // Input
@@ -110,7 +118,7 @@ namespace SpaceInvaders
             WallLeft pWallLeft = new WallLeft(GameObject.Name.WallLeft, GameSprite.Name.NullObject, 20, SpaceInvaders.ScreenHeight / 2, 20, SpaceInvaders.ScreenHeight - 110);
             pWallLeft.ActivateCollisionSprite(pBoxBatch);
 
-            WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 450, SpaceInvaders.ScreenHeight - 70+30, SpaceInvaders.ScreenWidth-10, 30);
+            WallTop pWallTop = new WallTop(GameObject.Name.WallTop, GameSprite.Name.NullObject, 450, SpaceInvaders.ScreenHeight - 70, SpaceInvaders.ScreenWidth-10, 30);
             pWallTop.ActivateCollisionSprite(pBoxBatch);
 
             WallBottom pWallBottom = new WallBottom(GameObject.Name.WallBottom, GameSprite.Name.Ground, 450, 60, SpaceInvaders.ScreenWidth - 10, 5);
@@ -491,7 +499,6 @@ namespace SpaceInvaders
 
         public override void Update(float systemTime)
         {
-         
             InputManager.Update();
 
             FontManager.Update(Font.Name.Player1Score, SpaceInvaders.pPlayer1Score);
@@ -499,20 +506,24 @@ namespace SpaceInvaders
             FontManager.Update(Font.Name.HiScore, SpaceInvaders.pHiScore);
             FontManager.Update(Font.Name.Lives, ScenePlay.ShipLives.ToString());
 
+            this.RunTime = Simulation.GetTotalTime() - ScenePlay.StartTimeDelta;
+            //Debug.WriteLine(this.RunTime);
+
+            TimerManager.Update(this.RunTime);
+            GameObjectManager.Update();
+            //Collision Checks
+            CollisionPairManager.Process();
+            // Delete any objects here...
+            DelayedObjectManager.Process();
+
+            //check if all alien killed
+            AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
+            if (pGrid.GetAlienCount() < 1) {
+                pGrid.IncreaseStartRate();
+                this.ResetAll();
+            }
 
             
-
-            ScenePlay.RunTime = Simulation.GetTotalTime() - ScenePlay.StartTimeDelta;
-
-            if (Simulation.GetTimeStep() > 0.0f)
-            {
-                TimerManager.Update(ScenePlay.RunTime);
-                GameObjectManager.Update();
-                //Collision Checks
-                CollisionPairManager.Process();
-                // Delete any objects here...
-                DelayedObjectManager.Process();
-            }
         }
         public override void Draw()
         {
@@ -528,13 +539,20 @@ namespace SpaceInvaders
             FontManager.SetActive(this.poFontManager);
             TimerManager.SetActive(this.poTimerManager);
 
-            if (ScenePlay.StartTimeDelta == 0f)
-            {
-                ScenePlay.StartTimeDelta = Simulation.GetTotalTime();
-            }
+            ScenePlay.SwitchTime = Simulation.GetTotalTime(); 
+
+            //if (ScenePlay.StartTimeDelta == 0f)
+            //{
+            //    ScenePlay.StartTimeDelta = Simulation.GetTotalTime();
+            //    //ScenePlay.SwitchTime = ScenePlay.StartTimeDelta;
+            //}
 
             if (ScenePlay.ShipLives < 1) {
+                AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
+                pGrid.ResetStartRate();
                 this.ResetAll();
+                SpaceInvaders.pPlayer1Score = 0;
+                SpaceInvaders.pPlayer2Score = 0;
             }
         }
 
@@ -546,13 +564,16 @@ namespace SpaceInvaders
 
             AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
             pGrid.ResetAliens();
+            
 
             ShieldRoot pSRoot = (ShieldRoot)GameObjectManager.Find(GameObject.Name.ShieldRoot);
             pSRoot.ResetShields();
 
-            SpaceInvaders.pPlayer1Score = 0;
-            SpaceInvaders.pPlayer2Score = 0;
+            UFORoot pUFORoot = (UFORoot)GameObjectManager.Find(GameObject.Name.UFORoot);
+            OrangeSaucer pUFO = (OrangeSaucer)pUFORoot.GetFirstChild();
+            pUFO.Remove();
 
+            TimerManager.Reset();
         }
     }
 }

@@ -36,6 +36,9 @@ namespace SpaceInvaders
                 // TODO - reduce the new functions
                 RemoveAlienObserver pObserver = new RemoveAlienObserver(this);
                 DelayedObjectManager.Attach(pObserver);
+
+                
+
             }
         }
 
@@ -48,7 +51,6 @@ namespace SpaceInvaders
 
             TimerManager.Add(TimeEvent.Name.RemoveAlien, this.pEvent, 0.5f);
 
-            //this.pAlien.Remove();
         }
     }
 }
