@@ -13,6 +13,7 @@ namespace SpaceInvaders
         private InputManager poInputManager;
         private FontManager poFontManager;
         private TimerManager poTimerManager;
+        private CollisionPairManager poCollisionPairManager;
 
         public static int ShipLives;
         public static float SwitchTime = 0f;
@@ -27,12 +28,13 @@ namespace SpaceInvaders
         public override void Handle()
         {
             //set state of scene context to Scene Over
-            if (SpaceInvaders.Player1Mode == true)
+            if (SpaceInvaders.Player1Mode == true || ScenePlay2.ShipLives == 0)
             {
                 //Debug.WriteLine("-------P1 " + this.RunTime);
 
                 SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Over);
             }
+          
             else {
                 //Debug.WriteLine("-------P1 " + this.RunTime);
 
@@ -51,6 +53,9 @@ namespace SpaceInvaders
 
             this.poTimerManager = new TimerManager(3, 1);
             TimerManager.SetActive(this.poTimerManager);
+
+            this.poCollisionPairManager = new CollisionPairManager(3, 1);
+            CollisionPairManager.SetActive(this.poCollisionPairManager);
 
             //---------------------------------------------------------------------------------------------------------
             // Create SpriteBatch
@@ -491,7 +496,7 @@ namespace SpaceInvaders
 
             pAlienWallBottomPair.Attach(new DeadShipSoundObserver());
             pAlienWallBottomPair.Attach(new RemoveAllP1LivesObserver());
-           
+
         }
 
         public override void Update(float systemTime)
@@ -533,6 +538,7 @@ namespace SpaceInvaders
             InputManager.SetActive(this.poInputManager);
             FontManager.SetActive(this.poFontManager);
             TimerManager.SetActive(this.poTimerManager);
+            CollisionPairManager.SetActive(this.poCollisionPairManager);
 
             ScenePlay.SwitchTime = Simulation.GetTotalTime(); 
 
@@ -542,6 +548,8 @@ namespace SpaceInvaders
                 this.ResetAll();
                 SpaceInvaders.pPlayer1Score = 0;
                 SpaceInvaders.pPlayer2Score = 0;
+                ScenePlay.ShipLives = 3;
+                ScenePlay2.ShipLives = 3;
             }
         }
 
@@ -549,7 +557,6 @@ namespace SpaceInvaders
             //-----Reset Everything-----
             PlayerLivesComposite pNullObjs = (PlayerLivesComposite)GameObjectManager.Find(GameObject.Name.Null_Object);
             pNullObjs.ResetLives();
-            ScenePlay.ShipLives = 3;
 
             AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
             pGrid.ResetAliens();

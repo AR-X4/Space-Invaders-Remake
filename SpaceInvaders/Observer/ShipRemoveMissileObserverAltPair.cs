@@ -29,7 +29,7 @@ namespace SpaceInvaders
             // This cast will throw an exception if I'm wrong
             this.pMissile = (Missile)this.pSubject.pObjB;
 
-            Debug.WriteLine("MissileRemoveObserver: --> delete missile {0}", pMissile);
+            //Debug.WriteLine("MissileRemoveObserver: --> delete missile {0}", pMissile);
 
             if (pMissile.bMarkForDeath == false)
             {

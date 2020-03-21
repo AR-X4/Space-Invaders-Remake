@@ -15,9 +15,10 @@ namespace SpaceInvaders
 
         public override void Notify()
         {
-           
-            TimerManager.Add(TimeEvent.Name.SwitchState, this.pEvent, 1.4f);
-            
+            if (ScenePlay2.ShipLives == 1 || ScenePlay.ShipLives > 0)
+            {
+                TimerManager.Add(TimeEvent.Name.SwitchState, this.pEvent, 1.4f);
+            }
         }
     }
 }

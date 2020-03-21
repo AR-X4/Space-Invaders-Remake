@@ -14,10 +14,11 @@ namespace SpaceInvaders
 
         public override void Notify()
         {
-            if (SpaceInvaders.Player1Mode == false || ScenePlay.ShipLives == 1)
+            if (ScenePlay.ShipLives == 1 || (ScenePlay2.ShipLives > 0 && SpaceInvaders.Player1Mode == false))
             {
                 TimerManager.Add(TimeEvent.Name.SwitchState, this.pEvent, 1.4f);
             }
+            
         }
     }
 }

@@ -10,9 +10,8 @@ namespace SpaceInvaders
             //-------RemoveLife-------
 
             ScenePlay.ShipLives = 0;
-
             SpaceInvaders.pSceneContext.GetState().Handle();
-            
+
         }
     }
 }

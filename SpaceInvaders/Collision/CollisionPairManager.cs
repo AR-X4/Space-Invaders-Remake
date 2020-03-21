@@ -22,23 +22,30 @@ namespace SpaceInvaders
         // Data - unique data for this manager 
         //----------------------------------------------------------------------
         private static CollisionPairManager pInstance = null;
-        private CollisionPair pActiveColPair;
-        private CollisionPair poNodeCompare;
+        private static CollisionPairManager pActiveMan = null;
+        private static CollisionPair pActiveColPair;
+        private static CollisionPair poNodeCompare;
 
         //----------------------------------------------------------------------
         // Constructor
         //----------------------------------------------------------------------
-        private CollisionPairManager(int reserveNum = 3, int reserveGrow = 1)
+        public CollisionPairManager(int reserveNum = 3, int reserveGrow = 1)
         : base() // <--- Kick the can (delegate)
         {
             // At this point ImageMan is created, now initialize the reserve
             this.BaseInitialize(reserveNum, reserveGrow);
 
             // no link... used in Process
-            this.pActiveColPair = null;
+            //this.pActiveColPair = null;
 
             // initialize derived data here
-            this.poNodeCompare = new CollisionPair();
+            //this.poNodeCompare = new CollisionPair();
+        }
+
+        private CollisionPairManager() {
+            CollisionPairManager.pActiveMan = null;
+            CollisionPairManager.pActiveColPair = null;
+            CollisionPairManager.poNodeCompare = new CollisionPair();
         }
 
         ~CollisionPairManager()
@@ -49,24 +56,19 @@ namespace SpaceInvaders
         //----------------------------------------------------------------------
         // Static Methods
         //----------------------------------------------------------------------
-        public static void Create(int reserveNum = 3, int reserveGrow = 1)
-        {
-            // make sure values are ressonable 
-            Debug.Assert(reserveNum > 0);
-            Debug.Assert(reserveGrow > 0);
+        
 
+        public static void Create()
+        {
             // initialize the singleton here
             Debug.Assert(pInstance == null);
 
             // Do the initialization
             if (pInstance == null)
             {
-                pInstance = new CollisionPairManager(reserveNum, reserveGrow);
+                pInstance = new CollisionPairManager();
             }
-
         }
-
-
 
         public static void Destroy()
         {
@@ -77,7 +79,7 @@ namespace SpaceInvaders
         public static CollisionPair Add(CollisionPair.Name colpairName, GameObject treeRootA, GameObject treeRootB)
         {
             // Get the instance
-            CollisionPairManager pMan = CollisionPairManager.GetInstance();
+            CollisionPairManager pMan = CollisionPairManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             // Go to Man, get a node from reserve, add to active, return it
@@ -90,17 +92,26 @@ namespace SpaceInvaders
             return pColPair;
         }
 
+        public static void SetActive(CollisionPairManager pSBMan)
+        {
+            CollisionPairManager pMan = CollisionPairManager.GetInstance();
+            Debug.Assert(pMan != null);
+
+            Debug.Assert(pSBMan != null);
+            CollisionPairManager.pActiveMan = pSBMan;
+        }
+
         public static void Process()
         {
             // get the singleton
-            CollisionPairManager pColPairMan = CollisionPairManager.GetInstance();
+            CollisionPairManager pColPairMan = CollisionPairManager.pActiveMan;
 
             CollisionPair pColPair = (CollisionPair)pColPairMan.BaseGetActive();
 
             while (pColPair != null)
             {
                 // set the current active  <--- Key concept: set this before
-                pColPairMan.pActiveColPair = pColPair;
+                CollisionPairManager.pActiveColPair = pColPair;
 
                 // do the check for a single pair
                 pColPair.Process();
@@ -112,21 +123,21 @@ namespace SpaceInvaders
 
         public static CollisionPair Find(CollisionPair.Name name)
         {
-            CollisionPairManager pMan = CollisionPairManager.GetInstance();
+            CollisionPairManager pMan = CollisionPairManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             // Compare functions only compares two Nodes
 
             // So:  Use the Compare Node - as a reference
             //      use in the Compare() function
-            pMan.poNodeCompare.SetName(name);
+            CollisionPairManager.poNodeCompare.SetName(name);
 
-            CollisionPair pData = (CollisionPair)pMan.BaseFind(pMan.poNodeCompare);
+            CollisionPair pData = (CollisionPair)pMan.BaseFind(CollisionPairManager.poNodeCompare);
             return pData;
         }
         public static void Remove(CollisionPair pNode)
         {
-            CollisionPairManager pMan = CollisionPairManager.GetInstance();
+            CollisionPairManager pMan = CollisionPairManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             Debug.Assert(pNode != null);
@@ -134,7 +145,7 @@ namespace SpaceInvaders
         }
         public static void Dump()
         {
-            CollisionPairManager pMan = CollisionPairManager.GetInstance();
+            CollisionPairManager pMan = CollisionPairManager.pActiveMan;
             Debug.Assert(pMan != null);
 
             pMan.BaseDump();
@@ -142,9 +153,9 @@ namespace SpaceInvaders
         static public CollisionPair GetActiveColPair()
         {
             // get the singleton
-            CollisionPairManager pMan = CollisionPairManager.GetInstance();
+            //CollisionPairManager pMan = CollisionPairManager.GetInstance();
 
-            return pMan.pActiveColPair;
+            return CollisionPairManager.pActiveColPair;
         }
 
         //----------------------------------------------------------------------

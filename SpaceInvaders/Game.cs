@@ -50,7 +50,6 @@ namespace SpaceInvaders
             SoundManager.Create(3, 1);
             GameSpriteManager.Create(4, 2);
             BoxSpriteManager.Create(3, 1);
-            CollisionPairManager.Create(1, 1);
             CollisionStateManager.Create();
             GlyphManager.Create(3, 1);
             Simulation.Create();
@@ -64,6 +63,7 @@ namespace SpaceInvaders
             InputManager.Create();
             FontManager.Create();
             TimerManager.Create();
+            CollisionPairManager.Create();
 
 
 
