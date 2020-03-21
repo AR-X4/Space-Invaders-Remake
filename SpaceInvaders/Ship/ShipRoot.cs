@@ -29,16 +29,5 @@ namespace SpaceInvaders
             base.BaseUpdateBoundingBox(this);
             base.Update();
         }
-
-        //public override void VisitBombRoot(BombRoot b)
-        //{
-        //    GameObject pGameObj = (GameObject)Iterator.GetChild(b);
-        //    CollisionPair.Collide(pGameObj, this);
-        //}
-        //public override void VisitBomb(Bomb b)
-        //{
-        //    GameObject pGameObj = (GameObject)Iterator.GetChild(b);
-        //    CollisionPair.Collide(pGameObj, this);
-        //}
     }
 }

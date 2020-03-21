@@ -64,9 +64,11 @@ namespace SpaceInvaders
         // Data 
         // ----------------------------------------------------------------
         public Name name;
-        public int key;
         private Azul.Rect pSubRect;
         private Texture pTexture;
+        public int key;
+        private int pad0;
+        
 
         public Glyph()
             : base()

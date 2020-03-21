@@ -150,7 +150,7 @@ namespace SpaceInvaders
             GlyphManager pMan = GlyphManager.GetInstance();
 
             // Compare functions only compares two Nodes
-            //pMan.pNodeCompare.name = name;
+            
             pMan.pNodeCompare.key = key;
 
             Glyph pData = (Glyph)pMan.BaseFind(pMan.pNodeCompare);

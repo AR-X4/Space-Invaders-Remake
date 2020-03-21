@@ -47,21 +47,6 @@ namespace SpaceInvaders
         //----------------------------------------------------------------------
         // Static Methods
         //----------------------------------------------------------------------
-        //public static void Create(int reserveNum = 3, int reserveGrow = 1)
-        //{
-        //    // make sure values are ressonable 
-        //    Debug.Assert(reserveNum > 0);
-        //    Debug.Assert(reserveGrow > 0);
-
-        //    // initialize the singleton here
-        //    Debug.Assert(pInstance == null);
-
-        //    // Do the initialization
-        //    if (pInstance == null)
-        //    {
-        //        pInstance = new GameObjectManager(reserveNum, reserveGrow);
-        //    }
-        //}
 
         public static void Create()
         {

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.ShipManager">
+    <Position X="5.25" Y="2" Width="2.25" />
+    <Members>
+      <Method Name="ActivateMissile" Hidden="true" />
+      <Method Name="ActivateShip" Hidden="true" />
+      <Method Name="Create" Hidden="true" />
+      <Method Name="CreateMissile" Hidden="true" />
+      <Method Name="CreateShip" Hidden="true" />
+      <Method Name="GetMissile" Hidden="true" />
+      <Method Name="GetShip" Hidden="true" />
+      <Field Name="instance" Hidden="true" />
+      <Method Name="LaunchMissile" Hidden="true" />
+      <Field Name="pMissile" Hidden="true" />
+      <Method Name="PrivInstance" Hidden="true" />
+      <Method Name="ResetShip" Hidden="true" />
+      <Method Name="ShipManager" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="SpaceInvaders.ShipManager.State" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Ship\ShipManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ARCAAEACAAAYCCAAAAIAAAAAAAhAA0AAQkgAIAAAAAI=</HashCode>
+      <FileName>Ship\ShipManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pShip" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SpaceInvaders.Ship">
+    <Position X="8.25" Y="2" Width="2" />
+    <Members>
+      <Method Name="Accept" Hidden="true" />
+      <Field Name="pad0" Hidden="true" />
+      <Method Name="Ship" Hidden="true" />
+      <Field Name="shipSpeed" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Method Name="VisitBomb" Hidden="true" />
+      <Method Name="VisitBombRoot" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIQABEAAAAAAAAAABAIgAAAAEAIAAIIMQAAAAAAEAAA=</HashCode>
+      <FileName>Ship\Ship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="state" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SpaceInvaders.ShipStateReady">
+    <Position X="10.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAIIIQAAAAAAAAAA=</HashCode>
+      <FileName>Ship\ShipReadyState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.ShipState" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAIIIQAAAAAAAAAA=</HashCode>
+      <FileName>Ship\ShipState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.ShipMissileFlyingState">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAIIIQAAAAAAAAAA=</HashCode>
+      <FileName>Ship\ShipMissileFlyingState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.ShipDeadState">
+    <Position X="14.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAIIIQAAAAAAAAAA=</HashCode>
+      <FileName>Ship\ShipDeadState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

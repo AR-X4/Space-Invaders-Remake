@@ -38,21 +38,6 @@ namespace SpaceInvaders
         // Static Manager methods can be implemented with base methods 
         // Can implement/specialize more or less methods your choice
         //----------------------------------------------------------------------
-        //public static void Create(int reserveNum = 3, int reserveGrow = 1)
-        //{
-        //    // make sure values are ressonable 
-        //    Debug.Assert(reserveNum > 0);
-        //    Debug.Assert(reserveGrow > 0);
-
-        //    // initialize the singleton here
-        //    Debug.Assert(pInstance == null);
-
-        //    // Do the initialization
-        //    if (pInstance == null)
-        //    {
-        //        pInstance = new FontManager(reserveNum, reserveGrow);
-        //    }
-        //}
 
         public static void Create()
         {
@@ -95,11 +80,6 @@ namespace SpaceInvaders
             Debug.Assert(pFMan != null);
             FontManager.pActiveMan = pFMan;
         }
-
-        //public static void AddXml(Glyph.Name glyphName, String assetName, Texture.Name textName)
-        //{
-        //    GlyphManager.AddXml(glyphName, assetName, textName);
-        //}
 
         public static void Update(Font.Name name, String pNewMessage) {
             Font pFont = FontManager.Find(name);

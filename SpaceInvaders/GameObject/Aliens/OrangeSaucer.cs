@@ -79,11 +79,6 @@ namespace SpaceInvaders
             this.bMarkForDeath = false;
         }
 
-        //private void SetX(float x)
-        //{
-        //    this.x = x;
-        //}
-
         public void RandomizeDirection() {
             float NewDelta = 0.0f;
             float NewX = 0.0f;

@@ -9,7 +9,6 @@ namespace SpaceInvaders
         // Data
         // ---------------------------------------------------
         public SpriteBatchManager poSpriteBatchManager;
-        //private GameObjectManager poGameObjectManager;
         private InputManager poInputManager;
         private FontManager poFontManager;
 
@@ -36,13 +35,6 @@ namespace SpaceInvaders
             SpriteBatchManager.SetActive(this.poSpriteBatchManager);
 
             SpriteBatch pSB_Texts = SpriteBatchManager.Add(SpriteBatch.Name.Texts, 4);
-
-
-            //---------------------------------------------------------------------------------------------------------
-            // Game Objects
-            //---------------------------------------------------------------------------------------------------------
-            //this.poGameObjectManager = new GameObjectManager(3, 1);
-            //GameObjectManager.SetActive(this.poGameObjectManager);
 
 
             //---------------------------------------------------------------------------------------------------------
@@ -82,7 +74,7 @@ namespace SpaceInvaders
             FontManager.Update(Font.Name.HiScore, SpaceInvaders.pHiScore);
 
             InputManager.Update();
-            //GameObjectManager.Update();
+            
         }
 
         public override void Draw()
@@ -93,9 +85,8 @@ namespace SpaceInvaders
 
         public override void Transition()
         {
-            // update SpriteBatchMan()
+            
             SpriteBatchManager.SetActive(this.poSpriteBatchManager);
-            //GameObjectManager.SetActive(this.poGameObjectManager);
             InputManager.SetActive(this.poInputManager);
             FontManager.SetActive(this.poFontManager);
 

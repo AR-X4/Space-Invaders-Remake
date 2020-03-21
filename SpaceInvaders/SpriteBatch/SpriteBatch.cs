@@ -20,6 +20,11 @@ namespace SpaceInvaders
         public SpriteBatch.Name name;
         private readonly SpriteNodeManager pSpriteNodeManager;
         private bool bDraw;
+        private char pad0;
+        private char pad1;
+        private char pad2;
+        private int  pad3;
+
 
         public SpriteBatch()
             : base()

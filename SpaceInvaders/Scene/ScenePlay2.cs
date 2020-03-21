@@ -15,7 +15,6 @@ namespace SpaceInvaders
         private TimerManager poTimerManager;
 
         public static int ShipLives;
-
         public static float SwitchTime = 0f;
         public static float StartTimeDelta = 0f;
         private float RunTime = 0f;
@@ -31,11 +30,11 @@ namespace SpaceInvaders
             //set state of scene context to Scene Over
             if (ScenePlay.ShipLives == 0)
             {
-                Debug.WriteLine("P2 " + this.RunTime);
+                //Debug.WriteLine("P2 " + this.RunTime);
                 SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Over);
             }
             else {
-                Debug.WriteLine("P2 " + this.RunTime);
+                //Debug.WriteLine("P2 " + this.RunTime);
 
                 SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Play1);
             }
@@ -508,7 +507,7 @@ namespace SpaceInvaders
 
 
             this.RunTime = Simulation.GetTotalTime() - ScenePlay2.StartTimeDelta;
-            Debug.WriteLine(this.RunTime);
+            //Debug.WriteLine(this.RunTime);
 
             if (Simulation.GetTimeStep() > 0.0f)
             {
@@ -573,9 +572,6 @@ namespace SpaceInvaders
 
             TimerManager.Reset();
 
-            //SpaceInvaders.pPlayer2Score = 0;
-
-            
         }
     }
 }

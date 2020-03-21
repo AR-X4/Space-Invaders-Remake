@@ -18,7 +18,6 @@ namespace SpaceInvaders
         // ----------------------------------------------
 
         private static Simulation pInstance;
-
         private State state;
 
         private float stopWatch_tic;
@@ -30,6 +29,11 @@ namespace SpaceInvaders
         private const float SIM_SINGLE_TIME_STEP = 0.016666f;
 
         private static bool oldKey = false;
+        private char pad0;
+        private char pad1;
+        private char pad2;
+        private int  pad3;
+
 
         // singleton access
         private static Simulation PrivGetInstance()
@@ -88,9 +92,6 @@ namespace SpaceInvaders
 
         }
 
-        
-
-
         // --- Simulation controls ------------
         //   S - single step
         //   D - repeat step while holding
@@ -123,9 +124,7 @@ namespace SpaceInvaders
                 this.PrivSetState(State.SingleStep);
             }
 
-
             oldKey = Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_S);
-
         }
 
         // Get / Set state

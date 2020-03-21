@@ -9,16 +9,18 @@ namespace SpaceInvaders
         private static InputManager pInstance = null;
         private static InputManager pActiveMan = null;
 
-        private bool pSpaceKeyPrev;
-        private bool pCKeyPrev;
-
         private InputSubject pSubjectArrowRight;
         private InputSubject pSubjectArrowLeft;
         private InputSubject pSubjectSpace;
         private InputSubject pSubjectCKey;
-        //private InputSubject pSubjectPKey;
         private InputSubject pSubject1Key;
         private InputSubject pSubject2Key;
+
+        private bool pSpaceKeyPrev;
+        private bool pCKeyPrev;
+        private char pad0;
+        private char pad1;
+        private int  pad4;
 
         public InputManager()
         {
@@ -26,14 +28,11 @@ namespace SpaceInvaders
             this.pSubjectArrowRight = new InputSubject();
             this.pSubjectSpace = new InputSubject();
             this.pSubjectCKey = new InputSubject();
-            //this.pSubjectPKey = new InputSubject();
             this.pSubject1Key = new InputSubject();
             this.pSubject2Key = new InputSubject();
 
             this.pSpaceKeyPrev = false;
             this.pCKeyPrev = false;
-
-            
         }
 
         public static void Create() {
@@ -105,14 +104,6 @@ namespace SpaceInvaders
             return pMan.pSubject2Key;
         }
 
-        //public static InputSubject GetPKeySubject()
-        //{
-        //    InputManager pMan = InputManager.pActiveMan;
-        //    Debug.Assert(pMan != null);
-
-        //    return pMan.pSubjectPKey;
-        //}
-
         public static void Update()
         {
             InputManager pMan = InputManager.pActiveMan;
@@ -141,12 +132,6 @@ namespace SpaceInvaders
             {
                 pMan.pSubject2Key.Notify();
             }
-
-            // P Key: (no history) -----------------------------------------------------------
-            //if (Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_P) == true)
-            //{
-            //    pMan.pSubjectPKey.Notify();
-            //}
 
             // SpaceKey: (with key history) -----------------------------------------------------------
             bool spaceKeyCurr = Azul.Input.GetKeyState(Azul.AZUL_KEY.KEY_SPACE);

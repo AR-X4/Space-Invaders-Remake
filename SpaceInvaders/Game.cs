@@ -185,13 +185,13 @@ namespace SpaceInvaders
 
             // --- aliens ---
 
-            GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 50, 300, 49, 33);//, new Azul.Color(1.0f, 0.0f, 1.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienB, 200, 100, 45, 33);//, new Azul.Color(0.0f, 1.0f, 1.0f, 1.0f));
-            GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 200, 300, 33, 33);//, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.PurpleOctopus, Image.Name.OctopusA, 50, 300, 49, 33);
+            GameSpriteManager.Add(GameSprite.Name.BlueCrab, Image.Name.AlienB, 200, 100, 45, 33);
+            GameSpriteManager.Add(GameSprite.Name.GreenSquid, Image.Name.SquidA, 200, 300, 33, 33);
             GameSpriteManager.Add(GameSprite.Name.OrangeSaucer, Image.Name.Saucer, 50, 550, 59, 33, new Azul.Color(1.0f, 0.0f, 0.0f, 1.0f));
 
             //-----Missile----
-            GameSpriteManager.Add(GameSprite.Name.Missile, Image.Name.Missile, 50, 50, 3, 15);//, new Azul.Color(1.0f, 0.5f, 0.0f, 1.0f));
+            GameSpriteManager.Add(GameSprite.Name.Missile, Image.Name.Missile, 50, 50, 3, 15);
             //----Player Ship----
             GameSpriteManager.Add(GameSprite.Name.Ship, Image.Name.Ship, 500, 100, 50, 30, new Azul.Color(0.0f, 1.0f, 0.0f, 1.0f));
 

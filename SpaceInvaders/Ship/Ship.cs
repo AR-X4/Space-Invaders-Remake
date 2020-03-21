@@ -7,9 +7,11 @@ namespace SpaceInvaders
     public class Ship : Leaf
     {
         // Data: --------------------
-        public float shipSpeed;
+        
         private ShipState state;
         public ShipManager.State CurrentStateName;
+        public float shipSpeed;
+        private float pad0;
 
         public Ship(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
          : base(name, spriteName, posX, posY)

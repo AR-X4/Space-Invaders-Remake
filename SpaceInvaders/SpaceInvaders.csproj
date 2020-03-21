@@ -222,6 +222,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Diagrams\Collision.cd" />
+    <None Include="Diagrams\Composite.cd" />
+    <None Include="Diagrams\Factory.cd" />
+    <None Include="Diagrams\Iterator.cd" />
+    <None Include="Diagrams\Managers.cd" />
+    <None Include="Diagrams\NullObject.cd" />
+    <None Include="Diagrams\Observer.cd" />
+    <None Include="Diagrams\Proxy.cd" />
+    <None Include="Diagrams\ShipStates.cd" />
+    <None Include="Diagrams\Singleton Managers.cd" />
+    <None Include="Diagrams\Strategy.cd" />
+    <None Include="Diagrams\Template.cd" />
     <None Include="Diagrams\TimerEvents.cd" />
   </ItemGroup>
   <ItemGroup>

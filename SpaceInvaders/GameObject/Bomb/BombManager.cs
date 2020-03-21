@@ -14,14 +14,9 @@ namespace SpaceInvaders
         // Data: ----------------------------------------------
         private static BombManager instance = null;
 
-        //Active
-       
-
         //Reference
         private static BombReadyState pReadyState;
         private static BombFallingState pFallingState;
-
-        
 
         private BombManager()
            
@@ -93,8 +88,6 @@ namespace SpaceInvaders
             Debug.Assert(pNode != null);
 
             pNode.ResetBomb();
-            
-            
         }
 
         public static void ActivateBomb(AlienColumn pBombOwner) {
@@ -147,7 +140,5 @@ namespace SpaceInvaders
                     break;
             }
         }
-
-       
     }
 }

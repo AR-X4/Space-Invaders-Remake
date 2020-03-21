@@ -87,11 +87,6 @@ namespace SpaceInvaders
 
             this.SetYDelta(0.0f);
         }
-        
-        //public float GetDelta()
-        //{
-        //    return this.delta;
-        //}
 
         public void SetDelta(float inDelta)
         {

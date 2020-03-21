@@ -13,7 +13,6 @@ namespace SpaceInvaders
 
         // Data: ----------------------------------------------
         private static CollisionStateManager instance = null;
-
         public static CollisionState pCurrentState;
         private static CollisionVisibleState pVisibleState;
         private static CollisionInvisibleState pInvisibleState;

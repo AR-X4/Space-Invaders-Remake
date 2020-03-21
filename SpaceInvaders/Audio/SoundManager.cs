@@ -36,11 +36,6 @@ namespace SpaceInvaders
                 pInstance = new SoundManager(reserveNum, reserveGrow);
                 pSoundEngine = new IrrKlang.ISoundEngine();
             }
-
-            // NullObject texture
-            //Sound pSound = SoundManager.Add(Sound.Name.NullObject);
-            //Debug.Assert(pSound != null);
-           
         }
 
         public static void Destroy()
@@ -65,8 +60,6 @@ namespace SpaceInvaders
             // Initialize the data
             Debug.Assert(pSoundName != null);
             pNode.Set(name, pSoundName, ref pSoundEngine);
-
-            
 
             return pNode;
         }

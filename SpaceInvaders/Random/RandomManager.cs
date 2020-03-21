@@ -28,13 +28,6 @@ namespace SpaceInvaders
             
         }
 
-        //private static RandomManager GetInstance()
-        //{
-        //    Debug.Assert(instance != null);
-
-        //    return instance;
-        //}
-
         public static int RandomInt(int start, int end) {
             int RandInt = RandomManager.pRandom.Next(start, end);
             return RandInt;

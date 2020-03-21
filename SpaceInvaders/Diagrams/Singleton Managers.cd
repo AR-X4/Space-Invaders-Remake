@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.SpriteBatchManager">
+    <Position X="6.25" Y="3.75" Width="2.75" />
+    <Members>
+      <Method Name="Add" Hidden="true" />
+      <Method Name="DerivedCompareNode" Hidden="true" />
+      <Method Name="DerivedCreateNode" Hidden="true" />
+      <Method Name="DerivedDumpNode" Hidden="true" />
+      <Method Name="DerivedWashNode" Hidden="true" />
+      <Method Name="Destroy" Hidden="true" />
+      <Method Name="Draw" Hidden="true" />
+      <Method Name="Dump" Hidden="true" />
+      <Method Name="Find" Hidden="true" />
+      <Field Name="pActiveSBMan" Hidden="true" />
+      <Field Name="poNodeCompare" Hidden="true" />
+      <Method Name="Remove" Hidden="true" />
+      <Method Name="SetActive" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABIAAAAAAAAAAgAAABABtACABABIAEAAAAACAIAAAAA=</HashCode>
+      <FileName>SpriteBatch\SpriteBatchManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

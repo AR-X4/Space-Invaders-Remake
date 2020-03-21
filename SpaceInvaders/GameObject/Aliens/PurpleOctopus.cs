@@ -6,7 +6,6 @@ namespace SpaceInvaders
     public class PurpleOctopus : Leaf
     {
 
-
         public PurpleOctopus(GameObject.Name name, GameSprite.Name spriteName, float posX, float posY)
             : base(name, spriteName, posX, posY)
         {

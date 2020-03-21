@@ -10,10 +10,7 @@ namespace SpaceInvaders
 
         public PlayerLivesComposite()
             : base(Name.Null_Object, GameSprite.Name.NullObject)
-        {
-            //this.pNumLives = 4;
-        
-        }
+        {}
 
         public override void Accept(CollisionVisitor other)
         {

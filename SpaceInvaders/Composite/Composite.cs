@@ -30,7 +30,7 @@ namespace SpaceInvaders
         override public void Add(Component pComponent)
         {
             Debug.Assert(pComponent != null);
-            //DLink.PushFront(ref this.poHead, pComponent);
+            
             DLink.PushBack(ref this.poHead, ref this.poLast, pComponent);
             pComponent.pParent = this;
         }

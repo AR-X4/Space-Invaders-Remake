@@ -9,7 +9,6 @@ namespace SpaceInvaders
         // Data
         // ---------------------------------------------------
         public SpriteBatchManager poSpriteBatchManager;
-        //private GameObjectManager poGameObjectManager;
         private InputManager poInputManager;
         private FontManager poFontManager;
         
@@ -38,8 +37,6 @@ namespace SpaceInvaders
             //---------------------------------------------------------------------------------------------------------
             // Game Objects
             //---------------------------------------------------------------------------------------------------------
-            //this.poGameObjectManager = new GameObjectManager(3, 1);
-            //GameObjectManager.SetActive(this.poGameObjectManager);
 
             OrangeSaucer pSaucer = new OrangeSaucer(GameObject.Name.Null_Object, GameSprite.Name.OrangeSaucer, 325, SpaceInvaders.ScreenHeight - 575f);
             pSaucer.ActivateGameSprite(pSB_Aliens);
@@ -88,7 +85,7 @@ namespace SpaceInvaders
         public override void Update(float systemTime)
         {
             InputManager.Update();
-            //GameObjectManager.Update();
+            
         }
 
         public override void Draw()
@@ -99,9 +96,8 @@ namespace SpaceInvaders
 
         public override void Transition()
         {
-            // update SpriteBatchMan()
+            
             SpriteBatchManager.SetActive(this.poSpriteBatchManager);
-            //GameObjectManager.SetActive(this.poGameObjectManager);
             InputManager.SetActive(this.poInputManager);
             FontManager.SetActive(this.poFontManager);
         }

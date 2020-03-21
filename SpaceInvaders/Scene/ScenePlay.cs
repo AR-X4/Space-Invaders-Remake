@@ -15,7 +15,6 @@ namespace SpaceInvaders
         private TimerManager poTimerManager;
 
         public static int ShipLives;
-
         public static float SwitchTime = 0f;
         public static float StartTimeDelta = 0f;
         private float RunTime = 0f;
@@ -36,11 +35,10 @@ namespace SpaceInvaders
             }
             else {
                 //Debug.WriteLine("-------P1 " + this.RunTime);
-                
-                ScenePlay2.StartTimeDelta += (Simulation.GetTotalTime() - ScenePlay.SwitchTime);
 
                 SpaceInvaders.pSceneContext.SetState(SceneContext.Scene.Play2);
             }
+            ScenePlay2.StartTimeDelta += (Simulation.GetTotalTime() - ScenePlay.SwitchTime);
         }
 
 
@@ -494,7 +492,6 @@ namespace SpaceInvaders
             pAlienWallBottomPair.Attach(new DeadShipSoundObserver());
             pAlienWallBottomPair.Attach(new RemoveAllP1LivesObserver());
            
-
         }
 
         public override void Update(float systemTime)
@@ -522,8 +519,6 @@ namespace SpaceInvaders
                 pGrid.IncreaseStartRate();
                 this.ResetAll();
             }
-
-            
         }
         public override void Draw()
         {
@@ -540,12 +535,6 @@ namespace SpaceInvaders
             TimerManager.SetActive(this.poTimerManager);
 
             ScenePlay.SwitchTime = Simulation.GetTotalTime(); 
-
-            //if (ScenePlay.StartTimeDelta == 0f)
-            //{
-            //    ScenePlay.StartTimeDelta = Simulation.GetTotalTime();
-            //    //ScenePlay.SwitchTime = ScenePlay.StartTimeDelta;
-            //}
 
             if (ScenePlay.ShipLives < 1) {
                 AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
@@ -564,7 +553,6 @@ namespace SpaceInvaders
 
             AlienGrid pGrid = (AlienGrid)GameObjectManager.Find(GameObject.Name.AlienGrid);
             pGrid.ResetAliens();
-            
 
             ShieldRoot pSRoot = (ShieldRoot)GameObjectManager.Find(GameObject.Name.ShieldRoot);
             pSRoot.ResetShields();

@@ -52,10 +52,14 @@ namespace SpaceInvaders
         public float y;
         private readonly float xStartCopy;
         private readonly float yStartCopy;
-        public bool bMarkForDeath;
         public ProxySprite pProxySprite;
         public CollisionObject poColObj;
         public GameSprite.Name pSpriteName;
+        public bool bMarkForDeath;
+        private char pad0;
+        private char pad1;
+        private char pad2;
+        private int  pad3;
 
 
         protected GameObject()

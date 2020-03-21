@@ -7,6 +7,7 @@ namespace SpaceInvaders
         public DLink pNext;
         public DLink pPrev;
         public float Priority;
+        private float pad0;
 
         protected DLink()
         {

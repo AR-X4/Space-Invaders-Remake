@@ -42,11 +42,7 @@ namespace SpaceInvaders
         }
 
         // Data
-        public float x;
-        public float y;
-        public float sx;
-        public float sy;
-        public float angle;
+       
         public Name name;
         public Image pImage;
         private readonly Azul.Color poAzulColor;
@@ -54,6 +50,12 @@ namespace SpaceInvaders
         private Azul.Rect poScreenRect;
 
         static private Azul.Color psTmpColor = new Azul.Color(1, 1, 1);
+        public float x;
+        public float y;
+        public float sx;
+        public float sy;
+        public float angle;
+        private float pad0;
 
         //---------------------------------------------------------------------------------------------------------
         // Constructor

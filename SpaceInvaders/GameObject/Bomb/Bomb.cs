@@ -7,12 +7,14 @@ namespace SpaceInvaders
     {
 
         // Data
-        public float delta;
         public AlienColumn pOwner;
         public FallStrategy pStrategy;
         public FallStrategy pDaggers;
         public FallStrategy pZigZag;
         public FallStrategy pStraight;
+        public float delta;
+        private float pad0;
+    
 
         public Bomb(AlienColumn pOwner)
             : base(GameObject.Name.Bomb, GameSprite.Name.NullObject)
@@ -41,11 +43,6 @@ namespace SpaceInvaders
             
             this.pProxySprite.Set(GameSprite.Name.NullObject);
             
-
-            
-
-            //this.pStrategy.Reset(this.y);
-            //base.Update();
         }
 
         
@@ -107,7 +104,6 @@ namespace SpaceInvaders
             this.pProxySprite.sx *= sx;
             this.pProxySprite.sy *= sy;
         }
-
     }
 }
 

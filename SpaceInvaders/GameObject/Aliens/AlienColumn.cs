@@ -79,7 +79,7 @@ namespace SpaceInvaders
 
         public override void Remove()
         {
-            // Keenan(delete.E)
+            
             // Since the Root object is being drawn
             // 1st set its size to zero
             this.poColObj.poColRect.Set(0, 0, 0, 0);

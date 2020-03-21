@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.Manager">
+    <Position X="7" Y="2" Width="1.5" />
+    <Members>
+      <Method Name="BaseDump" Hidden="true" />
+      <Method Name="BaseGetActive" Hidden="true" />
+      <Method Name="BaseInitialize" Hidden="true" />
+      <Method Name="BaseSetReserve" Hidden="true" />
+      <Method Name="DerivedCompareNode" Hidden="true" />
+      <Method Name="DerivedCreateNode" Hidden="true" />
+      <Method Name="DerivedDumpNode" Hidden="true" />
+      <Method Name="DerivedWashNode" Hidden="true" />
+      <Method Name="Manager" Hidden="true" />
+      <Field Name="mGrowthSize" Hidden="true" />
+      <Field Name="mNumActive" Hidden="true" />
+      <Field Name="mNumReserved" Hidden="true" />
+      <Field Name="mTotalNodes" Hidden="true" />
+      <Method Name="PopulateReserve" Hidden="true" />
+      <Method Name="PriorityInsert" Hidden="true" />
+      <Method Name="PullFront" Hidden="true" />
+      <Method Name="PushFront" Hidden="true" />
+      <Method Name="RemoveNode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>yAQIEAAAAAADAAFAABBBoAjAQIAAAAAAAAAAAgAQAAA=</HashCode>
+      <FileName>Manager\Manager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pActiveHead" />
+      <Field Name="pReserveHead" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SpaceInvaders.DLink">
+    <Position X="9.75" Y="2.25" Width="1.5" />
+    <Members>
+      <Method Name="Clear" Hidden="true" />
+      <Method Name="DLink" Hidden="true" />
+      <Field Name="pad0" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAAAAAEEAAAAAABAAIIAAAAAAAAAAgBBAAA=</HashCode>
+      <FileName>Manager\DLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.GameObjectManager">
+    <Position X="6.75" Y="6.25" Width="2" />
+    <Members>
+      <Method Name="Create" Hidden="true" />
+      <Method Name="DerivedCompareNode" Hidden="true" />
+      <Method Name="DerivedCreateNode" Hidden="true" />
+      <Method Name="DerivedDumpNode" Hidden="true" />
+      <Method Name="DerivedWashNode" Hidden="true" />
+      <Method Name="Destroy" Hidden="true" />
+      <Method Name="Dump" Hidden="true" />
+      <Method Name="GameObjectManager" Hidden="true" />
+      <Method Name="GetInstance" Hidden="true" />
+      <Field Name="pActiveMan" Hidden="true" />
+      <Field Name="pInstance" Hidden="true" />
+      <Field Name="poNodeCompare" Hidden="true" />
+      <Field Name="poNullGameObject" Hidden="true" />
+      <Method Name="SetActive" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAAAAAAABABpACABIBIAEAgAAACAIAAQAA=</HashCode>
+      <FileName>GameObject\GameObjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.GameObject" Collapsed="true">
+    <Position X="9.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAYAAAEAAAQAAAAAAIhIFAAA8EIAAgAABqAAAABAA=</HashCode>
+      <FileName>GameObject\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Component" Collapsed="true">
+    <Position X="9.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAAAAIAAAgAAAABAAAAAAAAAAAAAAQAAAEAAA=</HashCode>
+      <FileName>Composite\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.CollisionVisitor" Collapsed="true">
+    <Position X="9.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIQgAAAAIAQARAABDACgAAAADgAABAAAAiEAAABEAAA=</HashCode>
+      <FileName>Collision\CollisionVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

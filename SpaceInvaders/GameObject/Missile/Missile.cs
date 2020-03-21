@@ -8,8 +8,10 @@ namespace SpaceInvaders
 
         // Data -------------------------------------
         
-        public float delta;
+        
         private readonly Ship pShip;
+        public float delta;
+        private float pad0;
 
         public Missile(GameObject.Name name, GameSprite.Name spriteName, Ship pShip)
             : base(name, spriteName)
@@ -82,7 +84,6 @@ namespace SpaceInvaders
 
             this.pProxySprite.Set(GameSprite.Name.NullObject);
           
-
         }
 
         public override void VisitBombRoot(BombRoot b)

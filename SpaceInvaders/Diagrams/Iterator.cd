@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.Iterator">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAABCAAAAAAAQAAAAIAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Composite\Iterator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.ForwardIterator">
+    <Position X="6.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAACACAAAAAQAAAAIAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Composite\ForwardIterator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.ReverseIterator">
+    <Position X="9" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAACAAAAAAAQAAAAIAAAAAAIAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Composite\ReverseIterator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Composite" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgACAAAAAAAAAAAAABAAAAAAAAAACAAAAAAAEAAA=</HashCode>
+      <FileName>Composite\Composite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.AlienGrid">
+    <Position X="3.75" Y="4.25" Width="2" />
+    <Members>
+      <Method Name="Accept" Hidden="true" />
+      <Field Name="AlienCount" Hidden="true" />
+      <Method Name="AlienGrid" Hidden="true" />
+      <Method Name="Attach" Hidden="true" />
+      <Field Name="CurrentMoveRate" Hidden="true" />
+      <Method Name="DecreaseAlienCount" Hidden="true" />
+      <Field Name="delta" Hidden="true" />
+      <Method Name="GetAlienCount" Hidden="true" />
+      <Method Name="GetMoveRate" Hidden="true" />
+      <Method Name="GetRateChange" Hidden="true" />
+      <Method Name="IncreaseStartRate" Hidden="true" />
+      <Method Name="NotifyListeners" Hidden="true" />
+      <Field Name="poSubject" Hidden="true" />
+      <Field Name="RateChange" Hidden="true" />
+      <Method Name="ResetStartRate" Hidden="true" />
+      <Method Name="SetDelta" Hidden="true" />
+      <Method Name="SetMoveRate" Hidden="true" />
+      <Method Name="SetYDelta" Hidden="true" />
+      <Field Name="StartingMoveRate" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Method Name="VisitMissileGroup" Hidden="true" />
+      <Method Name="VisitShieldRoot" Hidden="true" />
+      <Field Name="Y_Delta" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>BIRAEAAAAABQACIAABAAAkAASIAIAAAAAgQJAEAACAg=</HashCode>
+      <FileName>GameObject\Aliens\AlienGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

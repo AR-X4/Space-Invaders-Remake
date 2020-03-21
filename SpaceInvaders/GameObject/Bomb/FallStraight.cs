@@ -25,8 +25,6 @@ namespace SpaceInvaders
 
             // Do nothing for this strategy
         }
-
-        
     }
 }
 

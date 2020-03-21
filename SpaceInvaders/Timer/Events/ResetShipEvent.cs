@@ -9,11 +9,6 @@ namespace SpaceInvaders
 
         public override void Execute(float deltaTime)
         {
-            //Ship pShip = ShipManager.GetShip();
-
-            //pShip.pProxySprite.Set(GameSprite.Name.Ship);
-            //pShip.ResetLocation();
-            //pShip.bMarkForDeath = false;
 
             ShipManager.ResetShip();
 

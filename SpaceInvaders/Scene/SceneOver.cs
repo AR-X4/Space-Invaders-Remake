@@ -8,11 +8,11 @@ namespace SpaceInvaders
         // Data
         // ---------------------------------------------------
         public SpriteBatchManager poSpriteBatchManager;
-        //private GameObjectManager poGameObjectManager;
         private InputManager poInputManager;
         private FontManager poFontManager;
 
         public static float SwitchTime = 0f;
+        private float pad0;
 
 
         public SceneOver()
@@ -32,9 +32,6 @@ namespace SpaceInvaders
             SpriteBatchManager.SetActive(this.poSpriteBatchManager);
 
             SpriteBatch pSB_Texts = SpriteBatchManager.Add(SpriteBatch.Name.Texts, 4);
-
-            //this.poGameObjectManager = new GameObjectManager(3, 1);
-            //GameObjectManager.SetActive(this.poGameObjectManager);
 
             //---------------------------------------------------------------------------------------------------------
             // Create Texts
@@ -73,15 +70,11 @@ namespace SpaceInvaders
         {
             SpaceInvaders.UpdateHiScore();
 
-            // update SpriteBatchMan()
             SpriteBatchManager.SetActive(this.poSpriteBatchManager);
-            //GameObjectManager.SetActive(this.poGameObjectManager);
             InputManager.SetActive(this.poInputManager);
             FontManager.SetActive(this.poFontManager);
 
             SceneOver.SwitchTime = Simulation.GetTotalTime();
-
-
         }
     }
 }

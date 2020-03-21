@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.CollisionSubject">
+    <Position X="1.5" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="~CollisionSubject" Hidden="true" />
+      <Method Name="CollisionSubject" Hidden="true" />
+      <Method Name="Notify" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AgAAAIAAAAAAAEIAAAAAAAAAAIAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Collision\CollisionSubject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.CollisionVisitor">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <Members>
+      <Method Name="VisitBlueCrab" Hidden="true" />
+      <Method Name="VisitBomb" Hidden="true" />
+      <Method Name="VisitBombRoot" Hidden="true" />
+      <Method Name="VisitColumn" Hidden="true" />
+      <Method Name="VisitGreenSquid" Hidden="true" />
+      <Method Name="VisitGroup" Hidden="true" />
+      <Method Name="VisitNullGameObject" Hidden="true" />
+      <Method Name="VisitOrangeSaucer" Hidden="true" />
+      <Method Name="VisitPurpleOctopus" Hidden="true" />
+      <Method Name="VisitShieldBrick" Hidden="true" />
+      <Method Name="VisitShieldColumn" Hidden="true" />
+      <Method Name="VisitShieldGrid" Hidden="true" />
+      <Method Name="VisitShieldRoot" Hidden="true" />
+      <Method Name="VisitShip" Hidden="true" />
+      <Method Name="VisitShipRoot" Hidden="true" />
+      <Method Name="VisitUFORoot" Hidden="true" />
+      <Method Name="VisitWallBottom" Hidden="true" />
+      <Method Name="VisitWallGroup" Hidden="true" />
+      <Method Name="VisitWallLeft" Hidden="true" />
+      <Method Name="VisitWallRight" Hidden="true" />
+      <Method Name="VisitWallTop" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gIQgAAAAIAQARAABDACgAAAADgAABAAAAiEAAABEAAA=</HashCode>
+      <FileName>Collision\CollisionVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.CollisionPair">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <Members>
+      <Method Name="~CollisionPair" Hidden="true" />
+      <Method Name="CollisionPair" Hidden="true" />
+      <Method Name="NotifyListeners" Hidden="true" />
+      <Method Name="Process" Hidden="true" />
+      <Method Name="SetCollision" Hidden="true" />
+      <Method Name="SetName" Hidden="true" />
+      <Method Name="Wash" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="SpaceInvaders.CollisionPair.Name" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Collision\CollisionPair.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <AssociationLine Name="treeA" Type="SpaceInvaders.GameObject">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.131" Y="-0.242" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQBABAAgAAggQAAIAEQAAgCAAAQAAABAA=</HashCode>
+      <FileName>Collision\CollisionPair.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="poSubject" />
+      <Field Name="treeA" />
+      <Field Name="treeB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SpaceInvaders.MissileGroup">
+    <Position X="5.5" Y="7.25" Width="1.5" />
+    <Members>
+      <Method Name="~MissileGroup" Hidden="true" />
+      <Method Name="MissileGroup" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObject\Missile\MissileGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Composite" Collapsed="true">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgACAAAAAAAAAAAAABAAAAAAAAAACAAAAAAAEAAA=</HashCode>
+      <FileName>Composite\Composite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.GameObject" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAYAAAEAAAQAAAAAAIhIFAAA8EIAAgAABqAAAABAA=</HashCode>
+      <FileName>GameObject\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Component" Collapsed="true">
+    <Position X="6.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAAAAIAAAgAAAABAAAAAAAAAAAAAAQAAAEAAA=</HashCode>
+      <FileName>Composite\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.AlienGrid">
+    <Position X="7.25" Y="7.25" Width="1.5" />
+    <Members>
+      <Field Name="AlienCount" Hidden="true" />
+      <Method Name="AlienGrid" Hidden="true" />
+      <Method Name="Attach" Hidden="true" />
+      <Field Name="CurrentMoveRate" Hidden="true" />
+      <Method Name="DecreaseAlienCount" Hidden="true" />
+      <Field Name="delta" Hidden="true" />
+      <Method Name="GetAlienCount" Hidden="true" />
+      <Method Name="GetMoveRate" Hidden="true" />
+      <Method Name="GetRateChange" Hidden="true" />
+      <Method Name="IncreaseStartRate" Hidden="true" />
+      <Method Name="MoveGrid" Hidden="true" />
+      <Method Name="NotifyListeners" Hidden="true" />
+      <Field Name="RateChange" Hidden="true" />
+      <Method Name="ResetAliens" Hidden="true" />
+      <Method Name="ResetStartRate" Hidden="true" />
+      <Method Name="SetDelta" Hidden="true" />
+      <Method Name="SetMoveRate" Hidden="true" />
+      <Method Name="SetYDelta" Hidden="true" />
+      <Field Name="StartingMoveRate" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Field Name="Y_Delta" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>BIRAEAAAAABQACIAABAAAkAASIAIAAAAAgQJAEAACAg=</HashCode>
+      <FileName>GameObject\Aliens\AlienGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.Manager">
+    <Position X="7" Y="1" Width="1.5" />
+    <Members>
+      <Method Name="BaseGetActive" Hidden="true" />
+      <Method Name="DerivedDumpNode" Hidden="true" />
+      <Method Name="Manager" Hidden="true" />
+      <Field Name="mGrowthSize" Hidden="true" />
+      <Field Name="mNumActive" Hidden="true" />
+      <Field Name="mNumReserved" Hidden="true" />
+      <Field Name="mTotalNodes" Hidden="true" />
+      <Method Name="PriorityInsert" Hidden="true" />
+      <Method Name="PullFront" Hidden="true" />
+      <Method Name="PushFront" Hidden="true" />
+      <Method Name="RemoveNode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>yAQIEAAAAAADAAFAABBBoAjAQIAAAAAAAAAAAgAQAAA=</HashCode>
+      <FileName>Manager\Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.GameObjectManager">
+    <Position X="6.75" Y="5.25" Width="2" />
+    <Members>
+      <Method Name="Create" Hidden="true" />
+      <Method Name="DerivedDumpNode" Hidden="true" />
+      <Method Name="Destroy" Hidden="true" />
+      <Method Name="Dump" Hidden="true" />
+      <Method Name="GameObjectManager" Hidden="true" />
+      <Method Name="GetInstance" Hidden="true" />
+      <Field Name="pActiveMan" Hidden="true" />
+      <Field Name="pInstance" Hidden="true" />
+      <Field Name="poNodeCompare" Hidden="true" />
+      <Field Name="poNullGameObject" Hidden="true" />
+      <Method Name="SetActive" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAAAAAAABABpACABIBIAEAgAAACAIAAQAA=</HashCode>
+      <FileName>GameObject\GameObjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

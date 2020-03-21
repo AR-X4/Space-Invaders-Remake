@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.Component">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="GetFirstChild" Hidden="true" />
+      <Field Name="holder" Hidden="true" />
+      <Field Name="pParent" Hidden="true" />
+      <Field Name="pReverse" Hidden="true" />
+      <Method Name="Print" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="SpaceInvaders.Component.Container" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Composite\Component.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAAAAIAAAgAAAABAAAAAAAAAAAAAAQAAAEAAA=</HashCode>
+      <FileName>Composite\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Composite">
+    <Position X="13.5" Y="3.75" Width="1.5" />
+    <Members>
+      <Method Name="Composite" Hidden="true" />
+      <Method Name="GetFirstChild" Hidden="true" />
+      <Field Name="poHead" Hidden="true" />
+      <Field Name="poLast" Hidden="true" />
+      <Method Name="Print" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAIAgACAAAAAAAAAAAAABAAAAAAAAAACAAAAAAAEAAA=</HashCode>
+      <FileName>Composite\Composite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Leaf" Collapsed="true">
+    <Position X="9.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Composite\Leaf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.AlienGrid" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIRAEAAAAABQACIAABAAAkAASIAIAAAAAgQJAEAACAg=</HashCode>
+      <FileName>GameObject\Aliens\AlienGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.AlienColumn" Collapsed="true">
+    <Position X="12.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAgAAAAABAIAAhAAQCgAAAAIEAiAAAAAAAAA=</HashCode>
+      <FileName>GameObject\Aliens\AlienColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.BlueCrab" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAACAAABAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>GameObject\Aliens\BlueCrab.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.GreenSquid" Collapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAACAAABAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>GameObject\Aliens\GreenSquid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.PurpleOctopus" Collapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAACAAABAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>GameObject\Aliens\PurpleOctopus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.GameObject" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAYAAAEAAAQAAAAAAIhIFAAA8EIAAgAABqAAAABAA=</HashCode>
+      <FileName>GameObject\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

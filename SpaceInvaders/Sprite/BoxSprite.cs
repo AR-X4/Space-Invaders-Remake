@@ -12,16 +12,18 @@ namespace SpaceInvaders
             Uninitialized
         }
 
-        public float x;
-        public float y;
-        public float sx;
-        public float sy;
-        public float angle;
+        
         public Name name;
         public Azul.Color poLineColor;
         private Azul.SpriteBox poAzulBoxSprite;
         static private Azul.Rect psTmpRect = new Azul.Rect();
         static private Azul.Color psTmpColor = new Azul.Color(1, 1, 1);
+        public float x;
+        public float y;
+        public float sx;
+        public float sy;
+        public float angle;
+        private float pad0;
 
         public BoxSprite()
         : base()  
