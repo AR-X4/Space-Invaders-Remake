@@ -10,6 +10,7 @@ Built to be played in on a monitor with a 143Hz refresh rate.  It is not optimiz
 than intended with lower refresh rates.
 
 Controls:
+
     Cycle from Title scene to Player Select scene:          'Space Bar'
     Select 1 or 2 player mode in Player Select scene:       '1' key or '2' key
     
